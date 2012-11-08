@@ -1,24 +1,16 @@
 #! /bin/sh
 
 if [ $# -lt 1 ]; then
-	echo -e "usage: $0 <AP-SSID>"
+	echo -e "usage: $0 <AP-SSID> <IP>"
 	exit
 fi
 essid=$1
-
+ip=$2
 set -x
 
 killall -9 wpa_supplicant
 killall -9 udhcpc
 echo "" > /etc/resolv.conf
-
-#killall bytecode-manager
-#rmmod b43
-#sleep 1 
-#insmod b43 qos=0
-#sleep 1
-
-#iwconfig wlan0 essid $essid
 
 echo "ctrl_interface=/var/run/wpa_supplicant
 	network={  
@@ -32,7 +24,7 @@ wpa_supplicant -i wlan0 -c wpa_supp.conf &
 hostname=$(cat /etc/config/system | grep hostname | awk '{ print $3}');
 echo $hostname
 udhcpc -i wlan0 -H w$hostname
-
+/sbin/ifconfig wlan0 $ip
 #/etc/init.d/bytecode-manager start
 
 set +x

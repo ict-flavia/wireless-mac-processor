@@ -20,9 +20,9 @@ echo "" > /etc/resolv.conf
 #insmod b43 qos=0
 #sleep 1
 
-ifconfig wlan0 down
-ifconfig wlan0 up $ip_addr
-iwconfig wlan0 essid $essid
+/sbin/ifconfig wlan0 down
+/sbin/ifconfig wlan0 up $ip_addr
+/usr/sbin/iwconfig wlan0 essid $essid
 
 #/etc/init.d/bytecode-manager start
 
