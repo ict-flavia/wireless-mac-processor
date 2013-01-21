@@ -1,0 +1,19 @@
+#IMPORTANTE DA FARE:
+#export PYTHONPATH=$PYTHONPATH:/opt/local/lib/python2.6/site-packages
+
+#!/bin/bash
+if [ $# -lt 1 ]; then
+	echo $0 CHANNEL
+	exit 1
+fi
+
+ACQUIRE_T=5
+while [ True ]; do
+CHANNEL=$1
+GAIN=28
+MILLISECONDS=3000
+DECIM=8
+FREQ=$((2412+5*(${CHANNEL}-1)))
+usrp_rx_cfile.py -d ${DECIM} -f ${FREQ}M -g $GAIN -s -N $((100000/${DECIM}*${MILLISECONDS})) f${FREQ}_d${DECIM}_g${GAIN}.raw
+sleep $ACQUIRE_T
+done
