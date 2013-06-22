@@ -39,7 +39,7 @@ end
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
-i    gui_mainfcn(gui_State, varargin{:});
+    gui_mainfcn(gui_State, varargin{:});
 end
 % End initialization code - DO NOT EDIT
 
@@ -82,7 +82,8 @@ function play_Callback(hObject, eventdata, handles)
     ch = get(handles.channelselect, 'Value');
     
     demo(ch,handles.pause_val,1000,handles);
-	ifs_analysis(ch)
+    
+    %ifs_analysis(ch)
 		
     
 % hObject    handle to play (see GCBO)

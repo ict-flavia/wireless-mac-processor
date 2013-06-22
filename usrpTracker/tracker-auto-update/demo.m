@@ -55,9 +55,10 @@ function [ output_args ] = demo( ch, auto_scroll,timeout,handles)
         fclose('all');
         fid = fopen(filename,'r');
         fseek(fid,2*N*2,'bof'); % *2: int16, *2: I,Q
-
+        i_pippo=0;
         while true
-
+            i_pippo=i_pippo+1;
+            fprintf('%u',i_pippo);
             % acquire a segment
             [r_raw,Nr] = fread(fid,2*N,'int16');
             if Nr<2*N
@@ -121,6 +122,7 @@ function [ output_args ] = demo( ch, auto_scroll,timeout,handles)
 
         % collezione delle durate dei pacchetti e degli IFS
         logsize = 1024;
+        
         ifs_log = zeros(1,logsize);
         pkt_log = zeros(1,logsize);
 
@@ -134,7 +136,20 @@ function [ output_args ] = demo( ch, auto_scroll,timeout,handles)
         setappdata(handles.tracker, 'run', true);   % here or somewhere else...
         pktlogs=[];
         pktinfoData=[];
+        
         while true
+            
+            % allow infinite loop on the same file
+            % fabrizio 21030521-usa 
+            if n_pkt == logsize - 1
+                fclose('all');
+                fid = fopen(filename,'r');
+                fseek(fid,2* N*2,'bof'); % 2*: I,Q; *2: int16
+                t0 = T;
+                n_pkt = 0;
+            end
+            % end fabrizio 21030521-usa
+            
             % acquire a segment
             [r_raw,Nr] = fread(fid,2*N,'int16');
             if Nr<2*N
