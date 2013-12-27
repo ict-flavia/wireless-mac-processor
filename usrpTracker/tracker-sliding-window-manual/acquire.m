@@ -1,10 +1,13 @@
 function [] = acquire(ch)
     
     % ./do_capture dentro lo script funziona solo sotto linux - in mac non va
-    cmd=sprintf('sudo ./do_capture %s', ch);
+    cmd=sprintf('sudo ./do_capture_uhd %s', num2str(ch));
     system(cmd);
+    %keyboard;
     
-    [r2, r2_filt,theory_to_usrp,N,Ts] = getr2(str2double(ch));
+%    [r2, r2_filt,theory_to_usrp,N,Ts] = getr2(str2double(ch));
+
+    [r2, r2_filt,theory_to_usrp,N,Ts] = getr2(ch);
     t = (0:N-1)*Ts;
 
 

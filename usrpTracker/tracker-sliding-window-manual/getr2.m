@@ -3,9 +3,12 @@ function [r2, r2_filt,theory_to_usrp,N,Ts] = getr2(ch)
 freq=2412+5*(ch-1);
 fprintf('CHANNEL=%d (%dMHz)\n',ch,freq);
 decim = 8;
-gain = 28;
+gain = 34;
 
 filename =sprintf('f%d_d8_g28.raw',freq);
+fprintf('name file %s\n', filename);
+
+
 
 % quanti secondi di traccia analizzare
 T = 2000e-3; 
@@ -61,7 +64,7 @@ if PHASE == 1
 	t = (0:N-1)*Ts;
 	% la potenza istantanea viene filtrata con un filtro AR del primo
 	% ordine con costante di tempo 1us: h_k = (1-alpha)*alpha^k
-	% (l'espressione � ottenuta col metodo dell'invarianza all'impulso)
+	% (l'espressione ??? ottenuta col metodo dell'invarianza all'impulso)
 	alpha = exp(-Ts/0.5e-6);
 	r2_filt_b = 1-alpha;
 	r2_filt_a = [1,-alpha];

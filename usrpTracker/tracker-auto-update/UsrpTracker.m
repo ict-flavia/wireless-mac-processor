@@ -1,4 +1,4 @@
-function varargout = UsrpTracker(varargin)
+        function varargout = UsrpTracker(varargin)
 % USRPTRACKER MATLAB code for UsrpTracker.fig
 %      USRPTRACKER, by itself, creates a new USRPTRACKER or raises the existing
 %      singleton*.

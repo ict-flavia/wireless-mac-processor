@@ -1,6 +1,6 @@
 function [] = plot_all()
 close all
-ch=6;
+ch=10;
 fprintf('CHANNEL = %d\n',ch);
 freq=2412+5*(ch-1);
 fprintf('FREQ=%d\n',freq);
@@ -63,7 +63,7 @@ if PHASE == 1
 	t = (0:N-1)*Ts;
 	% la potenza istantanea viene filtrata con un filtro AR del primo
 	% ordine con costante di tempo 1us: h_k = (1-alpha)*alpha^k
-	% (l'espressione � ottenuta col metodo dell'invarianza all'impulso)
+	% (l'espressione ??? ottenuta col metodo dell'invarianza all'impulso)
 	alpha = exp(-Ts/0.5e-6);
 	r2_filt_b = 1-alpha;
 	r2_filt_a = [1,-alpha];
