@@ -1,20 +1,16 @@
-function [r2, r2_filt,theory_to_usrp,N,Ts] = getr2(ch)
-%ch=6;
+function [] = plot_all()
+close all
+ch=10;
+fprintf('CHANNEL = %d\n',ch);
 freq=2412+5*(ch-1);
-fprintf('CHANNEL=%d (%dMHz)\n',ch,freq);
+fprintf('FREQ=%d\n',freq);
 decim = 8;
-gain = 34;
+gain = 28;
 
 filename =sprintf('f%d_d8_g28.raw',freq);
 
-%filename =sprintf('/home/domenico/f2462_d8_g28.raw');
-
-fprintf('name file %s\n', filename);
-
-
-
 % quanti secondi di traccia analizzare
-T = 2000e-3; 
+T = 300e-3; 
 %system('sudo ./do_capture 1');
 
 PHASE = 1;
@@ -92,7 +88,23 @@ if PHASE == 1
 		% potenza istantanea
 		[r2_filt,r2_filt_z] = filter(r2_filt_b,r2_filt_a,r2,r2_filt_z);
               
-		
+		hold off
+			%plot(t*s_to_ms,10*log10(r2)...
+			%	-theory_to_usrp+dB_to_dBm,':');
+			%hold on
+			plot(t*s_to_ms,10*log10(r2_filt)...
+				-theory_to_usrp+dB_to_dBm,'-');
+			
+			ylabel('RSSI  [dBm]')
+			xlabel('Time [ms]')
+			%set(gca,'XLim',[200,600],'YLim',[-94,-40])
+			%set(gca,'YLim',[-94,-50])
+			%set(gca,'XLim',[185,210],'YLim',[-94,-40])
+            set(gca,'YLim',[-94,-45]);
+            
+
+			grid on
+			drawnow
         
     return 
     

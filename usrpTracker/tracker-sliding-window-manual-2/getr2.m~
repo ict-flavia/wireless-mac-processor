@@ -6,9 +6,6 @@ decim = 8;
 gain = 34;
 
 filename =sprintf('f%d_d8_g28.raw',freq);
-
-%filename =sprintf('/home/domenico/f2462_d8_g28.raw');
-
 fprintf('name file %s\n', filename);
 
 
@@ -76,7 +73,7 @@ if PHASE == 1
 	
 	% open the file (and skip the first segment)
 	tic
-	fclose('all');
+	fclose('all');fp
 	fid = fopen(filename,'r');
 	fseek(fid,2* N*2,'bof'); % 2*: I,Q; *2: int16
     

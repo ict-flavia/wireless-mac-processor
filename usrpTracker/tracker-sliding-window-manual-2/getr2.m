@@ -5,10 +5,9 @@ fprintf('CHANNEL=%d (%dMHz)\n',ch,freq);
 decim = 8;
 gain = 34;
 
-filename =sprintf('f%d_d8_g28.raw',freq);
 
-%filename =sprintf('/home/domenico/f2462_d8_g28.raw');
-
+%filename =sprintf('f%d_d8_g28.raw',freq);
+filename =sprintf('/home/domenico/f%d_d8_g28.raw',freq);
 fprintf('name file %s\n', filename);
 
 
@@ -21,7 +20,7 @@ PHASE = 1;
 
 % DEBUG = false;
 
-USRP = 1;
+USRP = 2;
 % 	USRP = 2;
 
 switch USRP
@@ -29,6 +28,7 @@ switch USRP
 		% la USRP1 aquisisce a 64Ms e 12bit per campione
 		fs_raw = 64e6;
 		fix_to_float = 1/2^4;
+        fs = fs_raw/decim;
 		switch gain
 			case 28
 				noise_var_usrp = (32/decim)*0.5636-0.045;
@@ -38,10 +38,13 @@ switch USRP
 	case 2
 		% la USRP2 aquisisce a 100Ms e 14bit per campione
 		fs_raw = 100e6;
+        fs=25e6;
 		fix_to_float = 1/2^6;
 		% 			noise_var_est = ???;
 end
-fs = fs_raw/decim;
+%TODO: DEFINE THE TRUE VALUE OF THIS.
+noise_var_usrp = 0.7879-0.245;
+
 Ts = 1/fs;
 fprintf('[-] Ts: %g ns (%g samples/us)\n',Ts*1e9,1e-6/Ts);
 N = round(T*fs);
