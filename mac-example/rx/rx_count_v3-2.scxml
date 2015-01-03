@@ -1,0 +1,25 @@
+<!-- SMPARAMETERSPRM_14=0&PRM_7=0&PRM_13=0&PRM_6=1000000&PRM_12=0&PRM_5=ff%3Aff%3Aff%3Aff%3Aff%3Aff&PRM_11=0&PRM_4=ff%3Aff%3Aff%3Aff%3Aff%3Aff&PRM_10=0&CW_MAX=1023&PRM_9=0&START_STATE=0&PRM_8=0&INFLATION_MUL=2&CW_MIN=31&PRM_17=0&PRM_16=0&PRM_15=0&PRM_1=STD&DEFLATION_DIV=1&PRM_3=1&PRM_2=6&BYTECODE_CHANNEL=6&CW_CURR=31&DEFLATION_SUB=65535&INFLATION_SUM=1 -->
+<wmp initial="IDLE" version="0.9" xmlns="http://www.w3.org/2005/07/scxml"><!--   node-size-and-position x=0 y=0 w=4940 h=2710  -->
+ <state id="IDLE"><!--   node-size-and-position x=2450 y=1320 w=160 h=130  -->
+  <transition action="8" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="8" eventparam="15" eventreg="15" target="RX_HEADER"><!--   edge-path [RX_HEADER]  pointx=0 pointy=-155 offsetx=-18 offsety=33  --></transition>
+  <transition action="24" action2="0" action2param="15" action2reg="15" actionparam="3" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="12" eventparam="2" eventreg="15" target="set-timer"><!--   edge-path [set-timer]  x=2840 y=1260 pointx=-1 pointy=88 offsetx=111 offsety=-45  --></transition>
+ </state>
+ <state id="RX_HEADER"><!--   node-size-and-position x=2430 y=1810 w=180 h=80  -->
+  <transition action="12" action2="24" action2param="0" action2reg="0" actionparam="0" actionreg="0" cond="4" condflag="false" condparam="0" condreg="0" event="41" eventparam="15" eventreg="15" target="CHECK_IF_SCHEDULE_ACK"><!--   edge-path [CHECK_IF_SCHEDULE_ACK]  pointx=1 pointy=-98 offsetx=129 offsety=-41  --></transition>
+  <transition action="0" action2="0" action2param="15" action2reg="0" actionparam="15" actionreg="15" cond="4" condflag="true" condparam="0" condreg="0" event="41" eventparam="15" eventreg="15" target="CHECK_IF_SCHEDULE_ACK"><!--   edge-path [CHECK_IF_SCHEDULE_ACK]  x=2330 y=2160 pointx=0 pointy=-48 offsetx=23 offsety=-24  --></transition>
+ </state>
+ <state id="RX"><!--   node-size-and-position x=1390 y=1520 w=160 h=80  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="16" condflag="true" condparam="1" condreg="15" event="9" eventparam="15" eventreg="15" target="TX_ACK"><!--   edge-path [TX_ACK]  pointx=-1 pointy=324 offsetx=3 offsety=-9  --></transition>
+  <transition action="24" action2="0" action2param="15" action2reg="15" actionparam="1" actionreg="15" cond="16" condflag="false" condparam="1" condreg="15" event="9" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=6 offsetx=-200 offsety=33  --></transition>
+ </state>
+ <state id="CHECK_IF_SCHEDULE_ACK"><!--   node-size-and-position x=1640 y=2010 w=260 h=150  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="16" condflag="false" condparam="1" condreg="15" event="0" eventparam="15" eventreg="15" target="RX"><!--   edge-path [RX]  pointx=0 pointy=-29 offsetx=-40 offsety=-40  --></transition>
+  <transition action="22" action2="0" action2param="15" action2reg="15" actionparam="1" actionreg="15" cond="16" condflag="true" condparam="1" condreg="15" event="0" eventparam="15" eventreg="15" target="RX"><!--   edge-path [RX]  x=1430 y=1900 pointx=0 pointy=165 offsetx=-130 offsety=80  --></transition>
+ </state>
+ <state id="TX_ACK"><!--   node-size-and-position x=1500 y=1120 w=210 h=80  -->
+  <transition action="24" action2="0" action2param="15" action2reg="15" actionparam="2" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  x=2000 y=1170 pointx=0 pointy=-1 offsetx=-145 offsety=-40  --></transition>
+ </state>
+ <state id="set-timer"><!--   node-size-and-position x=3100 y=1310 w=160 h=80  -->
+  <transition action="12" action2="0" action2param="15" action2reg="15" actionparam="0" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="0" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  x=2980 y=1490 pointx=0 pointy=-39 offsetx=52 offsety=41  --></transition>
+ </state>
+</wmp>
