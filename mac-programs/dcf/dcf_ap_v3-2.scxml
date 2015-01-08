@@ -3,7 +3,7 @@
  <state id="IDLE"><!--   node-size-and-position x=2450 y=1320 w=160 h=130  -->
   <transition action="8" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="8" eventparam="15" eventreg="15" target="RX_HEADER"><!--   edge-path [RX_HEADER]  pointx=0 pointy=-155 offsetx=-18 offsety=33  --></transition>
   <transition action="13" action2="0" action2param="15" action2reg="0" actionparam="0" actionreg="0" cond="3" condflag="false" condparam="0" condreg="0" event="13" eventparam="15" eventreg="15" target="BACKOFF"><!--   edge-path [BACKOFF]  x=2730 y=1720 pointx=0 pointy=-187 offsetx=-8 offsety=-15  --></transition>
-  <transition action="46" action2="13" action2param="0" action2reg="15" actionparam="15" actionreg="0" cond="3" condflag="true" condparam="0" condreg="15" event="13" eventparam="15" eventreg="15" target="BACKOFF"><!--   edge-path [BACKOFF]  x=2830 y=1600 pointx=0 pointy=-52 offsetx=-7 offsety=-6  --></transition>
+  <transition action="46" action2="13" action2param="0" action2reg="0" actionparam="15" actionreg="0" cond="3" condflag="true" condparam="0" condreg="0" event="13" eventparam="15" eventreg="15" target="BACKOFF"><!--   edge-path [BACKOFF]  x=2830 y=1600 pointx=0 pointy=-52 offsetx=-7 offsety=-6  --></transition>
  </state>
  <state id="RX_HEADER"><!--   node-size-and-position x=2260 y=1870 w=150 h=70  -->
   <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="41" eventparam="15" eventreg="15" target="CHECK_IF_SCHEDULE_ACK"><!--   edge-path [CHECK_IF_SCHEDULE_ACK]  pointx=1 pointy=-129 offsetx=11 offsety=-4  --></transition>
@@ -36,7 +36,7 @@
   <transition action="22" action2="0" action2param="15" action2reg="15" actionparam="1" actionreg="15" cond="16" condflag="true" condparam="1" condreg="15" event="0" eventparam="15" eventreg="15" target="RX"><!--   edge-path [RX]  x=1430 y=1900 pointx=0 pointy=165 offsetx=-130 offsety=80  --></transition>
  </state>
  <state id="TX_ACK"><!--   node-size-and-position x=1510 y=960 w=210 h=80  -->
-  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="0" condparam="15" condreg="15" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-76 offsetx=-167 offsety=-67  --></transition>
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-76 offsetx=-167 offsety=-67  --></transition>
  </state>
  <state id="TX_BEACON"><!--   node-size-and-position x=2250 y=690 w=220 h=80  -->
   <transition action="22" action2="0" action2param="15" action2reg="15" actionparam="2" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="12" eventparam="1" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-247 offsetx=-34 offsety=-129  --></transition>
