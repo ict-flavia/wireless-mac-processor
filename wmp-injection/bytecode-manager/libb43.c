@@ -426,7 +426,7 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
   	int i,j;
 
 	FILE * log_state_time;
-	log_state_time = fopen(file_name, "w+");
+	log_state_time = fopen(file_name, "a+");
 	
 	//printf("inside name file %s\n",file_name);
 
@@ -435,7 +435,7 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 	#define REGION_DEBUG_STOP_1 	3936
 
 	
-	for(j=0; j<30; j++){
+	//for(j=0; j<30; j++){
 		printf("%d\n", j);
 		  
 		i=0;
@@ -443,15 +443,15 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 		      
 		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
 		      sprintf(time_stamp_char[i],"%c%c%c%c%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9],buffer[2],buffer[3],buffer[4],buffer[5]);
-		      //printf("%s - %ld \n", time_stamp_char[i], strtol(time_stamp_char[i], NULL, 16));      
+		      printf("%s - %ld \t", time_stamp_char[i], strtol(time_stamp_char[i], NULL, 16));      
 		      offset+=4;
 		      
 		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
 		      sprintf(state_num_char[i],"%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9]);
-		      //printf("%s - %ld\t", state_num_char[i], strtol(state_num_char[i], NULL, 16));
+		      printf("%s - %ld\n", state_num_char[i], strtol(state_num_char[i], NULL, 16));
 		      //sprintf(exit_transition_char[i],"%c%c",buffer[4],buffer[5]);
 		      //printf("%s ", exit_transition_char);
-		      		      
+		      //printf("\n");		      
 		      i++;
 		}
 		
@@ -463,7 +463,7 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 		      state_num_1 = strtol(state_num_char[i], NULL, 16);
 		      offset+=4;
 		      time_stamp_1 = strtol(time_stamp_char[i], NULL, 16);
-		      //printf("%ld \t", time_stamp_1);
+		      printf("	%ld \t", time_stamp_1);
 		      
 		      offset+=4;
 		      i++;
@@ -471,8 +471,9 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 		      state_num_2 = strtol(state_num_char[i], NULL, 16);
 		      offset+=4;
 		      time_stamp_2 = strtol(time_stamp_char[i], NULL, 16);
-		      //printf("%ld \t", time_stamp_2);
+		      printf("	%ld \t", time_stamp_2);
 		      
+		      printf(" = %ld \n", time_stamp_2-time_stamp_1);
 
 		      if( time_stamp_1 > last_time_stamp) {
 			      
@@ -486,7 +487,7 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 					strftime (buffer,80,"%G%m%d%H%M%S",timeinfo);	
 					printf("%d - %d - 0x%04X:\t", j, i, offset);
 					//printf("%s \t%ld\t %d\t %ld\t %ld\t %ld\n", buffer, 0, 0, time_stamp_1, time_stamp_2, state_time);
-					fprintf(log_state_time, "%s,%ld,%d,%ld\n", buffer, state_num_1, 0, state_time);
+					fprintf(log_state_time, "%s,%ld,%d,%ld\n", buffer, state_num_2, 0, state_time);
 					fflush(log_state_time);
 			      }
 		      }
@@ -495,8 +496,8 @@ void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
 		      
 		}
 		
-		sleep(10);
-	}
+	//	sleep(10);
+	//}
 	
 		
 	

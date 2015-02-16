@@ -129,12 +129,21 @@ int main(int argc, char * argv[])
 				shmReadStateTime(&df, current_options.time_state_measure);
 				break;
 			}
+			
+			
+			if(strcmp(current_options.auto_active,"")){
+				autoActiveBytecode(&df, &current_options);
+		
+			}
 			/* READ SHM ACTIVATION TIME*/
-			if(strcmp(current_options.time_activate_measure,"")){
+			// in this moment inside autoActiveBytecode
+			/* 
+			 * if(strcmp(current_options.time_activate_measure,"")){
 				printf("SHM read activation time \n");
 				shmReadActivateTime(&df, current_options.time_activate_measure);
 				break;
 			}
+			*/
 	
 			/* Write frame into template ram */
 			if(strcmp(current_options.write_frame,"")){
@@ -182,10 +191,6 @@ int main(int argc, char * argv[])
 			
 			if(strcmp(current_options.active,"")){
 				activeBytecode(&df, &current_options);
-		
-			}
-			if(strcmp(current_options.auto_active,"")){
-				autoActiveBytecode(&df, &current_options);
 		
 			}
 
@@ -1084,18 +1089,18 @@ void viewActiveBytecode(struct debugfs_file * df,char *return_message){
 	read_wmp_value = shmRead16(df,B43_SHM_REGS, MIN_CONTENTION_WIN);
 	sprintf(ret_msg,"%sMin contention windows \t\t = 0x%04X \n",ret_msg,read_wmp_value);
 	read_wmp_value = shmRead16(df, B43_SHM_REGS, PROCEDURE_REGISTER_1);
-	sprintf(ret_msg,"%sVAR_1 \t\t\t = 0x%04X \n",ret_msg,read_wmp_value);
+	sprintf(ret_msg,"%sRegister 1 \t\t\t = 0x%04X \n",ret_msg,read_wmp_value);
 	read_wmp_value = shmRead16(df, B43_SHM_REGS, PROCEDURE_REGISTER_2);
-	sprintf(ret_msg,"%sVAR_2 \t\t\t = 0x%04X \n",ret_msg,read_wmp_value);
+	sprintf(ret_msg,"%sRegister 2 \t\t\t = 0x%04X \n",ret_msg,read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_1_LO);
-	sprintf(ret_msg,"%sVAR_3 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
+	sprintf(ret_msg,"%sMemory 1 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_2_LO);
-	sprintf(ret_msg, "%sVAR_4 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
+	sprintf(ret_msg, "%sMemory 2 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_3_LO);
-	sprintf(ret_msg,"%sVAR_5 \t\t\t = 0x%08X \n",ret_msg,read_wmp_value);
+	sprintf(ret_msg,"%sMemory 3 \t\t\t = 0x%08X \n",ret_msg,read_wmp_value);
 
 	
 	sprintf(ret_msg,"%s--------------------------------------\n",ret_msg);

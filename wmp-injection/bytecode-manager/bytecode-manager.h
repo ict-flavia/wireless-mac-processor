@@ -3,7 +3,7 @@
 *****************/
 #define STARTUP_LOGO "\
 --------------------------------------------\n\
-WMP Bytecode Manager V 2.48 - 2014\n\
+WMP Bytecode Manager V 2.49 - 2015\n\
 --------------------------------------------\n"
 
 #define usageMenu "WMP bytecode-manager byte-code injection \n\

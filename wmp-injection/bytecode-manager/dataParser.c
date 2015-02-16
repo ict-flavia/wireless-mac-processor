@@ -12,13 +12,13 @@
 
 void activeBytecode(struct debugfs_file * df, struct options * opt){
   
-  if(strcmp(opt->do_up,"1"))
-	putInWaitMode(df);
+  //if(strcmp(opt->do_up,"1"))
+  //	 putInWaitMode(df);
   
 	writeAddressBytecode(df,opt);
   
-  if(strcmp(opt->do_up,"1"))
-	returnFromWaitMode(df);
+  //if(strcmp(opt->do_up,"1"))
+  //	returnFromWaitMode(df);
   
 	return;
 }
@@ -26,44 +26,57 @@ void activeBytecode(struct debugfs_file * df, struct options * opt){
 void autoActiveBytecode(struct debugfs_file * df, struct options * opt){
   
 	FILE * log_high_time;
-	log_high_time = fopen(opt->auto_active, "w+");
+	log_high_time = fopen(opt->auto_active, "a+");
 	long int usec;	 
 	struct timeval starttime, finishtime;
 	time_t rawtime;
 	struct tm * timeinfo;
 	char buffer[80];
 	int i=0;
+	int count_change=0;
 
 	opt->active = "1";
 
 	
 	while(1){
-	    //opt->load = "1";
-	    //opt->name_file = "dcf-rid.txt";
+	    opt->load = "2";
+	    opt->name_file = "/tmp/dcf_v3-2.txt";
 	    
-	    gettimeofday(&starttime, NULL);
 
+	    
+	    //activation
+	    //writeAddressBytecode(df,opt);
+		  
+	    //loading
+	    
 	    if(strcmp(opt->do_up,"1"))
 		  putInWaitMode(df);
 	    
-		  writeAddressBytecode(df,opt);
-		  //bytecodeSharedWrite(df, opt);
-	    	    
+	    gettimeofday(&starttime, NULL);	    
+	    bytecodeSharedWrite(df, opt);
+	    gettimeofday(&finishtime, NULL);
+	    
 	    if(strcmp(opt->do_up,"1"))
 		  returnFromWaitMode(df);
-
-	    gettimeofday(&finishtime, NULL);
+	    
+	    
+	    
 	    usec=(finishtime.tv_sec-starttime.tv_sec)*1000000;
 	    usec+=(finishtime.tv_usec-starttime.tv_usec);	    
+	    //usec+=100;
 	    
 	    time(&rawtime);
 	    timeinfo = localtime(&rawtime);
 	    //2014 01 26 11 17 15
 	    strftime (buffer,80,"%G%m%d%H%M%S",timeinfo);	
 	
-	    fprintf(log_high_time, "%s,%d,%d,%ld\n", buffer, 253, 0,usec);
-	    printf("%s,%d,%d,%ld\n", buffer, 253, 0,usec);
-	    //fprintf(log_high_time, "%s,%d,%d,%ld\n", buffer, 251, 0,usec);
+	    //time activation
+	    //fprintf(log_high_time, "%s,%d,%d,%ld\n", buffer, 253, 0, usec); //activation high
+	    //printf("%d - %d - %s,%d,%d,%ld\n", i, count_change, buffer, 253, 0,usec);
+	    
+	    //time loading
+	    fprintf(log_high_time, "%s,%d,%d,%ld\n", buffer, 251, 0, usec);
+	    printf("%d - %d - %s,%d,%d,%ld\n", i, count_change, buffer, 251, 0,usec);
 	    fflush(log_high_time);
 	    
 	    sleep(2);
@@ -75,7 +88,19 @@ void autoActiveBytecode(struct debugfs_file * df, struct options * opt){
 		opt->active = "1";
 	    else
 	    	opt->active = "2";
+	    
+	    
+	    if (count_change > 45)
+	    {
+	      printf("share readed\n");
+	      shmReadActivateTime(df, opt->time_activate_measure);
+	      count_change=0;
+	    }
+	    else
+	      count_change++;
 
+	    if(i>240)
+	      break;
 	    
 	}
 
@@ -89,7 +114,9 @@ void autoActiveBytecode(struct debugfs_file * df, struct options * opt){
 void writeAddressBytecode(struct debugfs_file * df, struct options * opt){
 
 	int byte_code_address;
-		
+	int control_return;
+	
+	/*
 	if(!strcmp(opt->active, "1")){
 		printf("Active byte-code '1' \n");
 		byte_code_address = PARAMETER_ADDR_OFFSET_BYTECODE_1 ;
@@ -104,8 +131,31 @@ void writeAddressBytecode(struct debugfs_file * df, struct options * opt){
 			return;
 		}
 	}
-
-	shmMaskSet16(df, B43_SHM_REGS, GPR_BYTECODE_ADDRESS, 0x0000, byte_code_address);
+	*/
+	
+	
+	if(!strcmp(opt->active, "1")){
+		printf("Active byte-code '1' \n");
+		shmMaskSet16(df, B43_SHM_REGS, GPR_CONTROL, 0xF0FF, 0x0100);
+	}
+	else{
+		if(!strcmp(opt->active, "2")){
+			printf("Active byte-code '2' \n");
+			shmMaskSet16(df, B43_SHM_REGS, GPR_CONTROL, 0xF0FF, 0x0200);
+		}
+		else{
+			printf("active must be 1 or 2");
+			return;
+		}
+	}
+	
+	while(1)
+	{
+		control_return = shmRead16(df, B43_SHM_REGS, GPR_CONTROL);
+		if( (control_return & 0x0F00) == 0)
+		  break;
+	}
+	//shmMaskSet16(df, B43_SHM_REGS, GPR_BYTECODE_ADDRESS, 0x0000, byte_code_address);
 	//setStartState(df);
 	//#resetto i bit del timer per ogni evenienza
 	//shmMaskSet16(df, B43_SHM_REGS, GPR_CONTROL, 0xFFF7, 0x000);
