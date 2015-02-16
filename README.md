@@ -8,5 +8,5 @@ FLAVIA has publicly released a Wireless MAC Processor implementation on a specif
 To enjoy programming your MAC download and run the following components:
 * the WMP Editor (graphical tool), for programming a new MAC protocol in terms of state machine;
 * the WMP bytecode manager, for compiling the graphical state machines in a readble machine code;
-* the WMP firmware (closed source, but source code is available upon request) to substitue to the original 802.11 firmware;
+* the WMP firmware to substitue to the original 802.11 firmware;
 * some MAC Programs, both in terms of graphical and bytecode representations.
