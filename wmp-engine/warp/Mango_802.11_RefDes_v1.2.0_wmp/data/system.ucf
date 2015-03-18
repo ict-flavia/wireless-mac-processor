@@ -1,0 +1,464 @@
+### NOTE: DDR3 SO-DIMM contraints are not specified here!
+###  These are pulled automatically from the MIG project during implementation
+NET ddr_parity LOC = "H29" | IOSTANDARD = "LVCMOS25" | TIG; #stray PAD MIG insists on including, mapped to NC pin on FPGA
+
+NET "DEBUGHDR<0>" LOC = "AG27"  | IOSTANDARD = "LVCMOS25"; #pin 0
+NET "DEBUGHDR<1>" LOC = "AE26"  | IOSTANDARD = "LVCMOS25"; #pin 1
+NET "DEBUGHDR<2>" LOC = "AF26"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 2
+NET "DEBUGHDR<3>" LOC = "AD25"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 3
+NET "DEBUGHDR<4>" LOC = "V24"  | IOSTANDARD = "LVCMOS25" | PULLDOWN;  #pin 4
+NET "DEBUGHDR<5>" LOC = "AA23"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 5
+NET "DEBUGHDR<6>" LOC = "AH30"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 6
+NET "DEBUGHDR<7>" LOC = "AK31"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 7
+
+NET "DEBUGHDR<8>" LOC = "AG28"  | IOSTANDARD = "LVCMOS25"; #pin 8
+NET "DEBUGHDR<9>" LOC = "AE27"  | IOSTANDARD = "LVCMOS25"; #pin 9
+NET "DEBUGHDR<10>" LOC = "AF28"  | IOSTANDARD = "LVCMOS25"; #pin 10
+NET "DEBUGHDR<11>" LOC = "AJ29"  | IOSTANDARD = "LVCMOS25"; #pin 11
+
+NET "DEBUGHDR<12>" LOC = "AH29"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 12
+NET "DEBUGHDR<13>" LOC = "AL30"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 13
+NET "DEBUGHDR<14>" LOC = "AM31"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 14
+#NET "DEBUGHDR<15>" LOC = "AP32"  | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 15
+
+# External packet detect
+NET "WLAN_PHY_RX_PKT_DET_IN_PIN" LOC = "AP32" | IOSTANDARD = "LVCMOS25" | PULLDOWN; #pin 15
+
+#System clock (80MHz, from sampling clock buffer)
+NET samp_clk_n_pin LOC = V23 | IOSTANDARD = LVDS_25 | DIFF_TERM = TRUE;
+NET samp_clk_p_pin LOC = U23 | IOSTANDARD = LVDS_25 | DIFF_TERM = TRUE;
+Net samp_clk_p_pin TNM_NET = samp_clk_pin;
+TIMESPEC TS_samp_clk_pin = PERIOD samp_clk_pin 80000 kHz;
+
+Net clk_160MHz TNM_NET = TNM_clk_160MHz;
+Net clk_20MHz  TNM_NET = TNM_clk_20MHz;
+
+#System clock (200MHz, from LVDS oscillator)
+Net osc200_p_pin LOC = A10  |  IOSTANDARD=LVDS_25  |  DIFF_TERM = TRUE;
+Net osc200_n_pin LOC = B10  |  IOSTANDARD=LVDS_25  |  DIFF_TERM = TRUE;
+Net osc200_p_pin TNM_NET = osc200_p_pin;
+TIMESPEC TS_osc200_p_pin = PERIOD osc200_p_pin 200000 kHz;
+
+NET userio_dipsw<0> LOC = "AM22"  |  IOSTANDARD = "LVCMOS15";
+NET userio_dipsw<1> LOC = "AL23"  |  IOSTANDARD = "LVCMOS15";
+NET userio_dipsw<2> LOC = "AM23"  |  IOSTANDARD = "LVCMOS15";
+NET userio_dipsw<3> LOC = "AN23"  |  IOSTANDARD = "LVCMOS15";
+
+Net userio_leds_red<0> LOC=AN34  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_red<1> LOC=AM33  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_red<2> LOC=AN33  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_red<3> LOC=AP33  |  IOSTANDARD = LVCMOS25;
+
+Net userio_leds_green<0> LOC=AD22  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_green<1> LOC=AE22  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_green<2> LOC=AM32  |  IOSTANDARD = LVCMOS25;
+Net userio_leds_green<3> LOC=AN32  |  IOSTANDARD = LVCMOS25;
+
+Net userio_pb_u LOC=AM21  |  IOSTANDARD = LVCMOS15;
+Net userio_pb_m LOC=AN22  |  IOSTANDARD = LVCMOS15;
+Net userio_pb_d LOC=AP22  |  IOSTANDARD = LVCMOS15;
+
+Net userio_hexdisp_left<0> LOC=AL33  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<1> LOC=AK33  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<2> LOC=AH32  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<3> LOC=AF29  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<4> LOC=AE29  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<5> LOC=AK32  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_left<6> LOC=AF30  |  IOSTANDARD = LVCMOS25;
+
+Net userio_hexdisp_right<0> LOC=AE28  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<1> LOC=AD26  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<2> LOC=AC24  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<3> LOC=AE23  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<4> LOC=AC22  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<5> LOC=AD27  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right<6> LOC=AB23  |  IOSTANDARD = LVCMOS25;
+
+Net userio_hexdisp_left_dp LOC=AG30  |  IOSTANDARD = LVCMOS25;
+Net userio_hexdisp_right_dp LOC=AC23  |  IOSTANDARD = LVCMOS25;
+
+Net userio_rfa_led_red LOC=AL34  |  IOSTANDARD = LVCMOS25;
+Net userio_rfa_led_green LOC=AK34  |  IOSTANDARD = LVCMOS25;
+Net userio_rfb_led_red LOC=AJ34  |  IOSTANDARD = LVCMOS25;
+Net userio_rfb_led_green LOC=AH34  |  IOSTANDARD = LVCMOS25;
+
+NET usb_uart_rx LOC = "J9"  |  IOSTANDARD = "LVCMOS25";
+NET usb_uart_tx LOC = "H9"  |  IOSTANDARD = "LVCMOS25";
+
+#SIP switch on CM-MMCX
+NET "cm_mmcx_sw<0>" LOC = V30 | IOSTANDARD = LVCMOS25 | PULLUP; #CLKHDR_CTRL12 in schematics
+NET "cm_mmcx_sw<1>" LOC = R34 | IOSTANDARD = LVCMOS25 | PULLUP; #CLKHDR_CTRL13 in schematics
+
+NET clk_rfref_spi_sclk_pin LOC = V25 | IOSTANDARD = LVCMOS25;#
+NET clk_rfref_spi_mosi_pin LOC = W25 | IOSTANDARD = LVCMOS25;#
+NET clk_rfref_spi_cs_n_pin LOC = W27 | IOSTANDARD = LVCMOS25;#
+NET clk_rfref_spi_miso_pin LOC = Y27 | IOSTANDARD = LVCMOS25;#
+NET clk_rfref_func_pin LOC = L26 | IOSTANDARD = LVCMOS25;
+
+NET clk_samp_spi_sclk_pin LOC = W32 | IOSTANDARD = LVCMOS25;#
+NET clk_samp_spi_mosi_pin LOC = Y29 | IOSTANDARD = LVCMOS25;#
+NET clk_samp_spi_cs_n_pin LOC = W31 | IOSTANDARD = LVCMOS25;#
+NET clk_samp_spi_miso_pin LOC = Y28 | IOSTANDARD = LVCMOS25;#
+NET clk_samp_func_pin LOC = R33 | IOSTANDARD = LVCMOS25;#
+
+#IIC EEPROM on-board
+Net iic_eeprom_onboard_sda_pin LOC = AG23  |  IOSTANDARD=LVCMOS25;
+Net iic_eeprom_onboard_scl_pin LOC = AF23  |  IOSTANDARD=LVCMOS25;
+
+#ETH_A pins (88e1121R P1)
+Net ETH_A_PHY_RST_N LOC=L9  |  IOSTANDARD = "LVCMOS25"  |  TIG;
+Net ETH_A_RGMII_TXD<0> LOC=AF9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_TXD<1> LOC=AF10  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_TXD<2> LOC=AD9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_TXD<3> LOC=AD10  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_TX_CTL LOC=AG8  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_TXC LOC=AE9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RXD<0> LOC=AK9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RXD<1> LOC=AJ9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RXD<2> LOC=AH8  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RXD<3> LOC=AH9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RX_CTL LOC=AL9  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_RGMII_RXC LOC=AC10  |  IOSTANDARD = "LVCMOS25";
+Net ETH_A_MDIO LOC=AP9  |  IOSTANDARD = "LVCMOS25" | PULLUP;
+Net ETH_A_MDC LOC=AK8  |  IOSTANDARD = "LVCMOS25";
+NET ETH_A_PD LOC = K9 |  IOSTANDARD = "LVCMOS25" | TIG;
+
+#ETH B
+Net ETH_B_RGMII_TXD<0> LOC=M10  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_TXD<1> LOC=B8  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_TXD<2> LOC=AC9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_TXD<3> LOC=E9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_TX_CTL LOC=D10  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_TXC LOC=AB10  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RXD<0> LOC=A9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RXD<1> LOC=D9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RXD<2> LOC=C9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RXD<3> LOC=F10  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RX_CTL LOC=A8  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_RGMII_RXC LOC=L10  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_MDC LOC=AN9  |  IOSTANDARD = LVCMOS25;
+Net ETH_B_MDIO LOC=AL8  |  IOSTANDARD = LVCMOS25 | PULLUP;
+NET ETH_B_PD LOC = E8 |  IOSTANDARD = "LVCMOS25" | TIG;
+
+NET ETH_COMA LOC = C8 |  IOSTANDARD = "LVCMOS25" | TIG;
+ 
+NET reset_pb LOC = "AH13"  |  IOSTANDARD = "LVCMOS15"  |  TIG;
+
+#NET "*fpga_dna*" TIG;
+
+###############
+# ETH_A Timing
+INST "*ETH_A*gmii_interface*rxdata_bus[0].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_A*gmii_interface*rxdata_bus[1].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_A*gmii_interface*rxdata_bus[2].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_A*gmii_interface*rxdata_bus[3].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+
+INST "*ETH_A*gmii_interface*delay_rgmii_rx_ctl"            IDELAY_VALUE = 13;
+
+INST "*ETH_A*gmii_interface*delay_rgmii_tx_clk" ODELAY_VALUE = 6;
+INST "*ETH_A*gmii_interface*delay_rgmii_tx_clk" SIGNAL_PATTERN = CLOCK;
+
+# Group all IODELAY-related blocks to use a single IDELAYCTRL
+INST "*ETH_A*dlyctrl"                                       IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_A*gmii_interface*delay_rgmii_rx_ctl" IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_A*gmii_interface*rxdata_bus[?].delay_rgmii_rxd" IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_A*gmii_interface*delay_rgmii_tx_clk"     IODELAY_GROUP = ETH_rgmii_iodelay;
+
+# Spec: 1.2ns setup time, 1.2ns hold time 
+# The internal PHY delays were not used to derive the OFFSET constraints                                                                 
+# Changed NET Name
+#  This signal trace is longer than the clock trace, and arrives at the FPGA pin 64 ps after the clock
+#  Therefore the offset in constraint must have less setup time than nominal
+NET "ETH_A_RGMII_RXD[0]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" RISING;
+NET "ETH_A_RGMII_RXD[0]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 376 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_A_RGMII_RXD[1]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" RISING;
+NET "ETH_A_RGMII_RXD[1]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 372 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_A_RGMII_RXD[2]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" RISING;
+NET "ETH_A_RGMII_RXD[2]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 115 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_A_RGMII_RXD[3]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" RISING;
+NET "ETH_A_RGMII_RXD[3]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 292 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_A_RGMII_RX_CTL" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" RISING;
+NET "ETH_A_RGMII_RX_CTL" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_A_RGMII_RXC" FALLING;
+
+###############
+# ETH_B Timing
+INST "*ETH_B*gmii_interface*rxdata_bus[0].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_B*gmii_interface*rxdata_bus[1].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_B*gmii_interface*rxdata_bus[2].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+INST "*ETH_B*gmii_interface*rxdata_bus[3].delay_rgmii_rxd"  IDELAY_VALUE = 13;
+
+INST "*ETH_B*gmii_interface*delay_rgmii_rx_ctl"            IDELAY_VALUE = 13;
+
+INST "*ETH_B*gmii_interface*delay_rgmii_tx_clk" ODELAY_VALUE = 6;
+INST "*ETH_B*gmii_interface*delay_rgmii_tx_clk" SIGNAL_PATTERN = CLOCK;
+
+# Group all IODELAY-related blocks to use a single IDELAYCTRL
+#INST "ETH_B*dlyctrl"                                       IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_B*gmii_interface*delay_rgmii_rx_ctl" IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_B*gmii_interface*rxdata_bus[?].delay_rgmii_rxd" IODELAY_GROUP = ETH_rgmii_iodelay;
+INST "*ETH_B*gmii_interface*delay_rgmii_tx_clk"     IODELAY_GROUP = ETH_rgmii_iodelay;
+
+# Spec: 1.2ns setup time, 1.2ns hold time 
+# The internal PHY delays were not used to derive the OFFSET constraints                                                                 
+# Changed NET Name
+#  This signal trace is longer than the clock trace, and arrives at the FPGA pin 64 ps after the clock
+#  Therefore the offset in constraint must have less setup time than nominal
+NET "ETH_B_RGMII_RXD[0]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" RISING;
+NET "ETH_B_RGMII_RXD[0]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 376 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_B_RGMII_RXD[1]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" RISING;
+NET "ETH_B_RGMII_RXD[1]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 372 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_B_RGMII_RXD[2]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" RISING;
+NET "ETH_B_RGMII_RXD[2]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 115 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_B_RGMII_RXD[3]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" RISING;
+NET "ETH_B_RGMII_RXD[3]" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" FALLING;
+
+#  This signal trace is shorter than the clock trace, and arrives at the FPGA pin 292 ps before the clock
+#  Therefore the offset in constraint must have more setup time than nominal
+NET "ETH_B_RGMII_RX_CTL" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" RISING;
+NET "ETH_B_RGMII_RX_CTL" OFFSET = IN 1.2 ns VALID 2.4 ns BEFORE "ETH_B_RGMII_RXC" FALLING;
+
+############
+NET RFA_AD_spi_sclk_pin LOC = AB33 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_spi_sdio LOC = AC30 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_spi_cs_n_pin LOC = AB31 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_reset_n_pin LOC = AA34 | IOSTANDARD = LVCMOS25;
+
+NET RFB_AD_spi_sclk_pin LOC = P32 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_spi_sdio LOC = P34 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_spi_cs_n_pin LOC = N32 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_reset_n_pin LOC = N34 | IOSTANDARD = LVCMOS25;
+
+#RFA AD9963
+NET RFA_AD_TRXD<0> LOC = AC25 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<1> LOC = AB25 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<2> LOC = AB32 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<3> LOC = AC29 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<4> LOC = AD29 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<5> LOC = AC33 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<6> LOC = AD34 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<7> LOC = AC32 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<8> LOC = AD31 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<9> LOC = AD32 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<10> LOC = AE31 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXD<11> LOC = AE32 | IOSTANDARD = LVCMOS25;
+
+NET RFA_AD_TRXCLK LOC = AD30 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TRXIQ LOC = AC34 | IOSTANDARD = LVCMOS25;
+
+NET RFA_AD_TXCLK LOC = AA31 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXIQ LOC = AA33 | IOSTANDARD = LVCMOS25;
+
+NET RFA_AD_TXD<0> LOC = AA25 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<1> LOC = AB26 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<2> LOC = Y26 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<3> LOC = AA26 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<4> LOC = AA28 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<5> LOC = AA29 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<6> LOC = AA30 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<7> LOC = AB30 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<8> LOC = AB28 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<9> LOC = AB27 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<10> LOC = AC28 | IOSTANDARD = LVCMOS25;
+NET RFA_AD_TXD<11> LOC = AC27 | IOSTANDARD = LVCMOS25;
+
+#RFB
+NET RFB_AD_TRXD<0> LOC = N25 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<1> LOC = M25 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<2> LOC = N28 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<3> LOC = N27 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<4> LOC = P29 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<5> LOC = M30 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<6> LOC = N30 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<7> LOC = N29 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<8> LOC = P26 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<9> LOC = P31 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<10> LOC = P25 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXD<11> LOC = P30 | IOSTANDARD = LVCMOS25;
+
+NET RFB_AD_TRXCLK LOC = N33 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TRXIQ LOC = M33 | IOSTANDARD = LVCMOS25;
+
+NET RFB_AD_TXCLK LOC = L28 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXIQ LOC = L29 | IOSTANDARD = LVCMOS25;
+
+NET RFB_AD_TXD<0> LOC = K32 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<1> LOC = M26 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<2> LOC = M32 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<3> LOC = K34 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<4> LOC = M31 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<5> LOC = L30 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<6> LOC = L33 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<7> LOC = L31 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<8> LOC = M28 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<9> LOC = L34 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<10> LOC = M27 | IOSTANDARD = LVCMOS25;
+NET RFB_AD_TXD<11> LOC = K31 | IOSTANDARD = LVCMOS25;
+
+NET RF_RSSI_CLK LOC = B32 | IOSTANDARD = LVCMOS25;
+NET RF_RSSI_PD LOC = B34 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<0> LOC = A33 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<1> LOC = B33 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<2> LOC = C33 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<3> LOC = C34 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<4> LOC = C32 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<5> LOC = D31 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<6> LOC = G30 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<7> LOC = E31 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<8> LOC = D32 | IOSTANDARD = LVCMOS25;
+NET RFB_RSSI_D<9> LOC = D34 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<0> LOC = E32 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<1> LOC = E33 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<2> LOC = E34 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<3> LOC = F30 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<4> LOC = F31 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<5> LOC = F34 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<6> LOC = F33 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<7> LOC = G31 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<8> LOC = G33 | IOSTANDARD = LVCMOS25;
+NET RFA_RSSI_D<9> LOC = G32 | IOSTANDARD = LVCMOS25;
+
+#######################################
+#MAX2829 transceivers and RF front end
+NET RFA_SPI_SCLK_pin LOC=T34 | IOSTANDARD=LVCMOS25;
+NET RFA_SPI_MOSI_pin LOC=T33 | IOSTANDARD=LVCMOS25;
+NET RFA_SPI_CSn_pin LOC=U32 | IOSTANDARD=LVCMOS25;
+NET RFA_SHDN_pin LOC=U27 | IOSTANDARD=LVCMOS25;
+NET RFA_TxEn_pin LOC=T31 | IOSTANDARD=LVCMOS25;
+NET RFA_RxEn_pin LOC=U33 | IOSTANDARD=LVCMOS25;
+NET RFA_RxHP_pin LOC=AG32 | IOSTANDARD=LVCMOS25;
+NET RFA_PAEn_24_pin LOC=U25 | IOSTANDARD=LVCMOS25;
+NET RFA_PAEn_5_pin LOC=U28 | IOSTANDARD=LVCMOS25;
+NET RFA_ANTSW_pin<0> LOC=U31 | IOSTANDARD=LVCMOS25;
+NET RFA_ANTSW_pin<1> LOC=U30 | IOSTANDARD=LVCMOS25;
+NET RFA_LD_pin LOC=U26 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<0> LOC=AG33 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<1> LOC=AF31 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<2> LOC=AF33 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<3> LOC=AG31 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<4> LOC=AF34 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<5> LOC=AE33 | IOSTANDARD=LVCMOS25;
+NET RFA_B_pin<6> LOC=AE34 | IOSTANDARD=LVCMOS25;
+
+NET RFB_SPI_SCLK_pin LOC=H34 | IOSTANDARD=LVCMOS25;
+NET RFB_SPI_MOSI_pin LOC=H33 | IOSTANDARD=LVCMOS25;
+NET RFB_SPI_CSn_pin LOC=J32 | IOSTANDARD=LVCMOS25;
+NET RFB_SHDN_pin LOC=J34 | IOSTANDARD=LVCMOS25;
+NET RFB_TxEn_pin LOC=H32 | IOSTANDARD=LVCMOS25;
+NET RFB_RxEn_pin LOC=J31 | IOSTANDARD=LVCMOS25;
+NET RFB_RxHP_pin LOC=R28 | IOSTANDARD=LVCMOS25;
+NET RFB_PAEn_24_pin LOC=T25 | IOSTANDARD=LVCMOS25;
+NET RFB_PAEn_5_pin LOC=T28 | IOSTANDARD=LVCMOS25;
+NET RFB_ANTSW_pin<0> LOC=T30 | IOSTANDARD=LVCMOS25;
+NET RFB_ANTSW_pin<1> LOC=T29 | IOSTANDARD=LVCMOS25;
+NET RFB_LD_pin LOC=K33 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<0> LOC=P27 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<1> LOC=R27 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<2> LOC=R29 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<3> LOC=R26 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<4> LOC=R32 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<5> LOC=T26 | IOSTANDARD=LVCMOS25;
+NET RFB_B_pin<6> LOC=R31 | IOSTANDARD=LVCMOS25;
+
+#AD9963 data interface clock constraints
+Net RFA_AD_TRXCLK TNM_NET = TNM_RFA_AD_TRXCLK;
+Net RFB_AD_TRXCLK TNM_NET = TNM_RFB_AD_TRXCLK;
+
+#TRXCLK runs at 20MHz (using decimation in AD9963s)
+TIMESPEC TS_RFA_AD_TRXCLK = PERIOD TNM_RFA_AD_TRXCLK TS_samp_clk_pin*4;
+TIMESPEC TS_RFB_AD_TRXCLK = PERIOD TNM_RFB_AD_TRXCLK TS_samp_clk_pin*4;
+
+#TRXCLK -> clk20 is first stage of registers (IDDR -> 2xDFF)
+TIMESPEC TS_RFA_TRX_TO_20M = FROM "TNM_RFA_AD_TRXCLK" to "TNM_clk_20MHz" 40ns;
+TIMESPEC TS_RFB_TRX_TO_20M = FROM "TNM_RFB_AD_TRXCLK" to "TNM_clk_20MHz" 40ns;
+
+#clk20 -> clk160 is paths from ad_bridge to sample-consuming PHY cores
+TIMESPEC TS_RFA_20M_TO_160M = FROM "TNM_clk_20MHz" to "TNM_clk_160" 6.2ns;
+TIMESPEC TS_RFB_20M_TO_160M = FROM "TNM_clk_20MHz" to "TNM_clk_160" 6.2ns;
+
+#Define relationship of TRXD and TRXCLK, based on AD9963 specs
+# Using worst-case output delay from AD9963 datasheet table 23
+# TRXCLK leads TRXD transition by t_OD2; ad_bridge uses IDELAY to shift this to mid valid window
+# VALID window below assumes DDR interleaved I/Q at 20MSps rate (25nsec / half sample)
+INST "RFA_AD_TRXD<*>" TNM = RFA_AD_TRXD_group;
+NET "RFA_AD_TRXCLK" TNM_NET = RFA_AD_TRXCLK;
+TIMEGRP "RFA_AD_TRXD_group" OFFSET = IN 0.7 ns VALID 22 ns BEFORE "RFA_AD_TRXCLK" RISING;
+TIMEGRP "RFA_AD_TRXD_group" OFFSET = IN 0.7 ns VALID 22 ns BEFORE "RFA_AD_TRXCLK" FALLING;
+
+INST "RFB_AD_TRXD<*>" TNM = RFB_AD_TRXD_group;
+NET "RFB_AD_TRXCLK" TNM_NET = RFB_AD_TRXCLK;
+TIMEGRP "RFB_AD_TRXD_group" OFFSET = IN 0.7 ns VALID 22 ns BEFORE "RFB_AD_TRXCLK" RISING;
+TIMEGRP "RFB_AD_TRXD_group" OFFSET = IN 0.7 ns VALID 22 ns BEFORE "RFB_AD_TRXCLK" FALLING;
+
+#Mark TRX-samp_clk_rx paths as fully async, with short max route (use DFFs near ILOGIC.IDDRs)
+INST "ad_bridge_onBoard/ad_bridge_onBoard/DDR_REGS_RFA_RFB[*].IDDR*" TNM = "AD_TRXCLK_IDDRS";
+INST "ad_bridge_onBoard/ad_bridge_onBoard/DDR_REGS_RFA_RFB[*].DFF2*" TNM = "AD_SYSCLK_FFS";
+
+TIMESPEC TS_async_rx_samp_clks_IN = FROM "AD_TRXCLK_IDDRS" TO "AD_SYSCLK_FFS" 2 ns DATAPATHONLY;
+TIMESPEC TS_async_rx_samp_clks_OUT = FROM "AD_SYSCLK_FFS" TO "AD_TRXCLK_IDDRS" 2 ns DATAPATHONLY;
+
+#Relaxed constraints for T=8 paths through Rx PHY (mostly in DSSS Rx)
+NET "*wlan_phy_rx*ce_8_sg_x*" TNM_NET = "TNM_rx_phy_CE8";
+TIMESPEC TS_rx_phy_T8 = FROM "TNM_rx_phy_CE8" TO "TNM_rx_phy_CE8" 20 MHz;
+
+# Basic floorplanning
+INST "wlan_phy_tx" AREA_GROUP = "WLAN_PHY_Tx";
+AREA_GROUP "WLAN_PHY_Tx" RANGE=SLICE_X10Y81:SLICE_X65Y139;
+AREA_GROUP "WLAN_PHY_Tx" RANGE=DSP48_X0Y34:DSP48_X3Y55;
+AREA_GROUP "WLAN_PHY_Tx" RANGE=RAMB18_X1Y34:RAMB18_X3Y55;
+AREA_GROUP "WLAN_PHY_Tx" RANGE=RAMB36_X1Y17:RAMB36_X3Y27;
+
+INST "DDR3_SODIMM" AREA_GROUP = "DDR3_SODIMM";
+AREA_GROUP "DDR3_SODIMM" RANGE=SLICE_X56Y60:SLICE_X99Y79, SLICE_X12Y0:SLICE_X123Y59;
+AREA_GROUP "DDR3_SODIMM" RANGE=DSP48_X0Y0:DSP48_X5Y23;
+AREA_GROUP "DDR3_SODIMM" RANGE=RAMB18_X1Y0:RAMB18_X5Y23;
+AREA_GROUP "DDR3_SODIMM" RANGE=RAMB36_X1Y0:RAMB36_X5Y11;
+
+INST "wlan_phy_rx" AREA_GROUP = "WLAN_PHY_Rx";
+AREA_GROUP "WLAN_PHY_Rx" RANGE=SLICE_X0Y140:SLICE_X161Y239;
+AREA_GROUP "WLAN_PHY_Rx" RANGE=DSP48_X0Y56:DSP48_X7Y95;
+AREA_GROUP "WLAN_PHY_Rx" RANGE=RAMB18_X0Y56:RAMB18_X8Y95;
+AREA_GROUP "WLAN_PHY_Rx" RANGE=RAMB36_X0Y28:RAMB36_X8Y47;
+
+INST "wlan_agc" AREA_GROUP = "WLAN_AGC";
+AREA_GROUP "WLAN_AGC" RANGE=SLICE_X0Y40:SLICE_X13Y140;
+AREA_GROUP "WLAN_AGC" RANGE=DSP48_X0Y16:DSP48_X0Y55;
+AREA_GROUP "WLAN_AGC" RANGE=RAMB18_X0Y16:RAMB18_X0Y55;
+AREA_GROUP "WLAN_AGC" RANGE=RAMB36_X0Y8:RAMB36_X0Y27;
+
+INST "ad_bridge_onBoard" AREA_GROUP = "AD_Bridge_OnBoard";
+AREA_GROUP "AD_Bridge_OnBoard" RANGE=SLICE_X0Y41:SLICE_X1Y159;
+
+INST "mb_high" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_dlmb" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_ilmb" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_dlmb_bram_cntlr_0" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_ilmb_bram_cntlr_0" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_dlmb_bram_cntlr_1" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_ilmb_bram_cntlr_1" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_lmb_bram_0" AREA_GROUP = "MB_High_Subsystem";
+INST "mb_high_lmb_bram_1" AREA_GROUP = "MB_High_Subsystem";
+AREA_GROUP "MB_High_Subsystem" RANGE=SLICE_X100Y0:SLICE_X161Y79;
+AREA_GROUP "MB_High_Subsystem" RANGE=DSP48_X4Y0:DSP48_X7Y31;
+AREA_GROUP "MB_High_Subsystem" RANGE=RAMB18_X4Y0:RAMB18_X8Y31;
+AREA_GROUP "MB_High_Subsystem" RANGE=RAMB36_X4Y0:RAMB36_X8Y15;

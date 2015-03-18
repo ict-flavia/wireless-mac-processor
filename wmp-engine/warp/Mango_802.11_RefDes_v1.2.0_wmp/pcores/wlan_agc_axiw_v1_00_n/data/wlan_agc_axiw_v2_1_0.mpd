@@ -1,0 +1,144 @@
+## Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+
+## You may copy and modify these files for your own internal use solely with
+## Xilinx programmable logic devices and  Xilinx EDK system or create IP
+## modules solely for Xilinx programmable logic devices and Xilinx EDK system.
+## No rights are granted to distribute any files unless they are distributed in
+## Xilinx programmable logic devices.
+
+BEGIN wlan_agc_axiw
+
+## Peripheral Options
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION STYLE = MIX
+OPTION HDL = MIXED
+OPTION IPTYPE = PERIPHERAL
+OPTION LAST_UPDATED = 14.4i
+OPTION USAGE_LEVEL = BASE_USER
+OPTION ARCH_SUPPORT_MAP = ( others=DEVELOPMENT )
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ADDRESS = BASE, PAIR = C_HIGHADDR, MIN_SIZE = 0x1000, ASSIGNMENT = REQUIRE
+PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ADDRESS = HIGH, PAIR = C_BASEADDR, ASSIGNMENT = REQUIRE
+PARAMETER C_S_AXI_ADDR_WIDTH = 32, DT = INTEGER, ASSIGNMENT = CONSTANT, BUS = S_AXI
+PARAMETER C_S_AXI_DATA_WIDTH = 32, DT = INTEGER, ASSIGNMENT = CONSTANT, BUS = S_AXI
+PARAMETER C_S_AXI_ID_WIDTH = 1, DT = INTEGER, BUS = S_AXI
+PARAMETER C_S_AXI_SUPPORT_BURST = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, BUS = S_AXI
+
+# Bus specific parameters
+
+# Memory Map Information
+# From Registers
+# To Registers
+PARAMETER C_MEMMAP_TIMING_RESET = 0x800, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_RESET_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_RESET_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RSSI_PWR_CALIB = 0x804, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RSSI_PWR_CALIB_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RSSI_PWR_CALIB_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_B0 = 0x808, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_B0_N_BITS = 18, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_B0_BIN_PT = 17, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_A1 = 0x80C, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_A1_N_BITS = 18, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_IIR_COEF_A1_BIN_PT = 17, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RESET = 0x810, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RESET_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_RESET_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_AGC = 0x814, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_AGC_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_AGC_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TARGET = 0x818, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TARGET_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TARGET_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_CONFIG = 0x81C, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_CONFIG_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_CONFIG_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_DCO = 0x820, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_DCO_N_BITS = 32, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_MEMMAP_TIMING_DCO_BIN_PT = 0, DT = integer, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+# From FIFOs
+# To FIFOs
+# Shared RAMs
+
+# Ports
+PORT adc_rx_clk = "", DIR = IN
+PORT agc_run = "", DIR = IN
+PORT axi_aresetn = aresetn, BUS = S_AXI, SIGIS = RST, DIR = IN
+PORT sysgen_clk = "", SIGIS = CLK, ASSIGNMENT = REQUIRE, DIR = IN
+PORT rfa_rssi = "", VEC = [0:(10-1)], DIR = IN
+PORT rfa_rx_i_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfa_rx_q_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfb_rssi = "", VEC = [0:(10-1)], DIR = IN
+PORT rfb_rx_i_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfb_rx_q_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfc_rssi = "", VEC = [0:(10-1)], DIR = IN
+PORT rfc_rx_i_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfc_rx_q_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfd_rssi = "", VEC = [0:(10-1)], DIR = IN
+PORT rfd_rx_i_in = "", VEC = [0:(12-1)], DIR = IN
+PORT rfd_rx_q_in = "", VEC = [0:(12-1)], DIR = IN
+PORT s_axi_araddr = araddr, VEC = [0:(32-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arburst = arburst, VEC = [0:(2-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arcache = arcache, VEC = [0:(4-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arid = arid, VEC = [0:(C_S_AXI_ID_WIDTH-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arlen = arlen, VEC = [0:(8-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arlock = arlock, VEC = [0:(2-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arprot = arprot, VEC = [0:(3-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arsize = arsize, VEC = [0:(3-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_arvalid = arvalid, BUS = S_AXI, DIR = IN
+PORT s_axi_awaddr = awaddr, VEC = [0:(32-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awburst = awburst, VEC = [0:(2-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awcache = awcache, VEC = [0:(4-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awid = awid, VEC = [0:(C_S_AXI_ID_WIDTH-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awlen = awlen, VEC = [0:(8-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awlock = awlock, VEC = [0:(2-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awprot = awprot, VEC = [0:(3-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awsize = awsize, VEC = [0:(3-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_awvalid = awvalid, BUS = S_AXI, DIR = IN
+PORT s_axi_bready = bready, BUS = S_AXI, DIR = IN
+PORT s_axi_rready = rready, BUS = S_AXI, DIR = IN
+PORT s_axi_wdata = wdata, VEC = [0:(32-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_wlast = wlast, BUS = S_AXI, DIR = IN
+PORT s_axi_wstrb = wstrb, VEC = [0:(4-1)], BUS = S_AXI, DIR = IN
+PORT s_axi_wvalid = wvalid, BUS = S_AXI, DIR = IN
+PORT axi_aclk = "", BUS = S_AXI, SIGIS = CLK, ASSIGNMENT = REQUIRE, DIR = IN
+PORT agc_done = "", DIR = OUT
+PORT iq_valid_out = "", DIR = OUT
+PORT rfa_agc_g_bb = "", VEC = [0:(5-1)], DIR = OUT
+PORT rfa_agc_g_rf = "", VEC = [0:(2-1)], DIR = OUT
+PORT rfa_agc_rxhp = "", DIR = OUT
+PORT rfa_rx_i_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfa_rx_q_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfb_agc_g_bb = "", VEC = [0:(5-1)], DIR = OUT
+PORT rfb_agc_g_rf = "", VEC = [0:(2-1)], DIR = OUT
+PORT rfb_agc_rxhp = "", DIR = OUT
+PORT rfb_rx_i_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfb_rx_q_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfc_agc_g_bb = "", VEC = [0:(5-1)], DIR = OUT
+PORT rfc_agc_g_rf = "", VEC = [0:(2-1)], DIR = OUT
+PORT rfc_agc_rxhp = "", DIR = OUT
+PORT rfc_rx_i_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfc_rx_q_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfd_agc_g_bb = "", VEC = [0:(5-1)], DIR = OUT
+PORT rfd_agc_g_rf = "", VEC = [0:(2-1)], DIR = OUT
+PORT rfd_agc_rxhp = "", DIR = OUT
+PORT rfd_rx_i_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT rfd_rx_q_out = "", VEC = [0:(16-1)], DIR = OUT
+PORT s_axi_arready = arready, BUS = S_AXI, DIR = OUT
+PORT s_axi_awready = awready, BUS = S_AXI, DIR = OUT
+PORT s_axi_bid = bid, VEC = [0:(C_S_AXI_ID_WIDTH-1)], BUS = S_AXI, DIR = OUT
+PORT s_axi_bresp = bresp, VEC = [0:(2-1)], BUS = S_AXI, DIR = OUT
+PORT s_axi_bvalid = bvalid, BUS = S_AXI, DIR = OUT
+PORT s_axi_rdata = rdata, VEC = [0:(32-1)], BUS = S_AXI, DIR = OUT
+PORT s_axi_rid = rid, VEC = [0:(C_S_AXI_ID_WIDTH-1)], BUS = S_AXI, DIR = OUT
+PORT s_axi_rlast = rlast, BUS = S_AXI, DIR = OUT
+PORT s_axi_rresp = rresp, VEC = [0:(2-1)], BUS = S_AXI, DIR = OUT
+PORT s_axi_rvalid = rvalid, BUS = S_AXI, DIR = OUT
+PORT s_axi_wready = wready, BUS = S_AXI, DIR = OUT
+
+END

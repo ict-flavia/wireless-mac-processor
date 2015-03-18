@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="C:\Users\Alice\Desktop\Mango_802.11_RefDes_v1.2.0\SDK_Workspace\wlan_xps_v32_hw_platform\system.bit" key="wlan_xps_v32_hw_platform-bitFile"/>
+	<item value="C:\Users\Alice\Desktop\Mango_802.11_RefDes_v1.2.0\SDK_Workspace\wlan_xps_v32_hw_platform\system_bd.bmm" key="wlan_xps_v32_hw_platform-bmmFile"/>
+	<item value="C:\Users\Alice\Desktop\Mango_802.11_RefDes_v1.2.0\SDK_Workspace\wmp_high\Debug\wmp_high.elf" key="wlan_xps_v32_hw_platform-mb_high-initElf"/>
+	<item value="C:\Users\Alice\Desktop\Mango_802.11_RefDes_v1.2.0\SDK_Workspace\wmp_low\Release\wmp_low.elf" key="wlan_xps_v32_hw_platform-mb_low-initElf"/>
+</section>

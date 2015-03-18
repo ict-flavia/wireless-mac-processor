@@ -1,0 +1,17 @@
+#############################################################
+# Copyright (c) 1995-2015 Xilinx, Inc.  All rights reserved.
+# 
+# You may copy and modify these files for your own internal
+# use solely with Xilinx programmable logic devices and
+# Xilinx EDK system or create IP modules solely for Xilinx
+# programmable logic devices and Xilinx EDK system.
+# No rights are granted to distribute any files unless they
+# are distributed in Xilinx programmable logic devices.
+#
+# Black Box Definition (BBD) file
+# created by System Generator
+# Jan 13, 2015 10:11:52 AM
+#############################################################
+
+FILES
+xlpersistentdff.ngc, xfft_v8_0_5d9ac22d91f41a8e.ngc, mult_11_2_f4c500f5df521fc5.ngc, mult_11_2_edf2b281a7d3ecbd.ngc, mult_11_2_e12956fd7cd20197.ngc, mult_11_2_d7279d9da22b1cba.ngc, mult_11_2_d6f907465f6c66ef.ngc, mlt_6_1_66f687ea97c01f36.ngc, ila_1_05_a_dcae165b40d4c0a3.ngc, icon_1_06_a_0b4e98b213eda542.ngc, fr_cmplr_v6_3_e75b791bccc7ed05.ngc, fifo_fg92_54dfa6fab980da91.ngc, dvd_6_1_7c1431309a4f5b6e.ngc, dmg_72_fdf0991536c23e23.ngc, dmg_72_f2566b24f5031eb3.ngc, dmg_72_d5d123a5f5736a60.ngc, dmg_72_cba008fc892eaf1f.ngc, dmg_72_bc8851f54bc9e3fa.ngc, dmg_72_b68ec2fb61d16700.ngc, dmg_72_b4a0c1cb3e7f346e.ngc, dmg_72_afbe1d04558499ed.ngc, dmg_72_aec5ea5a52fd69cc.ngc, dmg_72_a4975343a139b45c.ngc, dmg_72_9837e887146be4d4.ngc, dmg_72_5efcdb43c0011b51.ngc, dmg_72_5906ba9a7de05a69.ngc, dmg_72_551647d2daf2f8ee.ngc, dmg_72_4c6ca19e6ce27641.ngc, dmg_72_383142797458bf35.ngc, dmg_72_2cd115bc86f2eb87.ngc, dmg_72_27abf6b43c4abd1c.ngc, dmg_72_134e91999cae8947.ngc, dmg_72_068eaa60c3f661ba.ngc, dds_cmplr_v4_0_a2c4f690eda82c20.ngc, crdc_v5_0_ff45b9096467250f.ngc, crdc_v5_0_ca13c064b59b9c31.ngc, crdc_v5_0_821e7923f530fd6f.ngc, crdc_v5_0_000f802186ab7091.ngc, cnvrt_6_1_ea3aa85212e4302f.ngc, cnvrt_6_1_c678581c01122394.ngc, cnvrt_6_1_0996c4828d7a4923.ngc, cnvrt_6_1_05b9dad32cdde636.ngc, cntr_11_0_f068fb73312ae1e5.ngc, cntr_11_0_edbbc8a400d70e89.ngc, cntr_11_0_d5912692bc2e79ac.ngc, cntr_11_0_d24951bef2f0cdc9.ngc, cntr_11_0_bcc28bfecf25caff.ngc, cntr_11_0_b139e48bab357ea7.ngc, cntr_11_0_a88b758ede1b8967.ngc, cntr_11_0_9b9a9936fa497722.ngc, cntr_11_0_87d991c7bcfe987f.ngc, cntr_11_0_86806e294f737f4c.ngc, cntr_11_0_82419ee76f0993e4.ngc, cntr_11_0_736caee7b8b97db6.ngc, cntr_11_0_66919a0f29965143.ngc, cntr_11_0_6454489cfe866515.ngc, cntr_11_0_511eb7a1af6f3f2a.ngc, cntr_11_0_4e27e85687e16e29.ngc, cntr_11_0_36e2bb554c95560d.ngc, cmpy_v5_0_96ac7a10c1b5a9eb.ngc, bmg_72_f794a82e6dff1269.ngc, bmg_72_bbab5f07133609a6.ngc, bmg_72_533a2e6b947bca31.ngc, bmg_72_448d4ab592ba3cb1.ngc, bmg_72_3a4062189ada3dce.ngc, bmg_72_217f313f03d94bea.ngc, axififo_fg92_f1d1af1294b5f7f4.ngc, axififo_fg92_0f5c66abe9af275d.ngc, asr_11_0_e09faeea441cb1db.ngc, asr_11_0_b77f230ccc552153.ngc, asr_11_0_0dfcfa24d21e886b.ngc, addsb_6_1_c6deab1b1295eb1d.ngc, addsb_6_1_2783e2f2b57d3714.ngc, addsb_11_0_d8fbabaeffcc5af8.ngc, addsb_11_0_c62d62064f685a8c.ngc, addsb_11_0_c2d9b430841c3e40.ngc, addsb_11_0_c1475a57f7f79a39.ngc, addsb_11_0_ba9d10c9d3524823.ngc, addsb_11_0_a52ead9b8a3c1e76.ngc, addsb_11_0_a37492a7cd1d1383.ngc, addsb_11_0_8dc9188fad4d9a9c.ngc, addsb_11_0_7cf14debcedb76ce.ngc, addsb_11_0_76821d30ce8a19fb.ngc, addsb_11_0_73986f767e994888.ngc, addsb_11_0_61382365e6a01a53.ngc, addsb_11_0_5e567984bc57d7fe.ngc, addsb_11_0_54016f0ef265e108.ngc, addsb_11_0_4e690c7319f88317.ngc, addsb_11_0_207af5592d35f318.ngc, addsb_11_0_1b61f65437a70fbd.ngc

@@ -1,0 +1,9 @@
+elfcheck
+Xilinx EDK 14.4 Build EDK_P.49d
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: elfcheck -hw ../../wlan_xps_v32_hw_platform/system.xml -pe mb_high
+wmp_high.elf 
+
+ELF file	: wmp_high.elf
+elfcheck passed.
