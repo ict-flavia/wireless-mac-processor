@@ -1,0 +1,1432 @@
+
+# Mango 802.11 Reference Design
+# XPS Hardware Specification (system.mhs)
+# Copyright 2014 Mango Communications
+# Distributed under the Mango Research License:
+# http://mangocomm.com/802.11/license
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT reset_pb = reset_pb, DIR = I, SIGIS = RST, RST_POLARITY = 1
+# USERIO
+ PORT userio_pb_d = userio_pb_d, DIR = I
+ PORT userio_pb_m = userio_pb_m, DIR = I
+ PORT userio_pb_u = userio_pb_u, DIR = I
+ PORT userio_leds_green = userio_leds_green, DIR = O, VEC = [3:0]
+ PORT userio_leds_red = userio_leds_red, DIR = O, VEC = [3:0]
+# PORT userio_dipsw = userio_dipsw, DIR = I, VEC = [0:3]
+ PORT userio_dipsw = userio_dipsw_b0 & userio_dipsw_b1 & userio_dipsw_b2 & userio_dipsw_b3, DIR = I, VEC = [0:3]
+ PORT userio_hexdisp_left = userio_hexdisp_left, DIR = O, VEC = [6:0]
+ PORT userio_hexdisp_right = userio_hexdisp_right, DIR = O, VEC = [6:0]
+ PORT userio_hexdisp_left_dp = userio_hexdisp_left_dp, DIR = O
+ PORT userio_hexdisp_right_dp = userio_hexdisp_right_dp, DIR = O
+ PORT userio_rfa_led_red = userio_rfa_led_red, DIR = O
+ PORT userio_rfa_led_green = userio_rfa_led_green, DIR = O
+ PORT userio_rfb_led_red = userio_rfb_led_red, DIR = O
+ PORT userio_rfb_led_green = userio_rfb_led_green, DIR = O
+# Ethernet pins
+ PORT ETH_COMA = net_gnd, DIR = O
+# ETH_A
+ PORT ETH_A_PHY_RST_N = ETH_A_PHY_RST_N, DIR = O
+ PORT ETH_A_MDIO = ETH_A_MDIO, DIR = IO
+ PORT ETH_A_MDC = ETH_A_MDC, DIR = O
+ PORT ETH_A_RGMII_TXC = ETH_A_RGMII_TXC, DIR = O
+ PORT ETH_A_RGMII_TX_CTL = ETH_A_RGMII_TX_CTL, DIR = O
+ PORT ETH_A_RGMII_TXD = ETH_A_RGMII_TXD, DIR = O, VEC = [3:0]
+ PORT ETH_A_RGMII_RXC = ETH_A_RGMII_RXC, DIR = I
+ PORT ETH_A_RGMII_RX_CTL = ETH_A_RGMII_RX_CTL, DIR = I
+ PORT ETH_A_RGMII_RXD = ETH_A_RGMII_RXD, DIR = I, VEC = [3:0]
+ PORT ETH_A_PD = net_gnd, DIR = O
+# ETH_B
+ PORT ETH_B_MDIO = ETH_B_MDIO, DIR = IO
+ PORT ETH_B_MDC = ETH_B_MDC, DIR = O
+ PORT ETH_B_RGMII_TXC = ETH_B_RGMII_TXC, DIR = O
+ PORT ETH_B_RGMII_TX_CTL = ETH_B_RGMII_TX_CTL, DIR = O
+ PORT ETH_B_RGMII_TXD = ETH_B_RGMII_TXD, DIR = O, VEC = [3:0]
+ PORT ETH_B_RGMII_RXC = ETH_B_RGMII_RXC, DIR = I
+ PORT ETH_B_RGMII_RX_CTL = ETH_B_RGMII_RX_CTL, DIR = I
+ PORT ETH_B_RGMII_RXD = ETH_B_RGMII_RXD, DIR = I, VEC = [3:0]
+ PORT ETH_B_PD = net_gnd, DIR = O
+# USB UART
+ PORT usb_uart_rx = usb_uart_rx, DIR = I
+ PORT usb_uart_tx = usb_uart_tx, DIR = O
+# AD9512 clock buffer control pins (RF reference & sampling clocks)
+ PORT clk_rfref_spi_cs_n_pin = clk_rfref_spi_cs_n, DIR = O
+ PORT clk_rfref_spi_mosi_pin = clk_rfref_spi_mosi, DIR = O
+ PORT clk_rfref_spi_sclk_pin = clk_rfref_spi_sclk, DIR = O
+ PORT clk_rfref_spi_miso_pin = clk_rfref_spi_miso, DIR = I
+ PORT clk_rfref_func_pin = net_vcc, DIR = O
+ PORT clk_samp_spi_cs_n_pin = clk_samp_spi_cs_n, DIR = O
+ PORT clk_samp_spi_mosi_pin = clk_samp_spi_mosi, DIR = O
+ PORT clk_samp_spi_sclk_pin = clk_samp_spi_sclk, DIR = O
+ PORT clk_samp_spi_miso_pin = clk_samp_spi_miso, DIR = I
+ PORT clk_samp_func_pin = net_vcc, DIR = O
+# IIC EEPROM pins on-board
+ PORT iic_eeprom_onboard_scl_pin = iic_eeprom_onboard_scl_pin, DIR = IO
+ PORT iic_eeprom_onboard_sda_pin = iic_eeprom_onboard_sda_pin, DIR = IO
+# Switches on CM-MMCX for clock src selection (ok if CM-MMCX is not installed)
+ PORT cm_mmcx_sw = cm_mmcx_sw, DIR = I, VEC = [0:1]
+# 80MHz sampling clock from AD9512
+ PORT samp_clk_p_pin = ad_refclk_in, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 80000000
+ PORT samp_clk_n_pin = ad_refclk_in, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 80000000
+# 200MHz LVDS oscillator input
+ PORT osc200_p_pin = osc200_in, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 200000000
+ PORT osc200_n_pin = osc200_in, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 200000000
+# AD9963 ADC/DAC control pins (RFA & RFB)
+ PORT RFA_AD_spi_cs_n_pin = RFA_AD_spi_cs_n, DIR = O
+ PORT RFA_AD_spi_sdio = RFA_AD_spi_sdio, DIR = IO
+ PORT RFA_AD_spi_sclk_pin = RFA_AD_spi_sclk, DIR = O
+ PORT RFA_AD_reset_n_pin = RFA_AD_reset_n, DIR = O
+ PORT RFB_AD_spi_cs_n_pin = RFB_AD_spi_cs_n, DIR = O
+ PORT RFB_AD_spi_sdio = RFB_AD_spi_sdio, DIR = IO
+ PORT RFB_AD_spi_sclk_pin = RFB_AD_spi_sclk, DIR = O
+ PORT RFB_AD_reset_n_pin = RFB_AD_reset_n, DIR = O
+# RFA AD pins
+ PORT RFA_AD_TRXD = rfa_trxd, DIR = I, VEC = [11:0]
+ PORT RFA_AD_TRXCLK = rfa_trxclk, DIR = I
+ PORT RFA_AD_TRXIQ = rfa_trxiq, DIR = I
+ PORT RFA_AD_TXD = rfa_txd, DIR = O, VEC = [11:0]
+ PORT RFA_AD_TXIQ = rfa_txiq, DIR = O
+ PORT RFA_AD_TXCLK = rfa_txclk, DIR = O
+# RFB AD pins
+ PORT RFB_AD_TRXD = rfb_trxd, DIR = I, VEC = [11:0]
+ PORT RFB_AD_TRXCLK = rfb_trxclk, DIR = I
+ PORT RFB_AD_TRXIQ = rfb_trxiq, DIR = I
+ PORT RFB_AD_TXD = rfb_txd, DIR = O, VEC = [11:0]
+ PORT RFB_AD_TXIQ = rfb_txiq, DIR = O
+ PORT RFB_AD_TXCLK = rfb_txclk, DIR = O
+# RSSI ADC pins
+ PORT RFA_RSSI_D = RFA_RSSI_D, DIR = I, VEC = [9:0]
+ PORT RFB_RSSI_D = RFB_RSSI_D, DIR = I, VEC = [9:0]
+ PORT RF_RSSI_CLK = wlan_rssi_clk, DIR = O
+ PORT RF_RSSI_PD = net_gnd, DIR = O
+# RFA transceiver and front-end
+ PORT RFA_TxEn_pin = RFA_TxEn, DIR = O
+ PORT RFA_RxEn_pin = RFA_RxEn, DIR = O
+ PORT RFA_RxHP_pin = RFA_RxHP, DIR = O
+ PORT RFA_SHDN_pin = RFA_SHDN, DIR = O
+ PORT RFA_SPI_SCLK_pin = RFA_SPI_SCLK, DIR = O
+ PORT RFA_SPI_MOSI_pin = RFA_SPI_MOSI, DIR = O
+ PORT RFA_SPI_CSn_pin = RFA_SPI_CSn, DIR = O
+ PORT RFA_B_pin = RFA_B, DIR = O, VEC = [0:6]
+ PORT RFA_LD_pin = RFA_LD, DIR = I
+ PORT RFA_PAEn_24_pin = RFA_PAEn_24, DIR = O
+ PORT RFA_PAEn_5_pin = RFA_PAEn_5, DIR = O
+ PORT RFA_AntSw_pin = RFA_AntSw, DIR = O, VEC = [0:1]
+# RFB transceiver and front-end
+ PORT RFB_TxEn_pin = RFB_TxEn, DIR = O
+ PORT RFB_RxEn_pin = RFB_RxEn, DIR = O
+ PORT RFB_RxHP_pin = RFB_RxHP, DIR = O
+ PORT RFB_SHDN_pin = RFB_SHDN, DIR = O
+ PORT RFB_SPI_SCLK_pin = RFB_SPI_SCLK, DIR = O
+ PORT RFB_SPI_MOSI_pin = RFB_SPI_MOSI, DIR = O
+ PORT RFB_SPI_CSn_pin = RFB_SPI_CSn, DIR = O
+ PORT RFB_B_pin = RFB_B, DIR = O, VEC = [0:6]
+ PORT RFB_LD_pin = RFB_LD, DIR = I
+ PORT RFB_PAEn_24_pin = RFB_PAEn_24, DIR = O
+ PORT RFB_PAEn_5_pin = RFB_PAEn_5, DIR = O
+ PORT RFB_AntSw_pin = RFB_AntSw, DIR = O, VEC = [0:1]
+# DDR3 SODIMM
+ PORT ddr3_sodimm_ck_p = ddr3_sodimm_ck_p, DIR = O, SIGIS = CLK, VEC = [1:0]
+ PORT ddr3_sodimm_ck_n = ddr3_sodimm_ck_n, DIR = O, SIGIS = CLK, VEC = [1:0]
+ PORT ddr3_sodimm_cke = ddr3_sodimm_cke, DIR = O
+ PORT ddr3_sodimm_cs_n = ddr3_sodimm_cs_n, DIR = O
+ PORT ddr3_sodimm_odt = ddr3_sodimm_odt, DIR = O
+ PORT ddr3_sodimm_ras_n = ddr3_sodimm_ras_n, DIR = O
+ PORT ddr3_sodimm_cas_n = ddr3_sodimm_cas_n, DIR = O
+ PORT ddr3_sodimm_we_n = ddr3_sodimm_we_n, DIR = O
+ PORT ddr3_sodimm_ba = ddr3_sodimm_ba, DIR = O, VEC = [2:0]
+ PORT ddr3_sodimm_addr = ddr3_sodimm_addr, DIR = O, VEC = [14:0]
+ PORT ddr3_sodimm_dq = ddr3_sodimm_dq, DIR = IO, VEC = [63:0]
+ PORT ddr3_sodimm_dm = ddr3_sodimm_dm, DIR = O, VEC = [7:0]
+ PORT ddr3_sodimm_reset_n = ddr3_sodimm_reset_n, DIR = O
+ PORT ddr3_sodimm_dqs_p = ddr3_sodimm_dqs_p, DIR = IO, VEC = [7:0]
+ PORT ddr3_sodimm_dqs_n = ddr3_sodimm_dqs_n, DIR = IO, VEC = [7:0]
+# Debug pins
+ PORT debughdr = dbg_gpio_b2 & dbg_gpio_b1 & dbg_gpio_b0 & mac_nav_active & mac_backoff_active & mac_idle_for_difs & dbg_mpdu_tx_pending & dbg_rssi_det & mac_phy_rx_fcs_good_ind & dbg_lts_timeout & dbg_pkt_det_dsss & dbg_pkt_det_ofdm & dbg_dsss_rx_active & dbg_ofdm_rx_active & dbg_tx_running, DIR = O, VEC = [14:0]
+ PORT wlan_phy_rx_pkt_det_in_pin = net_wlan_phy_rx_pkt_det_in_pin, DIR = I
+
+
+BEGIN wlan_phy_tx_pmd_axiw
+ PARAMETER INSTANCE = wlan_phy_tx
+ PARAMETER HW_VER = 2.01.c
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_BASEADDR = 0x78e00000
+ PARAMETER C_HIGHADDR = 0x78e0ffff
+ BUS_INTERFACE PORTB = WLAN_TX_PKT_BUF_PORTB
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT axi_aclk = clk_160MHz
+ PORT sysgen_clk = clk_160MHz
+ PORT dac_tx_clk = clk_20MHz
+ PORT rfa_dac_i = RFA_TX_I
+ PORT rfa_dac_q = RFA_TX_Q
+ PORT rfb_dac_i = RFB_TX_I
+ PORT rfb_dac_q = RFB_TX_Q
+ PORT rx_sigs_invalid = rx_sigs_invalid
+# RC -> PHY start
+ PORT RC_PHY_START = tx_phy_start
+# PHY -> RC state ctrl
+ PORT rc_usr_rxen = rc_usr_rxen
+ PORT rc_usr_txen_a = phy_rc_txen_a
+ PORT rc_usr_txen_b = phy_rc_txen_b
+ PORT rc_tx_gain_a = phy_rc_tx_gain_a
+ PORT rc_tx_gain_b = phy_rc_tx_gain_b
+# MAC <-> Tx PHY ports
+ PORT phy_tx_gain_a = mac_phy_tx_gain_a
+ PORT phy_tx_gain_b = mac_phy_tx_gain_b
+ PORT phy_tx_pkt_buf = mac_phy_tx_pkt_buf
+ PORT phy_tx_start = mac_phy_tx_start
+ PORT phy_tx_done = mac_phy_tx_done
+ PORT phy_tx_started = mac_phy_tx_started
+ PORT phy_tx_ant_mask = mac_phy_tx_ant_mask
+ PORT mac_timestamp_lsb = mac_tx_start_timestamp_lsb
+ PORT mac_timestamp_msb = mac_tx_start_timestamp_msb
+# Debug ports
+ PORT dbg_tx_running = dbg_tx_running
+END
+
+BEGIN wlan_phy_rx_pmd_axiw
+ PARAMETER INSTANCE = wlan_phy_rx
+ PARAMETER HW_VER = 2.04.i
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_BASEADDR = 0x78e20000
+ PARAMETER C_HIGHADDR = 0x78e2ffff
+ BUS_INTERFACE PORTB = WLAN_RX_PKT_BUF_PORTB
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT axi_aclk = clk_160MHz
+ PORT sysgen_clk = clk_160MHz
+ PORT pkt_det_in = net_wlan_phy_rx_pkt_det_in_pin
+ PORT rx_sigs_invalid = rx_sigs_invalid
+ PORT adc_rx_clk = agc_iq_valid_out
+ PORT rfa_rx_i = agc_rfa_i
+ PORT rfa_rx_q = agc_rfa_q
+ PORT rfa_rssi = RFA_RSSI_D
+ PORT rfb_rx_i = agc_rfb_i
+ PORT rfb_rx_q = agc_rfb_q
+ PORT rfb_rssi = RFB_RSSI_D
+ PORT rssi_adc_clk = wlan_rssi_clk
+ PORT pkt_det_o = phy_rx_pkt_det
+ PORT rfa_g_rf = agc_rfa_g_rf
+ PORT rfa_g_bb = agc_rfa_g_bb
+ PORT rfb_g_rf = agc_rfb_g_rf
+ PORT rfb_g_bb = agc_rfb_g_bb
+ PORT agc_done = agc_done
+ PORT phy_rx_block_pktdet = phy_rx_block_pktdet
+# MAC <-> PHY ports
+ PORT phy_cca_ind_busy = mac_phy_cca_ind_busy
+ PORT phy_rx_data_byte = mac_phy_rx_data_byte
+ PORT phy_rx_data_bytenum = mac_phy_rx_data_bytenum
+ PORT phy_rx_data_done_ind = mac_phy_rx_data_done_ind
+ PORT phy_rx_data_ind = mac_phy_rx_data_ind
+ PORT phy_rx_end_ind = mac_phy_rx_end_ind
+ PORT phy_rx_end_rxerror = mac_phy_rx_end_rxerror
+ PORT phy_rx_fcs_good_ind = mac_phy_rx_fcs_good_ind
+ PORT phy_rx_start_ind = mac_phy_rx_start_ind
+ PORT phy_rx_start_sig_length = mac_phy_rx_start_sig_length
+ PORT phy_rx_start_sig_rate = phy_rx_start_sig_rate
+ PORT phy_rx_start_phy_sel = phy_rx_start_phy_sel
+# Debug ports
+ PORT dbg_dsss_rx_active = dbg_dsss_rx_active
+ PORT dbg_lts_timeout = dbg_lts_timeout
+ PORT dbg_pkt_det_dsss = dbg_pkt_det_dsss
+ PORT dbg_pkt_det_ofdm = dbg_pkt_det_ofdm
+ PORT dbg_payload = dbg_ofdm_rx_active
+ PORT dbg_rssi_det = dbg_rssi_det
+ PORT dbg_gpio = phy_dbg_gpio_b0 & phy_dbg_gpio_b1 & phy_dbg_gpio_b2 & phy_dbg_gpio_b3
+ PORT dbg_signal_err_disp = dbg_signal_err_disp
+END
+
+BEGIN wlan_mac_dcf_hw_axiw
+ PARAMETER INSTANCE = wlan_mac_dcf_hw
+ PARAMETER HW_VER = 1.01.f
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_BASEADDR = 0x7be00000
+ PARAMETER C_HIGHADDR = 0x7be0ffff
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT axi_aclk = clk_160MHz
+ PORT sysgen_clk = clk_160MHz
+ PORT phy_cca_ind_busy = mac_phy_cca_ind_busy
+ PORT phy_rx_data_byte = mac_phy_rx_data_byte
+ PORT phy_rx_data_bytenum = mac_phy_rx_data_bytenum
+ PORT phy_rx_data_done_ind = mac_phy_rx_data_done_ind
+ PORT phy_rx_data_ind = mac_phy_rx_data_ind
+ PORT phy_rx_end_ind = mac_phy_rx_end_ind
+ PORT phy_rx_end_rxerror = mac_phy_rx_end_rxerror
+ PORT phy_rx_fcs_good_ind = mac_phy_rx_fcs_good_ind
+ PORT phy_rx_start_ind = mac_phy_rx_start_ind
+ PORT phy_rx_start_sig_length = mac_phy_rx_start_sig_length
+ PORT phy_tx_done = mac_phy_tx_done
+ PORT phy_tx_started = mac_phy_tx_started
+ PORT phy_tx_pkt_buf = mac_phy_tx_pkt_buf
+ PORT phy_tx_start = mac_phy_tx_start
+ PORT phy_tx_gain_a = mac_phy_tx_gain_a
+ PORT phy_tx_gain_b = mac_phy_tx_gain_b
+ PORT phy_tx_ant_mask = mac_phy_tx_ant_mask
+ PORT phy_rx_start_sig_rate = phy_rx_start_sig_rate
+ PORT phy_rx_start_phy_sel = phy_rx_start_phy_sel
+ PORT phy_rx_block_pktdet = phy_rx_block_pktdet
+ PORT timestamp_lsb = mac_hw_timestamp_lsb
+ PORT timestamp_msb = mac_hw_timestamp_msb
+ PORT tx_start_timestamp_lsb = mac_tx_start_timestamp_lsb
+ PORT tx_start_timestamp_msb = mac_tx_start_timestamp_msb
+ PORT dbg_backoff_active = mac_backoff_active
+ PORT dbg_idle_for_difs = mac_idle_for_difs
+ PORT dbg_nav_active = mac_nav_active
+ PORT dbg_mpdu_tx_pending = dbg_mpdu_tx_pending
+END
+
+BEGIN wlan_agc_axiw
+ PARAMETER INSTANCE = wlan_agc
+ PARAMETER HW_VER = 1.00.n
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_BASEADDR = 0x7ea00000
+ PARAMETER C_HIGHADDR = 0x7ea0ffff
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT axi_aclk = clk_160MHz
+ PORT sysgen_clk = clk_160MHz
+ PORT agc_run = phy_rx_pkt_det
+ PORT agc_done = agc_done
+# IQ Inputs from radio
+ PORT adc_rx_clk = clk_20MHz
+ PORT rfa_rssi = RFA_RSSI_D
+ PORT rfa_rx_i_in = RFA_RX_I
+ PORT rfa_rx_q_in = RFA_RX_Q
+ PORT rfb_rssi = RFB_RSSI_D
+ PORT rfb_rx_i_in = RFB_RX_I
+ PORT rfb_rx_q_in = RFB_RX_Q
+# DCO-corrected IQ outputs
+ PORT iq_valid_out = agc_iq_valid_out
+ PORT rfa_rx_i_out = agc_rfa_i
+ PORT rfa_rx_q_out = agc_rfa_q
+ PORT rfb_rx_i_out = agc_rfb_i
+ PORT rfb_rx_q_out = agc_rfb_q
+# Gain outputs
+ PORT rfa_agc_g_bb = agc_rfa_g_bb
+ PORT rfa_agc_g_rf = agc_rfa_g_rf
+ PORT rfa_agc_rxhp = agc_rfa_rxhp
+ PORT rfb_agc_g_bb = agc_rfb_g_bb
+ PORT rfb_agc_g_rf = agc_rfb_g_rf
+ PORT rfb_agc_rxhp = agc_rfb_rxhp
+END
+
+BEGIN w3_iic_eeprom_axi
+ PARAMETER INSTANCE = w3_iic_eeprom_onBoard
+ PARAMETER HW_VER = 1.00.b
+ PARAMETER C_BASEADDR = 0x70400000
+ PARAMETER C_HIGHADDR = 0x7040ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT iic_scl = iic_eeprom_onboard_scl_pin
+ PORT iic_sda = iic_eeprom_onboard_sda_pin
+END
+
+BEGIN w3_clock_controller_axi
+ PARAMETER INSTANCE = w3_clock_controller_0
+ PARAMETER HW_VER = 3.01.b
+ PARAMETER C_DPHASE_TIMEOUT = 0
+ PARAMETER C_BASEADDR = 0x70420000
+ PARAMETER C_HIGHADDR = 0x7042ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT rfref_spi_cs_n = clk_rfref_spi_cs_n
+ PORT samp_spi_cs_n = clk_samp_spi_cs_n
+ PORT samp_spi_mosi = clk_samp_spi_mosi
+ PORT rfref_spi_mosi = clk_rfref_spi_mosi
+ PORT samp_spi_sclk = clk_samp_spi_sclk
+ PORT rfref_spi_sclk = clk_rfref_spi_sclk
+ PORT samp_spi_miso = clk_samp_spi_miso
+ PORT rfref_spi_miso = clk_rfref_spi_miso
+ PORT usr_status = net_gnd
+ PORT at_boot_clk_in = clk_200MHz
+ PORT at_boot_clk_in_valid = clk_gen_async_clks_locked
+ PORT at_boot_config_sw = cm_mmcx_sw
+ PORT at_boot_clkbuf_clocks_invalid = mmcm_inputs_invalid
+END
+
+BEGIN w3_ad_controller_axi
+ PARAMETER INSTANCE = w3_ad_controller_0
+ PARAMETER HW_VER = 3.02.a
+ PARAMETER C_BASEADDR = 0x76000000
+ PARAMETER C_HIGHADDR = 0x7600ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER INCLUDE_RFC_RFD_IO = 0
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT RF_AD_TXCLK_out_en = RF_AD_TXCLK_out_en
+ PORT RFA_AD_spi_cs_n = RFA_AD_spi_cs_n
+ PORT RFA_AD_spi_sdio = RFA_AD_spi_sdio
+ PORT RFA_AD_spi_sclk = RFA_AD_spi_sclk
+ PORT RFA_AD_reset_n = RFA_AD_reset_n
+ PORT RFB_AD_spi_cs_n = RFB_AD_spi_cs_n
+ PORT RFB_AD_spi_sdio = RFB_AD_spi_sdio
+ PORT RFB_AD_spi_sclk = RFB_AD_spi_sclk
+ PORT RFB_AD_reset_n = RFB_AD_reset_n
+END
+
+BEGIN w3_ad_bridge
+ PARAMETER INSTANCE = ad_bridge_onBoard
+ PARAMETER HW_VER = 3.01.e
+# Clock ports (inputs to w3_ad_bridge)
+ PORT sys_samp_clk_Tx = clk_20MHz
+ PORT sys_samp_clk_Tx_90 = clk_20MHz_90degphase
+ PORT sys_samp_clk_Rx = clk_20MHz
+ PORT ad_TXCLK_out_en = RF_AD_TXCLK_out_en
+# Top-level AD9963 ports
+ PORT ad_RFA_TXD = rfa_txd
+ PORT ad_RFA_TXCLK = rfa_txclk
+ PORT ad_RFA_TXIQ = rfa_txiq
+ PORT ad_RFA_TRXD = rfa_trxd
+ PORT ad_RFA_TRXCLK = rfa_trxclk
+ PORT ad_RFA_TRXIQ = rfa_trxiq
+ PORT ad_RFB_TXD = rfb_txd
+ PORT ad_RFB_TXCLK = rfb_txclk
+ PORT ad_RFB_TXIQ = rfb_txiq
+ PORT ad_RFB_TRXD = rfb_trxd
+ PORT ad_RFB_TRXCLK = rfb_trxclk
+ PORT ad_RFB_TRXIQ = rfb_trxiq
+ PORT user_RFA_TXD_I = RFA_TX_I
+ PORT user_RFA_TXD_Q = RFA_TX_Q
+ PORT user_RFA_RXD_I = RFA_RX_I
+ PORT user_RFA_RXD_Q = RFA_RX_Q
+ PORT user_RFB_TXD_I = RFB_TX_I
+ PORT user_RFB_TXD_Q = RFB_TX_Q
+ PORT user_RFB_RXD_I = RFB_RX_I
+ PORT user_RFB_RXD_Q = RFB_RX_Q
+END
+
+BEGIN uart_mux
+ PARAMETER INSTANCE = usb_uart_mux
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER MIRROR_UART_RX = 0
+ PORT uart_sel = userio_dipsw_b3
+ PORT uart_tx = usb_uart_tx
+ PORT uart_rx = usb_uart_rx
+ PORT uart_0_tx = mb_low_uart_TX
+ PORT uart_0_rx = mb_low_uart_RX
+ PORT uart_1_tx = mb_high_uart_TX
+ PORT uart_1_rx = mb_high_uart_RX
+END
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = sys_reset
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 1
+ PORT MB_Debug_Sys_Rst = sys_reset_debug_rst
+ PORT Dcm_locked = clk_gen_all_locked
+ PORT MB_Reset = sys_reset_MB_Reset
+ PORT Slowest_sync_clk = clk_20MHz
+ PORT Interconnect_aresetn = sys_reset_Interconnect_aresetn
+ PORT Ext_Reset_In = reset_pb
+ PORT BUS_STRUCT_RESET = sys_reset_BUS_STRUCT_RESET
+END
+
+BEGIN radio_controller_axi
+ PARAMETER INSTANCE = radio_controller_0
+ PARAMETER HW_VER = 3.01.a
+ PARAMETER C_BASEADDR = 0x7ac00000
+ PARAMETER C_HIGHADDR = 0x7ac0ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT RFA_TxEn = RFA_TxEn
+ PORT RFA_RxEn = RFA_RxEn
+ PORT RFA_RxHP = RFA_RxHP
+ PORT RFA_SHDN = RFA_SHDN
+ PORT RFA_SPI_SCLK = RFA_SPI_SCLK
+ PORT RFA_SPI_MOSI = RFA_SPI_MOSI
+ PORT RFA_SPI_CSn = RFA_SPI_CSn
+ PORT RFA_B = RFA_B
+ PORT RFA_LD = RFA_LD
+ PORT RFA_PAEn_24 = RFA_PAEn_24
+ PORT RFA_PAEn_5 = RFA_PAEn_5
+ PORT RFA_AntSw = RFA_AntSw
+ PORT RFB_TxEn = RFB_TxEn
+ PORT RFB_RxEn = RFB_RxEn
+ PORT RFB_RxHP = RFB_RxHP
+ PORT RFB_SHDN = RFB_SHDN
+ PORT RFB_SPI_SCLK = RFB_SPI_SCLK
+ PORT RFB_SPI_MOSI = RFB_SPI_MOSI
+ PORT RFB_SPI_CSn = RFB_SPI_CSn
+ PORT RFB_B = RFB_B
+ PORT RFB_LD = RFB_LD
+ PORT RFB_PAEn_24 = RFB_PAEn_24
+ PORT RFB_PAEn_5 = RFB_PAEn_5
+ PORT RFB_AntSw = RFB_AntSw
+ PORT usr_RFA_statLED_Tx = RFA_statLED_Tx
+ PORT usr_RFA_statLED_Rx = RFA_statLED_Rx
+ PORT usr_RFB_statLED_Tx = RFB_statLED_Tx
+ PORT usr_RFB_statLED_Rx = RFB_statLED_Rx
+# Inter-core ports for hardware radio control
+ PORT usr_any_PHYStart = tx_phy_start
+ PORT usr_RFA_TxEn = phy_rc_txen_a
+ PORT usr_RFA_RxEn = rc_usr_rxen
+ PORT usr_RFA_RxHP = agc_rfa_rxhp
+ PORT usr_RFA_RxGainBB = agc_rfa_g_bb
+ PORT usr_RFA_RxGainRF = agc_rfa_g_rf
+ PORT usr_RFA_TxGain = phy_rc_tx_gain_a
+ PORT usr_RFB_TxEn = phy_rc_txen_b
+ PORT usr_RFB_RxEn = rc_usr_rxen
+ PORT usr_RFB_RxHP = agc_rfb_rxhp
+ PORT usr_RFB_RxGainBB = agc_rfb_g_bb
+ PORT usr_RFB_RxGainRF = agc_rfb_g_rf
+ PORT usr_RFB_TxGain = phy_rc_tx_gain_b
+END
+
+BEGIN mutex
+ PARAMETER INSTANCE = pkt_buffer_mutex
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_NUM_PLB = 0
+ PARAMETER C_NUM_AXI = 2
+ PARAMETER C_NUM_MUTEX = 32
+ PARAMETER C_ENABLE_USER = 1
+ PARAMETER C_ENABLE_HW_PROT = 1
+ PARAMETER C_INTERCONNECT_S0_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_B_REGISTER = 8
+ PARAMETER C_S0_AXI_BASEADDR = 0x43400000
+ PARAMETER C_S0_AXI_HIGHADDR = 0x4340ffff
+ PARAMETER C_S1_AXI_BASEADDR = 0x7b000000
+ PARAMETER C_S1_AXI_HIGHADDR = 0x7b00ffff
+ PARAMETER C_INTERCONNECT_S1_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_B_REGISTER = 7
+ BUS_INTERFACE S0_AXI = mb_high_axi_periph
+ BUS_INTERFACE S1_AXI = mb_low_axi_periph
+ PORT S0_AXI_ACLK = clk_160MHz
+ PORT S1_AXI_ACLK = clk_160MHz
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = pkt_buffer_TX_bram
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = PKT_BUFF_TX_CTRL_PORTA
+ BUS_INTERFACE PORTB = WLAN_TX_PKT_BUF_PORTB
+ PORT BRAM_Clk_B = clk_160MHz
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = pkt_buffer_RX_bram
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = PKT_BUFF_RX_CTRL_PORTA
+ BUS_INTERFACE PORTB = WLAN_RX_PKT_BUF_PORTB
+ PORT BRAM_Clk_B = clk_160MHz
+END
+
+BEGIN axi_bram_ctrl
+ PARAMETER INSTANCE = pkt_buff_TX_bram_ctrl
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_SINGLE_PORT_BRAM = 1
+ PARAMETER C_S_AXI_DATA_WIDTH = 64
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_high.M_AXI_DC & mb_low.M_AXI_DC & axi_cdma_0.M_AXI
+ PARAMETER C_S_AXI_BASEADDR = 0xbf570000
+ PARAMETER C_S_AXI_HIGHADDR = 0xbf577fff
+ BUS_INTERFACE BRAM_PORTA = PKT_BUFF_TX_CTRL_PORTA
+ BUS_INTERFACE S_AXI = mb_shared_axi
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN axi_bram_ctrl
+ PARAMETER INSTANCE = pkt_buff_RX_bram_ctrl
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_SINGLE_PORT_BRAM = 1
+ PARAMETER C_S_AXI_DATA_WIDTH = 64
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_low.M_AXI_DC & mb_high.M_AXI_DC & axi_cdma_0.M_AXI & mb_high_eth_dma.M_AXI_MM2S
+ PARAMETER C_S_AXI_BASEADDR = 0xbf560000
+ PARAMETER C_S_AXI_HIGHADDR = 0xbf567fff
+ BUS_INTERFACE BRAM_PORTA = PKT_BUFF_RX_CTRL_PORTA
+ BUS_INTERFACE S_AXI = mb_shared_axi
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN axi_bram_ctrl
+ PARAMETER INSTANCE = mb_high_init_bram_ctrl
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_S_AXI_BASEADDR = 0x50000000
+ PARAMETER C_S_AXI_HIGHADDR = 0x50000FFF
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ BUS_INTERFACE BRAM_PORTA = INIT_BRAM_CTRL_PORT_A
+ BUS_INTERFACE BRAM_PORTB = INIT_BRAM_CTRL_PORT_B
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = mb_high_init_bram
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = INIT_BRAM_CTRL_PORT_A
+ BUS_INTERFACE PORTB = INIT_BRAM_CTRL_PORT_B
+END
+
+# #####################
+# Shared Cores
+# #####################
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = mb_shared_axi
+ PARAMETER HW_VER = 1.06.a
+ PORT INTERCONNECT_ACLK = clk_160MHz
+ PORT INTERCONNECT_ARESETN = sys_reset_Interconnect_aresetn
+END
+
+BEGIN mailbox
+ PARAMETER INSTANCE = mb_mailbox
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_INTERCONNECT_PORT_0 = 2
+ PARAMETER C_INTERCONNECT_PORT_1 = 2
+ PARAMETER C_IMPL_STYLE = 1
+ PARAMETER C_MAILBOX_DEPTH = 64
+ PARAMETER C_S0_AXI_BASEADDR = 0x43600000
+ PARAMETER C_S0_AXI_HIGHADDR = 0x4360ffff
+ PARAMETER C_S1_AXI_BASEADDR = 0x43800000
+ PARAMETER C_S1_AXI_HIGHADDR = 0x4380ffff
+ PARAMETER C_INTERCONNECT_S0_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S0_AXI_B_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S1_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S1_AXI_B_REGISTER = 7
+ BUS_INTERFACE S0_AXI = mb_high_axi_periph
+ BUS_INTERFACE S1_AXI = mb_low_axi_periph
+ PORT S0_AXI_ACLK = clk_160MHz
+ PORT S1_AXI_ACLK = clk_160MHz
+ PORT Interrupt_0 = mb_mailbox_Interrupt_0
+END
+
+BEGIN axi_uartlite
+ PARAMETER INSTANCE = mb_low_uart
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BAUDRATE = 115200
+ PARAMETER C_BASEADDR = 0x40600000
+ PARAMETER C_HIGHADDR = 0x4060ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+# RX=input to uartartlite (PC -> FPGA)
+# TX=output from uartlite (FPGA -> PC)
+ PORT RX = mb_low_uart_RX
+ PORT TX = mb_low_uart_TX
+END
+
+BEGIN axi_timer
+ PARAMETER INSTANCE = mb_low_timer
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_BASEADDR = 0x41c00000
+ PARAMETER C_HIGHADDR = 0x41c0ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_low_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = mb_low_lmb_bram
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = mb_low_ilmb_bram_PORT
+ BUS_INTERFACE PORTB = mb_low_dlmb_bram_PORT
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_low_ilmb_bram_cntlr
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0000ffff
+ BUS_INTERFACE BRAM_PORT = mb_low_ilmb_bram_PORT
+ BUS_INTERFACE SLMB = mb_low_ilmb
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = mb_low_ilmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = sys_reset_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_160MHz
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_low_dlmb_bram_cntlr
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0000ffff
+ BUS_INTERFACE BRAM_PORT = mb_low_dlmb_bram_PORT
+ BUS_INTERFACE SLMB = mb_low_dlmb
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = mb_low_dlmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = sys_reset_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_160MHz
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = mb_low_axi_periph
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ACLK = clk_160MHz
+ PORT INTERCONNECT_ARESETN = sys_reset_Interconnect_aresetn
+END
+
+BEGIN microblaze
+ PARAMETER INSTANCE = mb_low
+ PARAMETER HW_VER = 8.40.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_DEBUG_ENABLED = 1
+ PARAMETER C_USE_DCACHE = 1
+ PARAMETER C_USE_ICACHE = 0
+# Little endian
+ PARAMETER C_ENDIANNESS = 1
+# MMU Settings
+ PARAMETER C_USE_MMU = 0
+ PARAMETER C_M_AXI_D_BUS_EXCEPTION = 1
+ PARAMETER C_ILL_OPCODE_EXCEPTION = 1
+ PARAMETER C_UNALIGNED_EXCEPTIONS = 1
+ PARAMETER C_OPCODE_0x0_ILLEGAL = 1
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_PVR = 2
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_DC_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_DC_B_REGISTER = 7
+ PARAMETER C_NUMBER_OF_PC_BRK = 4
+ PARAMETER C_NUMBER_OF_WR_ADDR_BRK = 2
+ PARAMETER C_NUMBER_OF_RD_ADDR_BRK = 2
+ PARAMETER C_CACHE_BYTE_SIZE = 64
+ PARAMETER C_DCACHE_BYTE_SIZE = 64
+ PARAMETER C_DCACHE_BASEADDR = 0x80000000
+ PARAMETER C_DCACHE_HIGHADDR = 0xffffffff
+ PARAMETER C_DCACHE_ALWAYS_USED = 1
+ PARAMETER C_USE_STACK_PROTECTION = 1
+ BUS_INTERFACE M_AXI_DC = mb_shared_axi
+ BUS_INTERFACE M_AXI_DP = mb_low_axi_periph
+ BUS_INTERFACE DEBUG = mb_low_debug
+ BUS_INTERFACE DLMB = mb_low_dlmb
+ BUS_INTERFACE ILMB = mb_low_ilmb
+ PORT MB_RESET = sys_reset_MB_Reset
+ PORT CLK = clk_160MHz
+ PORT INTERRUPT = net_gnd
+END
+
+BEGIN axi_uartlite
+ PARAMETER INSTANCE = mb_high_uart
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BAUDRATE = 115200
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_BASEADDR = 0x40600000
+ PARAMETER C_HIGHADDR = 0x4060ffff
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+# RX=input to uartartlite (PC -> FPGA)
+# TX=output from uartlite (FPGA -> PC)
+ PORT RX = mb_high_uart_RX
+ PORT TX = mb_high_uart_TX
+ PORT Interrupt = mb_high_uart_Interrupt
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = mb_high_timestamp_gpio
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_IS_DUAL = 1
+ PARAMETER C_ALL_INPUTS = 1
+ PARAMETER C_ALL_INPUTS_2 = 1
+ PARAMETER C_BASEADDR = 0x40000000
+ PARAMETER C_HIGHADDR = 0x4000ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ PORT GPIO_IO_I = mac_hw_timestamp_lsb
+ PORT GPIO2_IO_I = mac_hw_timestamp_msb
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN axi_timer
+ PARAMETER INSTANCE = mb_high_timer
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_BASEADDR = 0x41c00000
+ PARAMETER C_HIGHADDR = 0x41c0ffff
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT Interrupt = mb_high_timer_Interrupt
+END
+
+BEGIN axi_intc
+ PARAMETER INSTANCE = mb_high_intc
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_BASEADDR = 0x41200000
+ PARAMETER C_HIGHADDR = 0x4120ffff
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ BUS_INTERFACE INTERRUPT = mb_high_interrupt
+ PORT Intr = ETH_B_MAC_INTERRUPT & mb_high_eth_dma_mm2s_introut & ETH_A_MAC_INTERRUPT & mb_high_sw_gpio_IP2INTC_Irpt & mb_high_eth_dma_s2mm_introut & mb_high_uart_Interrupt & axi_cdma_0_cdma_introut & ETH_B_FIFO_INTERRUPT & mb_high_timer_Interrupt & mb_mailbox_Interrupt_0
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN axi_dma
+ PARAMETER INSTANCE = mb_high_eth_dma
+ PARAMETER HW_VER = 6.03.a
+ PARAMETER C_SG_INCLUDE_DESC_QUEUE = 1
+ PARAMETER C_M_AXI_MM2S_DATA_WIDTH = 64
+ PARAMETER C_INCLUDE_MM2S_DRE = 1
+ PARAMETER C_M_AXI_S2MM_DATA_WIDTH = 64
+ PARAMETER C_INCLUDE_S2MM_DRE = 1
+ PARAMETER C_BASEADDR = 0x41e00000
+ PARAMETER C_HIGHADDR = 0x41e0ffff
+ PARAMETER C_INTERCONNECT_M_AXI_SG_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_SG_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_SG_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_SG_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_SG_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_MM2S_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_MM2S_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_MM2S_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_MM2S_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_MM2S_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_B_REGISTER = 8
+ BUS_INTERFACE S_AXI_LITE = mb_high_axi_periph
+ BUS_INTERFACE M_AXI_SG = mb_shared_axi
+ BUS_INTERFACE M_AXI_MM2S = mb_shared_axi
+ BUS_INTERFACE M_AXI_S2MM = mb_shared_axi
+ BUS_INTERFACE S_AXIS_S2MM = ETH_A_MAC_AXIS_RXD
+ BUS_INTERFACE S_AXIS_S2MM_STS = ETH_A_MAC_AXIS_RXS
+ BUS_INTERFACE M_AXIS_MM2S = ETH_A_MAC_AXIS_TXD
+ BUS_INTERFACE M_AXIS_MM2S_CNTRL = ETH_A_MAC_AXIS_TXC
+ PORT s_axi_lite_aclk = clk_160MHz
+ PORT m_axi_sg_aclk = clk_160MHz
+ PORT m_axi_mm2s_aclk = clk_160MHz
+ PORT m_axi_s2mm_aclk = clk_160MHz
+ PORT mm2s_introut = mb_high_eth_dma_mm2s_introut
+ PORT s2mm_introut = mb_high_eth_dma_s2mm_introut
+ PORT s_axis_s2mm_tuser = net_gnd
+ PORT s_axis_s2mm_tid = net_gnd
+ PORT s_axis_s2mm_tdest = net_gnd
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = mb_high_dlmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = sys_reset_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_160MHz
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = mb_high_ilmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = sys_reset_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_160MHz
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_high_dlmb_bram_cntlr_0
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0001FFFF
+ BUS_INTERFACE SLMB = mb_high_dlmb
+ BUS_INTERFACE BRAM_PORT = mb_high_dlmb_bram_cntlr_0_BRAM_PORT
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_high_ilmb_bram_cntlr_0
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0001FFFF
+ BUS_INTERFACE SLMB = mb_high_ilmb
+ BUS_INTERFACE BRAM_PORT = mb_high_ilmb_bram_cntlr_0_BRAM_PORT
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = mb_high_lmb_bram_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTB = mb_high_ilmb_bram_cntlr_0_BRAM_PORT
+ BUS_INTERFACE PORTA = mb_high_dlmb_bram_cntlr_0_BRAM_PORT
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_high_dlmb_bram_cntlr_1
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00020000
+ PARAMETER C_HIGHADDR = 0x0003FFFF
+ BUS_INTERFACE SLMB = mb_high_dlmb
+ BUS_INTERFACE BRAM_PORT = mb_high_dlmb_bram_cntlr_1_BRAM_PORT
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = mb_high_ilmb_bram_cntlr_1
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00020000
+ PARAMETER C_HIGHADDR = 0x0003FFFF
+ BUS_INTERFACE SLMB = mb_high_ilmb
+ BUS_INTERFACE BRAM_PORT = mb_high_ilmb_bram_cntlr_1_BRAM_PORT
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = mb_high_lmb_bram_1
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = mb_high_dlmb_bram_cntlr_1_BRAM_PORT
+ BUS_INTERFACE PORTB = mb_high_ilmb_bram_cntlr_1_BRAM_PORT
+END
+
+BEGIN axi_bram_ctrl
+ PARAMETER INSTANCE = mb_high_aux_bram_ctrl
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_S_AXI_DATA_WIDTH = 64
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_high.M_AXI_DC & axi_cdma_0.M_AXI & mb_high_eth_dma.M_AXI_SG & mb_high_eth_dma.M_AXI_MM2S & mb_high_eth_dma.M_AXI_S2MM
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_S_AXI_BASEADDR = 0xbf540000
+ PARAMETER C_S_AXI_HIGHADDR = 0xbf54ffff
+ BUS_INTERFACE BRAM_PORTA = MB_HIGH_AUX_BRAM_PORTA
+ BUS_INTERFACE BRAM_PORTB = MB_HIGH_AUX_BRAM_PORTB
+ BUS_INTERFACE S_AXI = mb_shared_axi
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = mb_high_aux_bram
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = MB_HIGH_AUX_BRAM_PORTA
+ BUS_INTERFACE PORTB = MB_HIGH_AUX_BRAM_PORTB
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = mb_high_axi_periph
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ARESETN = sys_reset_Interconnect_aresetn
+ PORT INTERCONNECT_ACLK = clk_160MHz
+END
+
+# ##################
+# Microblaze High
+# ##################
+BEGIN microblaze
+ PARAMETER INSTANCE = mb_high
+ PARAMETER HW_VER = 8.40.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_DEBUG_ENABLED = 1
+ PARAMETER C_USE_DCACHE = 1
+ PARAMETER C_USE_ICACHE = 0
+# Little endian
+ PARAMETER C_ENDIANNESS = 1
+# MMU Settings
+ PARAMETER C_USE_MMU = 0
+ PARAMETER C_M_AXI_D_BUS_EXCEPTION = 1
+ PARAMETER C_ILL_OPCODE_EXCEPTION = 1
+ PARAMETER C_UNALIGNED_EXCEPTIONS = 1
+ PARAMETER C_OPCODE_0x0_ILLEGAL = 1
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_PVR = 2
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_DC_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_DC_B_REGISTER = 7
+ PARAMETER C_NUMBER_OF_PC_BRK = 4
+ PARAMETER C_NUMBER_OF_WR_ADDR_BRK = 2
+ PARAMETER C_NUMBER_OF_RD_ADDR_BRK = 2
+ PARAMETER C_CACHE_BYTE_SIZE = 64
+ PARAMETER C_DCACHE_BYTE_SIZE = 64
+ PARAMETER C_DCACHE_BASEADDR = 0x80000000
+ PARAMETER C_DCACHE_HIGHADDR = 0xffffffff
+ PARAMETER C_INTERCONNECT_M_AXI_DP_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_M_AXI_DP_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_M_AXI_DP_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_M_AXI_DP_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_M_AXI_DP_B_REGISTER = 8
+ PARAMETER C_DCACHE_ALWAYS_USED = 1
+ PARAMETER C_USE_STACK_PROTECTION = 1
+ BUS_INTERFACE M_AXI_DC = mb_shared_axi
+ BUS_INTERFACE M_AXI_DP = mb_high_axi_periph
+ BUS_INTERFACE DEBUG = mb_high_debug
+ BUS_INTERFACE INTERRUPT = mb_high_interrupt
+ BUS_INTERFACE DLMB = mb_high_dlmb
+ BUS_INTERFACE ILMB = mb_high_ilmb
+ PORT MB_RESET = sys_reset_MB_Reset
+ PORT CLK = clk_160MHz
+END
+
+BEGIN mdm
+ PARAMETER INSTANCE = debug_module
+ PARAMETER HW_VER = 2.10.a
+ PARAMETER C_USE_UART = 0
+ PARAMETER C_MB_DBG_PORTS = 2
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_low.M_AXI_DC & mb_high.M_AXI_DC
+ BUS_INTERFACE MBDEBUG_0 = mb_low_debug
+ BUS_INTERFACE MBDEBUG_1 = mb_high_debug
+ PORT Debug_SYS_Rst = sys_reset_debug_rst
+ PORT S_AXI_ACLK = clk_160MHz
+END
+
+BEGIN util_reduced_logic
+ PARAMETER INSTANCE = clk_gen_locked_AND
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_OPERATION = AND
+ PARAMETER C_SIZE = 3
+ PORT Op1 = clk_gen_proc_bus_clks_locked & clk_gen_async_clks_locked & clk_gen_mpmc_clks_locked
+ PORT Res = clk_gen_all_locked
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clk_gen_proc_bus_clks
+ PARAMETER C_EXT_RESET_HIGH = 1
+ PARAMETER HW_VER = 4.03.a
+# 80MHz clock input (driven by AD9512 for sampling clock)
+ PARAMETER C_CLKIN_FREQ = 80000000
+# MB and primary bus
+ PARAMETER C_CLKOUT0_FREQ = 80000000
+ PARAMETER C_CLKOUT0_PHASE = 0
+ PARAMETER C_CLKOUT0_GROUP = MMCM0
+ PARAMETER C_CLKOUT0_BUF = TRUE
+# MB and primary bus
+ PARAMETER C_CLKOUT1_FREQ = 160000000
+ PARAMETER C_CLKOUT1_PHASE = 0
+ PARAMETER C_CLKOUT1_GROUP = MMCM0
+ PARAMETER C_CLKOUT1_BUF = TRUE
+# Sampling clock 0 deg phase
+ PARAMETER C_CLKOUT2_FREQ = 20000000
+ PARAMETER C_CLKOUT2_PHASE = 0
+ PARAMETER C_CLKOUT2_GROUP = MMCM0
+ PARAMETER C_CLKOUT2_BUF = TRUE
+# Sampling clock 90 deg phase
+ PARAMETER C_CLKOUT3_FREQ = 20000000
+ PARAMETER C_CLKOUT3_PHASE = 90
+ PARAMETER C_CLKOUT3_BUF = TRUE
+ PARAMETER C_CLKOUT3_GROUP = MMCM0
+ PORT CLKIN = ad_refclk_in
+ PORT CLKOUT0 = clk_80MHz
+ PORT CLKOUT1 = clk_160MHz
+ PORT CLKOUT2 = clk_20MHz
+ PORT CLKOUT3 = clk_20MHz_90degphase
+ PORT RST = mmcm_inputs_invalid
+ PORT LOCKED = clk_gen_proc_bus_clks_locked
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clk_gen_async_clks
+ PARAMETER C_EXT_RESET_HIGH = 1
+ PARAMETER HW_VER = 4.03.a
+# 200MHz clock input (driven by 200MHz LVDS oscillator)
+ PARAMETER C_CLKIN_FREQ = 200000000
+# TEMAC TxClk
+ PARAMETER C_CLKOUT0_FREQ = 125000000
+ PARAMETER C_CLKOUT0_PHASE = 0
+ PARAMETER C_CLKOUT0_GROUP = NONE
+ PARAMETER C_CLKOUT0_BUF = TRUE
+# IDELAYCTRL refclk
+ PARAMETER C_CLKOUT1_FREQ = 200000000
+ PARAMETER C_CLKOUT1_PHASE = 0
+ PARAMETER C_CLKOUT1_GROUP = NONE
+ PARAMETER C_CLKOUT1_BUF = TRUE
+ PORT CLKIN = osc200_in
+ PORT CLKOUT0 = clk_125MHz
+ PORT CLKOUT1 = clk_200MHz
+ PORT RST = reset_pb
+ PORT LOCKED = clk_gen_async_clks_locked
+END
+
+BEGIN axi_cdma
+ PARAMETER INSTANCE = axi_cdma_0
+ PARAMETER HW_VER = 3.04.a
+ PARAMETER C_M_AXI_DATA_WIDTH = 64
+ PARAMETER C_M_AXI_MAX_BURST_LEN = 64
+ PARAMETER C_INCLUDE_DRE = 1
+ PARAMETER C_INTERCONNECT_M_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_M_AXI_B_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_LITE_B_REGISTER = 8
+ PARAMETER C_BASEADDR = 0x7e200000
+ PARAMETER C_HIGHADDR = 0x7e20ffff
+ BUS_INTERFACE S_AXI_LITE = mb_high_axi_periph
+ BUS_INTERFACE M_AXI = mb_shared_axi
+ PORT s_axi_lite_aclk = clk_160MHz
+ PORT m_axi_aclk = clk_160MHz
+ PORT cdma_introut = axi_cdma_0_cdma_introut
+END
+
+BEGIN w3_userio_axi
+ PARAMETER INSTANCE = W3_USERIO
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER INCLUDE_DNA_READ_LOGIC = 0
+ PARAMETER C_BASEADDR = 0x80000000
+ PARAMETER C_HIGHADDR = 0x80000FFF
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_low.M_AXI_DC & mb_high.M_AXI_DC
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_shared_axi
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT leds_red = userio_leds_red
+ PORT leds_green = userio_leds_green
+ PORT hexdisp_left = userio_hexdisp_left
+ PORT hexdisp_right = userio_hexdisp_right
+ PORT hexdisp_left_dp = userio_hexdisp_left_dp
+ PORT hexdisp_right_dp = userio_hexdisp_right_dp
+ PORT rfa_led_red = userio_rfa_led_red
+ PORT rfa_led_green = userio_rfa_led_green
+ PORT rfb_led_red = userio_rfb_led_red
+ PORT rfb_led_green = userio_rfb_led_green
+ PORT dipsw = userio_dipsw_b0 & userio_dipsw_b1 & userio_dipsw_b2 & userio_dipsw_b3
+ PORT pb_u = userio_pb_u
+ PORT pb_m = userio_pb_m
+ PORT pb_d = userio_pb_d
+ PORT usr_rfa_led_red = RFA_statLED_Rx
+ PORT usr_rfa_led_green = RFA_statLED_Tx
+ PORT usr_rfb_led_red = RFB_statLED_Rx
+ PORT usr_rfb_led_green = RFB_statLED_Tx
+ PORT usr_leds_red = dbg_signal_err_disp
+END
+
+BEGIN axi_ethernet
+ PARAMETER INSTANCE = ETH_A_MAC
+ PARAMETER HW_VER = 3.01.a
+# ETH_A PHY Address = 6 on WARP v3 1.1
+ PARAMETER C_PHYADDR = 0B00110
+ PARAMETER C_INCLUDE_IO = 1
+ PARAMETER C_TYPE = 2
+ PARAMETER C_PHY_TYPE = 3
+ PARAMETER C_HALFDUP = 0
+ PARAMETER C_TXMEM = 4096
+ PARAMETER C_RXMEM = 4096
+ PARAMETER C_TXCSUM = 0
+ PARAMETER C_RXCSUM = 0
+ PARAMETER C_TXVLAN_TRAN = 0
+ PARAMETER C_RXVLAN_TRAN = 0
+ PARAMETER C_TXVLAN_TAG = 0
+ PARAMETER C_RXVLAN_TAG = 0
+ PARAMETER C_TXVLAN_STRP = 0
+ PARAMETER C_RXVLAN_STRP = 0
+ PARAMETER C_MCAST_EXTEND = 0
+ PARAMETER C_STATS = 0
+ PARAMETER C_AVB = 0
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_BASEADDR = 0x43440000
+ PARAMETER C_HIGHADDR = 0x4347ffff
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ BUS_INTERFACE AXI_STR_RXD = ETH_A_MAC_AXIS_RXD
+ BUS_INTERFACE AXI_STR_RXS = ETH_A_MAC_AXIS_RXS
+ BUS_INTERFACE AXI_STR_TXD = ETH_A_MAC_AXIS_TXD
+ BUS_INTERFACE AXI_STR_TXC = ETH_A_MAC_AXIS_TXC
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT GTX_CLK = clk_125MHz
+ PORT PHY_RST_N = ETH_A_PHY_RST_N
+ PORT MDIO = ETH_A_MDIO
+ PORT MDC = ETH_A_MDC
+ PORT REF_CLK = clk_200MHz
+# AXI Stream connections (to FIFO or DMA)
+ PORT AXI_STR_TXD_ACLK = clk_160MHz
+ PORT AXI_STR_TXC_ACLK = clk_160MHz
+ PORT AXI_STR_RXD_ACLK = clk_160MHz
+ PORT AXI_STR_RXS_ACLK = clk_160MHz
+# RGMII connections (to Eth PHY IC on PCB)
+ PORT RGMII_TXD = ETH_A_RGMII_TXD
+ PORT RGMII_TX_CTL = ETH_A_RGMII_TX_CTL
+ PORT RGMII_TXC = ETH_A_RGMII_TXC
+ PORT RGMII_RXD = ETH_A_RGMII_RXD
+ PORT RGMII_RX_CTL = ETH_A_RGMII_RX_CTL
+ PORT RGMII_RXC = ETH_A_RGMII_RXC
+ PORT INTERRUPT = ETH_A_MAC_INTERRUPT
+END
+
+BEGIN axi_ethernet
+ PARAMETER INSTANCE = ETH_B_MAC
+ PARAMETER HW_VER = 3.01.a
+# ETH_B PHY Address = 7 on WARP v3 1.1
+ PARAMETER C_PHYADDR = 0B00111
+ PARAMETER C_INCLUDE_IO = 1
+ PARAMETER C_TYPE = 2
+ PARAMETER C_PHY_TYPE = 3
+ PARAMETER C_HALFDUP = 0
+ PARAMETER C_TXMEM = 4096
+ PARAMETER C_RXMEM = 4096
+ PARAMETER C_TXCSUM = 0
+ PARAMETER C_RXCSUM = 0
+ PARAMETER C_TXVLAN_TRAN = 0
+ PARAMETER C_RXVLAN_TRAN = 0
+ PARAMETER C_TXVLAN_TAG = 0
+ PARAMETER C_RXVLAN_TAG = 0
+ PARAMETER C_TXVLAN_STRP = 0
+ PARAMETER C_RXVLAN_STRP = 0
+ PARAMETER C_MCAST_EXTEND = 0
+ PARAMETER C_STATS = 0
+ PARAMETER C_AVB = 0
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_BASEADDR = 0x43480000
+ PARAMETER C_HIGHADDR = 0x434bffff
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ BUS_INTERFACE AXI_STR_RXD = ETH_B_MAC_AXIS_RXD
+# BUS_INTERFACE AXI_STR_RXS = ETH_B_MAC_AXIS_RXS
+ BUS_INTERFACE AXI_STR_TXD = ETH_B_MAC_AXIS_TXD
+ BUS_INTERFACE AXI_STR_TXC = ETH_B_MAC_AXIS_TXC
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT GTX_CLK = clk_125MHz
+# PORT PHY_RST_N = ETH_B_PHY_RST_N
+ PORT MDIO = ETH_B_MDIO
+ PORT MDC = ETH_B_MDC
+ PORT REF_CLK = clk_200MHz
+# AXI Stream connections (to FIFO or DMA)
+ PORT AXI_STR_TXD_ACLK = clk_160MHz
+ PORT AXI_STR_TXC_ACLK = clk_160MHz
+ PORT AXI_STR_RXD_ACLK = clk_160MHz
+ PORT AXI_STR_RXS_ACLK = clk_160MHz
+ PORT AXI_STR_RXS_TREADY = net_vcc
+# RGMII connections (to Eth PHY IC on PCB)
+ PORT RGMII_TXD = ETH_B_RGMII_TXD
+ PORT RGMII_TX_CTL = ETH_B_RGMII_TX_CTL
+ PORT RGMII_TXC = ETH_B_RGMII_TXC
+ PORT RGMII_RXD = ETH_B_RGMII_RXD
+ PORT RGMII_RX_CTL = ETH_B_RGMII_RX_CTL
+ PORT RGMII_RXC = ETH_B_RGMII_RXC
+ PORT INTERRUPT = ETH_B_MAC_INTERRUPT
+END
+
+BEGIN axi_fifo_mm_s
+ PARAMETER INSTANCE = ETH_B_FIFO
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_USE_TX_CUT_THROUGH = 1
+ PARAMETER C_S_AXI_ID_WIDTH = 5
+ PARAMETER C_BASEADDR = 0x434c0000
+ PARAMETER C_HIGHADDR = 0x434cffff
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ BUS_INTERFACE AXI_STR_RXD = ETH_B_MAC_AXIS_RXD
+ BUS_INTERFACE AXI_STR_TXC = ETH_B_MAC_AXIS_TXC
+ BUS_INTERFACE AXI_STR_TXD = ETH_B_MAC_AXIS_TXD
+ PORT S_AXI_ACLK = clk_160MHz
+ PORT AXI_STR_TXD_ACLK = clk_160MHz
+ PORT AXI_STR_TXC_ACLK = clk_160MHz
+ PORT AXI_STR_RXD_ACLK = clk_160MHz
+ PORT INTERRUPT = ETH_B_FIFO_INTERRUPT
+ PORT AXI_STR_RXD_TDEST = net_gnd
+END
+
+BEGIN axi_v6_ddrx
+ PARAMETER INSTANCE = DDR3_SODIMM
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_MEM_PARTNO = MT8JSF25664HZ-1G4
+ PARAMETER C_CK_WIDTH = 2
+ PARAMETER C_ROW_WIDTH = 15
+ PARAMETER C_MMCM_EXT_LOC = MMCM_ADV_X0Y0
+# Manually entered params (extracted from MIG-ISE test design that worked in hardware)
+ PARAMETER C_NDQS_COL0 = 5
+ PARAMETER C_NDQS_COL1 = 3
+ PARAMETER C_NDQS_COL2 = 0
+ PARAMETER C_NDQS_COL3 = 0
+ PARAMETER C_DQS_LOC_COL0 = 0x0403020100
+ PARAMETER C_DQS_LOC_COL1 = 0x0000070605
+ PARAMETER C_ECC = OFF
+# END Manually entered params
+ PARAMETER C_TCK = 3125
+ PARAMETER C_S_AXI_DATA_WIDTH = 64
+ PARAMETER C_S_AXI_BASEADDR = 0xc0000000
+ PARAMETER C_S_AXI_HIGHADDR = 0xffffffff
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = mb_high_eth_dma.M_AXI_MM2S & mb_high_eth_dma.M_AXI_S2MM & mb_high.M_AXI_DC & axi_cdma_0.M_AXI
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 1
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 7
+ BUS_INTERFACE S_AXI = mb_shared_axi
+ PORT clk = clk_160MHz
+ PORT clk_mem = clk_mpmc_320MHz_clk_mem
+ PORT clk_rd_base = clk_mpmc_320MHz_clk_rd_base
+ PORT clk_ref = clk_200MHz
+ PORT pd_PSEN = MMCM_PSEN
+ PORT pd_PSINCDEC = MMCM_PSINCDEC
+ PORT pd_PSDONE = MMCM_PSDONE
+ PORT ddr_ck_p = ddr3_sodimm_ck_p
+ PORT ddr_ck_n = ddr3_sodimm_ck_n
+ PORT ddr_cke = ddr3_sodimm_cke
+ PORT ddr_cs_n = ddr3_sodimm_cs_n
+ PORT ddr_odt = ddr3_sodimm_odt
+ PORT ddr_ras_n = ddr3_sodimm_ras_n
+ PORT ddr_cas_n = ddr3_sodimm_cas_n
+ PORT ddr_we_n = ddr3_sodimm_we_n
+ PORT ddr_ba = ddr3_sodimm_ba
+ PORT ddr_addr = ddr3_sodimm_addr
+ PORT ddr_dq = ddr3_sodimm_dq
+ PORT ddr_dm = ddr3_sodimm_dm
+ PORT ddr_reset_n = ddr3_sodimm_reset_n
+ PORT ddr_dqs_p = ddr3_sodimm_dqs_p
+ PORT ddr_dqs_n = ddr3_sodimm_dqs_n
+ PORT phy_init_done = dram_init_done
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_MPMC_Clocks
+ PARAMETER C_EXT_RESET_HIGH = 1
+ PARAMETER HW_VER = 4.03.a
+# 80MHz clock input (driven by other clock generator)
+ PARAMETER C_CLKIN_FREQ = 80000000
+# MPMC DRAM clock (2x bus)
+ PARAMETER C_CLKOUT0_FREQ = 320000000
+ PARAMETER C_CLKOUT0_PHASE = 0
+ PARAMETER C_CLKOUT0_GROUP = MMCM0
+ PARAMETER C_CLKOUT0_BUF = TRUE
+# MPMC DRAM clock (2x bus, variable phase)
+ PARAMETER C_CLKOUT1_FREQ = 320000000
+ PARAMETER C_CLKOUT1_PHASE = 0
+ PARAMETER C_CLKOUT1_GROUP = MMCM0
+ PARAMETER C_CLKOUT1_BUF = FALSE
+ PARAMETER C_CLKOUT1_VARIABLE_PHASE = TRUE
+ PARAMETER C_PSDONE_GROUP = MMCM0
+ PORT CLKIN = clk_80MHz
+ PORT PSCLK = clk_80MHz
+ PORT RST = mmcm_inputs_invalid
+ PORT LOCKED = clk_gen_mpmc_clks_locked
+ PORT CLKOUT0 = clk_mpmc_320MHz_clk_mem
+ PORT CLKOUT1 = clk_mpmc_320MHz_clk_rd_base
+ PORT PSEN = MMCM_PSEN
+ PORT PSINCDEC = MMCM_PSINCDEC
+ PORT PSDONE = MMCM_PSDONE
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = mb_high_sw_gpio
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_BASEADDR = 0x40100000
+ PARAMETER C_HIGHADDR = 0x4010FFFF
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_IS_DUAL = 1
+ PARAMETER C_GPIO_WIDTH = 4
+ PARAMETER C_GPIO2_WIDTH = 9
+ PARAMETER C_ALL_INPUTS_2 = 1
+ PARAMETER C_INTERRUPT_PRESENT = 1
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ PORT S_AXI_ACLK = clk_160MHz
+# PORT GPIO_IO_O = board_det_out & cpuh_gpio_b0 & cpuh_gpio_b1 & cpuh_gpio_b2 & cpuh_gpio_b3
+ PORT GPIO_IO_O = cpuh_gpio_b0 & cpuh_gpio_b1 & cpuh_gpio_b2 & cpuh_gpio_b3
+ PORT GPIO_IO_I = net_gnd
+# PORT GPIO2_IO_I = board_det_in & dram_init_done & 0b0 & userio_pb_u & userio_pb_m & userio_pb_d & userio_dipsw_b0 & userio_dipsw_b1 & userio_dipsw_b2 & userio_dipsw_b3
+ PORT GPIO2_IO_I = dram_init_done & 0b0 & userio_pb_u & userio_pb_m & userio_pb_d & userio_dipsw_b0 & userio_dipsw_b1 & userio_dipsw_b2 & userio_dipsw_b3
+ PORT IP2INTC_Irpt = mb_high_sw_gpio_IP2INTC_Irpt
+END
+
+BEGIN util_vector_logic
+ PARAMETER INSTANCE = dbg_outputs_OR
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_OPERATION = or
+ PORT OP1 = phy_dbg_gpio_b0 & phy_dbg_gpio_b1 & phy_dbg_gpio_b2 & phy_dbg_gpio_b3
+ PORT OP2 = cpuh_gpio_b0 & cpuh_gpio_b1 & cpuh_gpio_b2 & cpuh_gpio_b3
+ PORT RES = dbg_gpio_b0 & dbg_gpio_b1 & dbg_gpio_b2 & 0b0
+END
+
+BEGIN axi_sysmon_adc
+ PARAMETER INSTANCE = axi_sysmon_adc_0
+ PARAMETER HW_VER = 2.00.a
+ PARAMETER C_INCLUDE_INTR = 1
+ PARAMETER C_BASEADDR = 0x41D00000
+ PARAMETER C_HIGHADDR = 0x41D00FFF
+ BUS_INTERFACE S_AXI = mb_high_axi_periph
+ PORT S_AXI_ACLK = clk_80MHz
+ PORT VAUXP = net_gnd
+ PORT VAUXN = net_gnd
+ PORT CONVST = net_gnd
+END
+
