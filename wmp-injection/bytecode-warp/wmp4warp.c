@@ -305,6 +305,7 @@ int main (int argc, char **argv)
         fprintf(stdout, "----------------------\n");
 }
 */
+	w4w.out_interface_name = "eth1";
         while ((c = (char)getopt(argc, argv, "i:1:w:l:m:d:a:u:s:r:tev")) != EOF) {
                 switch (c) {
                 case 'i':
