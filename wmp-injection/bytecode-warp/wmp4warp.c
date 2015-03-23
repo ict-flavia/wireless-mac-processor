@@ -286,25 +286,7 @@ int main (int argc, char **argv)
         static char pcap_filter_str[1024];
 
         errbuf[0]='\0';
-/*
-{
-        fprintf(stdout, "----------------------\n");
-        fprintf(stdout, "wmp4warp -i <int_name> -1 <MAC addr int> [-ewlxdtra]\n");
-        fprintf(stdout, "       -i <int_name>   : int_name is the name of the output interface\n");
-        fprintf(stdout, "       -1 <MAC addr>   : source MAC address\n");
-        fprintf(stdout, "       -e              : send WARP discover message (requires manual stop)\n");
-        fprintf(stdout, "       -w <warpid>     : WARP identifier. required fon any command different from -e\n");
-        fprintf(stdout, "       -m <fsmfile>    : load on warpid the FSM in fsmfile\n");
-        fprintf(stdout, "       -l <fsmid>      : ID for fsm in fsmfile (identifier 0 is for the default fsm)\n");
-        fprintf(stdout, "       -d <fsmid>      : delete FSM whose id is fsmid from warpid\n");
-        fprintf(stdout, "       -t              : require timestamp to warpid\n");
-	fprintf(stdout, "       -a <us>         : active fsmid after 0 us\n");        
-	fprintf(stdout, "       -u <us>         : require to active fsmid after us us\n");
-        fprintf(stdout, "       -s <ts>         : require to run fsmid at ts\n");
-        fprintf(stdout, "       -r <var_id>     : read variable identified by var_id\n");
-        fprintf(stdout, "----------------------\n");
-}
-*/
+
 	w4w.out_interface_name = "eth1";
         while ((c = (char)getopt(argc, argv, "i:1:w:l:m:d:a:u:s:r:tev")) != EOF) {
                 switch (c) {
@@ -622,9 +604,14 @@ int main (int argc, char **argv)
                 pcap_close(pcap);
                 exit(1);
         }
-	pcap_loop(pcap, 1, resp_handler, (u_char *)&w4w);
-
-
+        
+        if (w4w.cmd == WMP4WARP_ECHO_REQ_CMD){
+        	pcap_loop(pcap, -1, resp_handler, (u_char *)&w4w);
+        }
+        else{
+        	pcap_loop(pcap, 1, resp_handler, (u_char *)&w4w);
+        }
+	
         return 0;
 }
 
