@@ -24,6 +24,7 @@ void static usage()
 {
         fprintf(stdout, "----------------------\n");
         fprintf(stdout, "wmp4warp -i <int_name> -1 <MAC addr int> [-ewlxdtra]\n");
+        fprintf(stdout, "       -h    		: Print this help text\n\n");
         fprintf(stdout, "       -i <int_name>   : int_name is the name of the output interface\n");
         fprintf(stdout, "       -1 <MAC addr>   : source MAC address\n");
         fprintf(stdout, "       -e              : send WARP discover message (requires manual stop)\n");
@@ -288,7 +289,7 @@ int main (int argc, char **argv)
         errbuf[0]='\0';
 
 	w4w.out_interface_name = "eth1";
-        while ((c = (char)getopt(argc, argv, "i:1:w:l:m:d:a:u:s:r:tev")) != EOF) {
+        while ((c = (char)getopt(argc, argv, "i:1:w:l:m:d:a:u:s:r:tevh")) != EOF) {
                 switch (c) {
                 case 'i':
                         w4w.out_interface_name = optarg;
@@ -367,6 +368,11 @@ int main (int argc, char **argv)
 	   		w4w.var_id = 0;
                         w4w.cmd = WMP4WARP_READ_VAR;
                         w4w.cmd_wait = WMP4WARP_READ_VAR_REP;
+                break;
+                
+                case 'h':
+			usage();
+                        exit(1);
                 break;
 
                 default:
