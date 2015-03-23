@@ -396,13 +396,13 @@ int main (int argc, char **argv)
         }
 
         if (load_file_set && !fsm_id_set) {
-                fprintf(stderr, "Options -x and -l must be used together.\n");
+                fprintf(stderr, "Options -l and -m must be used together.\n");
                 usage();
                 exit(1);
         }
 
         if (((w4w.cmd == WMP4WARP_RUN) || (w4w.cmd == WMP4WARP_RUN_ABS)) && !fsm_id_set) {
-                fprintf(stderr, "Options -x and (-a or -r) must be used together.\n");
+                fprintf(stderr, "Options -l and (-r or -s) must be used together.\n");
                 usage();
                 exit(1);
         }
