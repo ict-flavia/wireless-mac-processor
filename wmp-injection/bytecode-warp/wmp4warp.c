@@ -24,7 +24,7 @@ void static usage()
 {
         fprintf(stdout, "----------------------\n");
         fprintf(stdout, "wmp4warp -i <int_name> -1 <MAC addr int> [-ewlxdtra]\n");
-        fprintf(stdout, "       -h    		: Print this help text\n\n");
+        fprintf(stdout, "       -h    		: Print this help text\n");
         fprintf(stdout, "       -i <int_name>   : int_name is the name of the output interface\n");
         fprintf(stdout, "       -1 <MAC addr>   : source MAC address\n");
         fprintf(stdout, "       -e              : send WARP discover message (requires manual stop)\n");
