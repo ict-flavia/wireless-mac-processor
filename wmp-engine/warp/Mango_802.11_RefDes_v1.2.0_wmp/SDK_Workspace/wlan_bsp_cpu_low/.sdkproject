@@ -1,0 +1,3 @@
+THIRPARTY=false
+PROCESSOR=mb_low
+MSS_FILE=system.mss

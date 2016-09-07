@@ -1,0 +1,3 @@
+PROCESSOR=mb_low
+REPOSITORIES=-lp C:/Users/Alice/Desktop/Mango_802.11_RefDes_v1.2.0 -lp C:/WARP_Repository/edk_user_repository
+HWSPEC=../wlan_xps_v32_hw_platform/system.xml

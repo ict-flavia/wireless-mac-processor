@@ -1,0 +1,406 @@
+// BMM LOC annotation file.
+//
+// Release 14.1 -  P.49d, build 2.8 Mar 16, 2012
+// Copyright (c) 1995-2014 Xilinx, Inc.  All rights reserved.
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Processor 'mb_low', ID 100, memory map.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+ADDRESS_MAP mb_low MICROBLAZE-LE 100
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'mb_low_lmb_bram_combined' 0x00000000:0x0000FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_low_lmb_bram_combined RAMB32 [0x00000000:0x0000FFFF]
+        BUS_BLOCK
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_0 RAMB32 [31:30] [0:16383] INPUT = mb_low_lmb_bram_combined_0.mem PLACED = X1Y42;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_1 RAMB32 [29:28] [0:16383] INPUT = mb_low_lmb_bram_combined_1.mem PLACED = X1Y41;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_2 RAMB32 [27:26] [0:16383] INPUT = mb_low_lmb_bram_combined_2.mem PLACED = X1Y39;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_3 RAMB32 [25:24] [0:16383] INPUT = mb_low_lmb_bram_combined_3.mem PLACED = X1Y40;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_4 RAMB32 [23:22] [0:16383] INPUT = mb_low_lmb_bram_combined_4.mem PLACED = X3Y39;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_5 RAMB32 [21:20] [0:16383] INPUT = mb_low_lmb_bram_combined_5.mem PLACED = X0Y38;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_6 RAMB32 [19:18] [0:16383] INPUT = mb_low_lmb_bram_combined_6.mem PLACED = X3Y38;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_7 RAMB32 [17:16] [0:16383] INPUT = mb_low_lmb_bram_combined_7.mem PLACED = X0Y40;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_8 RAMB32 [15:14] [0:16383] INPUT = mb_low_lmb_bram_combined_8.mem PLACED = X0Y37;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_9 RAMB32 [13:12] [0:16383] INPUT = mb_low_lmb_bram_combined_9.mem PLACED = X1Y33;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_10 RAMB32 [11:10] [0:16383] INPUT = mb_low_lmb_bram_combined_10.mem PLACED = X1Y31;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_11 RAMB32 [9:8] [0:16383] INPUT = mb_low_lmb_bram_combined_11.mem PLACED = X0Y36;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_12 RAMB32 [7:6] [0:16383] INPUT = mb_low_lmb_bram_combined_12.mem PLACED = X1Y34;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_13 RAMB32 [5:4] [0:16383] INPUT = mb_low_lmb_bram_combined_13.mem PLACED = X2Y35;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_14 RAMB32 [3:2] [0:16383] INPUT = mb_low_lmb_bram_combined_14.mem PLACED = X2Y37;
+            mb_low_lmb_bram/mb_low_lmb_bram/ramb36e1_15 RAMB32 [1:0] [0:16383] INPUT = mb_low_lmb_bram_combined_15.mem PLACED = X2Y32;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'mb_low_lmb_bram_1_combined' 0x00010000:0x0001FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_low_lmb_bram_1_combined RAMB32 [0x00010000:0x0001FFFF]
+        BUS_BLOCK
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_0 RAMB32 [31:30] [0:16383] INPUT = mb_low_lmb_bram_1_combined_0.mem PLACED = X0Y42;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_1 RAMB32 [29:28] [0:16383] INPUT = mb_low_lmb_bram_1_combined_1.mem PLACED = X0Y41;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_2 RAMB32 [27:26] [0:16383] INPUT = mb_low_lmb_bram_1_combined_2.mem PLACED = X2Y39;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_3 RAMB32 [25:24] [0:16383] INPUT = mb_low_lmb_bram_1_combined_3.mem PLACED = X2Y40;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_4 RAMB32 [23:22] [0:16383] INPUT = mb_low_lmb_bram_1_combined_4.mem PLACED = X2Y38;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_5 RAMB32 [21:20] [0:16383] INPUT = mb_low_lmb_bram_1_combined_5.mem PLACED = X1Y38;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_6 RAMB32 [19:18] [0:16383] INPUT = mb_low_lmb_bram_1_combined_6.mem PLACED = X1Y37;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_7 RAMB32 [17:16] [0:16383] INPUT = mb_low_lmb_bram_1_combined_7.mem PLACED = X0Y39;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_8 RAMB32 [15:14] [0:16383] INPUT = mb_low_lmb_bram_1_combined_8.mem PLACED = X1Y35;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_9 RAMB32 [13:12] [0:16383] INPUT = mb_low_lmb_bram_1_combined_9.mem PLACED = X1Y32;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_10 RAMB32 [11:10] [0:16383] INPUT = mb_low_lmb_bram_1_combined_10.mem PLACED = X0Y34;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_11 RAMB32 [9:8] [0:16383] INPUT = mb_low_lmb_bram_1_combined_11.mem PLACED = X1Y36;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_12 RAMB32 [7:6] [0:16383] INPUT = mb_low_lmb_bram_1_combined_12.mem PLACED = X2Y33;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_13 RAMB32 [5:4] [0:16383] INPUT = mb_low_lmb_bram_1_combined_13.mem PLACED = X2Y34;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_14 RAMB32 [3:2] [0:16383] INPUT = mb_low_lmb_bram_1_combined_14.mem PLACED = X2Y36;
+            mb_low_lmb_bram_1/mb_low_lmb_bram_1/ramb36e1_15 RAMB32 [1:0] [0:16383] INPUT = mb_low_lmb_bram_1_combined_15.mem PLACED = X0Y35;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'mac_log_bram_combined' 0x90000000:0x90001FFF (8 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mac_log_bram_combined RAMB32 [0x90000000:0x90001FFF]
+        BUS_BLOCK
+            mac_log_bram/mac_log_bram/ramb36e1_0 RAMB32 [63:32] [0:1023] INPUT = mac_log_bram_combined_0.mem PLACED = X5Y33;
+            mac_log_bram/mac_log_bram/ramb36e1_1 RAMB32 [31:0] [0:1023] INPUT = mac_log_bram_combined_1.mem PLACED = X5Y34;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'pkt_buffer_rx_bram_combined' 0xBF560000:0xBF56FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE pkt_buffer_rx_bram_combined RAMB32 [0xBF560000:0xBF56FFFF]
+        BUS_BLOCK
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_0 RAMB32 [63:60] [0:8191] INPUT = pkt_buffer_rx_bram_combined_0.mem PLACED = X7Y32;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_1 RAMB32 [59:56] [0:8191] INPUT = pkt_buffer_rx_bram_combined_1.mem PLACED = X5Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_2 RAMB32 [55:52] [0:8191] INPUT = pkt_buffer_rx_bram_combined_2.mem PLACED = X7Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_3 RAMB32 [51:48] [0:8191] INPUT = pkt_buffer_rx_bram_combined_3.mem PLACED = X7Y24;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_4 RAMB32 [47:44] [0:8191] INPUT = pkt_buffer_rx_bram_combined_4.mem PLACED = X8Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_5 RAMB32 [43:40] [0:8191] INPUT = pkt_buffer_rx_bram_combined_5.mem PLACED = X7Y30;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_6 RAMB32 [39:36] [0:8191] INPUT = pkt_buffer_rx_bram_combined_6.mem PLACED = X7Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_7 RAMB32 [35:32] [0:8191] INPUT = pkt_buffer_rx_bram_combined_7.mem PLACED = X7Y28;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_8 RAMB32 [31:28] [0:8191] INPUT = pkt_buffer_rx_bram_combined_8.mem PLACED = X7Y31;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_9 RAMB32 [27:24] [0:8191] INPUT = pkt_buffer_rx_bram_combined_9.mem PLACED = X6Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_10 RAMB32 [23:20] [0:8191] INPUT = pkt_buffer_rx_bram_combined_10.mem PLACED = X6Y28;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_11 RAMB32 [19:16] [0:8191] INPUT = pkt_buffer_rx_bram_combined_11.mem PLACED = X7Y26;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_12 RAMB32 [15:12] [0:8191] INPUT = pkt_buffer_rx_bram_combined_12.mem PLACED = X6Y27;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_13 RAMB32 [11:8] [0:8191] INPUT = pkt_buffer_rx_bram_combined_13.mem PLACED = X6Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_14 RAMB32 [7:4] [0:8191] INPUT = pkt_buffer_rx_bram_combined_14.mem PLACED = X6Y26;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_15 RAMB32 [3:0] [0:8191] INPUT = pkt_buffer_rx_bram_combined_15.mem PLACED = X5Y29;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'pkt_buffer_tx_bram_combined' 0xBF570000:0xBF57FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE pkt_buffer_tx_bram_combined RAMB32 [0xBF570000:0xBF57FFFF]
+        BUS_BLOCK
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_0 RAMB32 [63:60] [0:8191] INPUT = pkt_buffer_tx_bram_combined_0.mem PLACED = X3Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_1 RAMB32 [59:56] [0:8191] INPUT = pkt_buffer_tx_bram_combined_1.mem PLACED = X4Y24;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_2 RAMB32 [55:52] [0:8191] INPUT = pkt_buffer_tx_bram_combined_2.mem PLACED = X3Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_3 RAMB32 [51:48] [0:8191] INPUT = pkt_buffer_tx_bram_combined_3.mem PLACED = X4Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_4 RAMB32 [47:44] [0:8191] INPUT = pkt_buffer_tx_bram_combined_4.mem PLACED = X5Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_5 RAMB32 [43:40] [0:8191] INPUT = pkt_buffer_tx_bram_combined_5.mem PLACED = X4Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_6 RAMB32 [39:36] [0:8191] INPUT = pkt_buffer_tx_bram_combined_6.mem PLACED = X4Y28;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_7 RAMB32 [35:32] [0:8191] INPUT = pkt_buffer_tx_bram_combined_7.mem PLACED = X4Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_8 RAMB32 [31:28] [0:8191] INPUT = pkt_buffer_tx_bram_combined_8.mem PLACED = X2Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_9 RAMB32 [27:24] [0:8191] INPUT = pkt_buffer_tx_bram_combined_9.mem PLACED = X3Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_10 RAMB32 [23:20] [0:8191] INPUT = pkt_buffer_tx_bram_combined_10.mem PLACED = X1Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_11 RAMB32 [19:16] [0:8191] INPUT = pkt_buffer_tx_bram_combined_11.mem PLACED = X2Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_12 RAMB32 [15:12] [0:8191] INPUT = pkt_buffer_tx_bram_combined_12.mem PLACED = X2Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_13 RAMB32 [11:8] [0:8191] INPUT = pkt_buffer_tx_bram_combined_13.mem PLACED = X3Y28;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_14 RAMB32 [7:4] [0:8191] INPUT = pkt_buffer_tx_bram_combined_14.mem PLACED = X2Y24;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_15 RAMB32 [3:0] [0:8191] INPUT = pkt_buffer_tx_bram_combined_15.mem PLACED = X3Y24;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_low' address space 'fsm_buffer_combined' 0xBF580000:0xBF58FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE fsm_buffer_combined RAMB32 [0xBF580000:0xBF58FFFF]
+        BUS_BLOCK
+            fsm_buffer/fsm_buffer/ramb36e1_0 RAMB32 [31:30] [0:16383] INPUT = fsm_buffer_combined_0.mem PLACED = X7Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_1 RAMB32 [29:28] [0:16383] INPUT = fsm_buffer_combined_1.mem PLACED = X8Y39;
+            fsm_buffer/fsm_buffer/ramb36e1_2 RAMB32 [27:26] [0:16383] INPUT = fsm_buffer_combined_2.mem PLACED = X5Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_3 RAMB32 [25:24] [0:16383] INPUT = fsm_buffer_combined_3.mem PLACED = X6Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_4 RAMB32 [23:22] [0:16383] INPUT = fsm_buffer_combined_4.mem PLACED = X4Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_5 RAMB32 [21:20] [0:16383] INPUT = fsm_buffer_combined_5.mem PLACED = X5Y35;
+            fsm_buffer/fsm_buffer/ramb36e1_6 RAMB32 [19:18] [0:16383] INPUT = fsm_buffer_combined_6.mem PLACED = X4Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_7 RAMB32 [17:16] [0:16383] INPUT = fsm_buffer_combined_7.mem PLACED = X4Y35;
+            fsm_buffer/fsm_buffer/ramb36e1_8 RAMB32 [15:14] [0:16383] INPUT = fsm_buffer_combined_8.mem PLACED = X4Y34;
+            fsm_buffer/fsm_buffer/ramb36e1_9 RAMB32 [13:12] [0:16383] INPUT = fsm_buffer_combined_9.mem PLACED = X3Y33;
+            fsm_buffer/fsm_buffer/ramb36e1_10 RAMB32 [11:10] [0:16383] INPUT = fsm_buffer_combined_10.mem PLACED = X3Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_11 RAMB32 [9:8] [0:16383] INPUT = fsm_buffer_combined_11.mem PLACED = X3Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_12 RAMB32 [7:6] [0:16383] INPUT = fsm_buffer_combined_12.mem PLACED = X3Y32;
+            fsm_buffer/fsm_buffer/ramb36e1_13 RAMB32 [5:4] [0:16383] INPUT = fsm_buffer_combined_13.mem PLACED = X4Y31;
+            fsm_buffer/fsm_buffer/ramb36e1_14 RAMB32 [3:2] [0:16383] INPUT = fsm_buffer_combined_14.mem PLACED = X4Y33;
+            fsm_buffer/fsm_buffer/ramb36e1_15 RAMB32 [1:0] [0:16383] INPUT = fsm_buffer_combined_15.mem PLACED = X4Y32;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+END_ADDRESS_MAP;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Processor 'mb_high', ID 101, memory map.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+ADDRESS_MAP mb_high MICROBLAZE-LE 101
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'mb_high_lmb_bram_0_combined' 0x00000000:0x0001FFFF (128 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_high_lmb_bram_0_combined RAMB32 [0x00000000:0x0001FFFF]
+        BUS_BLOCK
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_0 RAMB32 [31:31] [0:32767] INPUT = mb_high_lmb_bram_0_combined_0.mem PLACED = X2Y42;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_1 RAMB32 [30:30] [0:32767] INPUT = mb_high_lmb_bram_0_combined_1.mem PLACED = X4Y44;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_2 RAMB32 [29:29] [0:32767] INPUT = mb_high_lmb_bram_0_combined_2.mem PLACED = X4Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_3 RAMB32 [28:28] [0:32767] INPUT = mb_high_lmb_bram_0_combined_3.mem PLACED = X1Y43;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_4 RAMB32 [27:27] [0:32767] INPUT = mb_high_lmb_bram_0_combined_4.mem PLACED = X2Y44;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_5 RAMB32 [26:26] [0:32767] INPUT = mb_high_lmb_bram_0_combined_5.mem PLACED = X2Y43;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_6 RAMB32 [25:25] [0:32767] INPUT = mb_high_lmb_bram_0_combined_6.mem PLACED = X2Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_7 RAMB32 [24:24] [0:32767] INPUT = mb_high_lmb_bram_0_combined_7.mem PLACED = X4Y42;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_8 RAMB32 [23:23] [0:32767] INPUT = mb_high_lmb_bram_0_combined_8.mem PLACED = X5Y37;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_9 RAMB32 [22:22] [0:32767] INPUT = mb_high_lmb_bram_0_combined_9.mem PLACED = X5Y40;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_10 RAMB32 [21:21] [0:32767] INPUT = mb_high_lmb_bram_0_combined_10.mem PLACED = X5Y46;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_11 RAMB32 [20:20] [0:32767] INPUT = mb_high_lmb_bram_0_combined_11.mem PLACED = X6Y38;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_12 RAMB32 [19:19] [0:32767] INPUT = mb_high_lmb_bram_0_combined_12.mem PLACED = X7Y46;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_13 RAMB32 [18:18] [0:32767] INPUT = mb_high_lmb_bram_0_combined_13.mem PLACED = X8Y43;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_14 RAMB32 [17:17] [0:32767] INPUT = mb_high_lmb_bram_0_combined_14.mem PLACED = X6Y47;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_15 RAMB32 [16:16] [0:32767] INPUT = mb_high_lmb_bram_0_combined_15.mem PLACED = X3Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_16 RAMB32 [15:15] [0:32767] INPUT = mb_high_lmb_bram_0_combined_16.mem PLACED = X1Y44;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_17 RAMB32 [14:14] [0:32767] INPUT = mb_high_lmb_bram_0_combined_17.mem PLACED = X2Y46;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_18 RAMB32 [13:13] [0:32767] INPUT = mb_high_lmb_bram_0_combined_18.mem PLACED = X5Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_19 RAMB32 [12:12] [0:32767] INPUT = mb_high_lmb_bram_0_combined_19.mem PLACED = X6Y46;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_20 RAMB32 [11:11] [0:32767] INPUT = mb_high_lmb_bram_0_combined_20.mem PLACED = X6Y43;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_21 RAMB32 [10:10] [0:32767] INPUT = mb_high_lmb_bram_0_combined_21.mem PLACED = X6Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_22 RAMB32 [9:9] [0:32767] INPUT = mb_high_lmb_bram_0_combined_22.mem PLACED = X7Y45;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_23 RAMB32 [8:8] [0:32767] INPUT = mb_high_lmb_bram_0_combined_23.mem PLACED = X8Y44;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_24 RAMB32 [7:7] [0:32767] INPUT = mb_high_lmb_bram_0_combined_24.mem PLACED = X7Y42;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_25 RAMB32 [6:6] [0:32767] INPUT = mb_high_lmb_bram_0_combined_25.mem PLACED = X8Y42;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_26 RAMB32 [5:5] [0:32767] INPUT = mb_high_lmb_bram_0_combined_26.mem PLACED = X6Y41;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_27 RAMB32 [4:4] [0:32767] INPUT = mb_high_lmb_bram_0_combined_27.mem PLACED = X4Y39;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_28 RAMB32 [3:3] [0:32767] INPUT = mb_high_lmb_bram_0_combined_28.mem PLACED = X3Y44;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_29 RAMB32 [2:2] [0:32767] INPUT = mb_high_lmb_bram_0_combined_29.mem PLACED = X3Y43;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_30 RAMB32 [1:1] [0:32767] INPUT = mb_high_lmb_bram_0_combined_30.mem PLACED = X5Y41;
+            mb_high_lmb_bram_0/mb_high_lmb_bram_0/ramb36e1_31 RAMB32 [0:0] [0:32767] INPUT = mb_high_lmb_bram_0_combined_31.mem PLACED = X7Y43;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'mb_high_lmb_bram_1_combined' 0x00020000:0x0003FFFF (128 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_high_lmb_bram_1_combined RAMB32 [0x00020000:0x0003FFFF]
+        BUS_BLOCK
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_0 RAMB32 [31:31] [0:32767] INPUT = mb_high_lmb_bram_1_combined_0.mem PLACED = X3Y42;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_1 RAMB32 [30:30] [0:32767] INPUT = mb_high_lmb_bram_1_combined_1.mem PLACED = X4Y38;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_2 RAMB32 [29:29] [0:32767] INPUT = mb_high_lmb_bram_1_combined_2.mem PLACED = X5Y44;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_3 RAMB32 [28:28] [0:32767] INPUT = mb_high_lmb_bram_1_combined_3.mem PLACED = X3Y41;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_4 RAMB32 [27:27] [0:32767] INPUT = mb_high_lmb_bram_1_combined_4.mem PLACED = X4Y46;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_5 RAMB32 [26:26] [0:32767] INPUT = mb_high_lmb_bram_1_combined_5.mem PLACED = X5Y42;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_6 RAMB32 [25:25] [0:32767] INPUT = mb_high_lmb_bram_1_combined_6.mem PLACED = X6Y42;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_7 RAMB32 [24:24] [0:32767] INPUT = mb_high_lmb_bram_1_combined_7.mem PLACED = X4Y41;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_8 RAMB32 [23:23] [0:32767] INPUT = mb_high_lmb_bram_1_combined_8.mem PLACED = X5Y38;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_9 RAMB32 [22:22] [0:32767] INPUT = mb_high_lmb_bram_1_combined_9.mem PLACED = X6Y44;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_10 RAMB32 [21:21] [0:32767] INPUT = mb_high_lmb_bram_1_combined_10.mem PLACED = X4Y47;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_11 RAMB32 [20:20] [0:32767] INPUT = mb_high_lmb_bram_1_combined_11.mem PLACED = X8Y46;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_12 RAMB32 [19:19] [0:32767] INPUT = mb_high_lmb_bram_1_combined_12.mem PLACED = X7Y47;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_13 RAMB32 [18:18] [0:32767] INPUT = mb_high_lmb_bram_1_combined_13.mem PLACED = X7Y44;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_14 RAMB32 [17:17] [0:32767] INPUT = mb_high_lmb_bram_1_combined_14.mem PLACED = X5Y47;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_15 RAMB32 [16:16] [0:32767] INPUT = mb_high_lmb_bram_1_combined_15.mem PLACED = X2Y47;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_16 RAMB32 [15:15] [0:32767] INPUT = mb_high_lmb_bram_1_combined_16.mem PLACED = X3Y46;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_17 RAMB32 [14:14] [0:32767] INPUT = mb_high_lmb_bram_1_combined_17.mem PLACED = X1Y45;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_18 RAMB32 [13:13] [0:32767] INPUT = mb_high_lmb_bram_1_combined_18.mem PLACED = X3Y47;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_19 RAMB32 [12:12] [0:32767] INPUT = mb_high_lmb_bram_1_combined_19.mem PLACED = X5Y43;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_20 RAMB32 [11:11] [0:32767] INPUT = mb_high_lmb_bram_1_combined_20.mem PLACED = X6Y37;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_21 RAMB32 [10:10] [0:32767] INPUT = mb_high_lmb_bram_1_combined_21.mem PLACED = X7Y39;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_22 RAMB32 [9:9] [0:32767] INPUT = mb_high_lmb_bram_1_combined_22.mem PLACED = X8Y45;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_23 RAMB32 [8:8] [0:32767] INPUT = mb_high_lmb_bram_1_combined_23.mem PLACED = X7Y38;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_24 RAMB32 [7:7] [0:32767] INPUT = mb_high_lmb_bram_1_combined_24.mem PLACED = X7Y40;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_25 RAMB32 [6:6] [0:32767] INPUT = mb_high_lmb_bram_1_combined_25.mem PLACED = X8Y40;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_26 RAMB32 [5:5] [0:32767] INPUT = mb_high_lmb_bram_1_combined_26.mem PLACED = X6Y40;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_27 RAMB32 [4:4] [0:32767] INPUT = mb_high_lmb_bram_1_combined_27.mem PLACED = X4Y40;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_28 RAMB32 [3:3] [0:32767] INPUT = mb_high_lmb_bram_1_combined_28.mem PLACED = X3Y40;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_29 RAMB32 [2:2] [0:32767] INPUT = mb_high_lmb_bram_1_combined_29.mem PLACED = X2Y41;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_30 RAMB32 [1:1] [0:32767] INPUT = mb_high_lmb_bram_1_combined_30.mem PLACED = X7Y41;
+            mb_high_lmb_bram_1/mb_high_lmb_bram_1/ramb36e1_31 RAMB32 [0:0] [0:32767] INPUT = mb_high_lmb_bram_1_combined_31.mem PLACED = X8Y41;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'mb_high_init_bram_combined' 0x50000000:0x50000FFF (4 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_high_init_bram_combined RAMB32 [0x50000000:0x50000FFF]
+        BUS_BLOCK
+            mb_high_init_bram/mb_high_init_bram/ramb36e1_0 RAMB32 [31:0] [0:1023] INPUT = mb_high_init_bram_combined_0.mem PLACED = X6Y20;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'mac_log_bram_combined' 0x90000000:0x90001FFF (8 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mac_log_bram_combined RAMB32 [0x90000000:0x90001FFF]
+        BUS_BLOCK
+            mac_log_bram/mac_log_bram/ramb36e1_0 RAMB32 [63:32] [0:1023] INPUT = mac_log_bram_combined_0.mem PLACED = X5Y33;
+            mac_log_bram/mac_log_bram/ramb36e1_1 RAMB32 [31:0] [0:1023] INPUT = mac_log_bram_combined_1.mem PLACED = X5Y34;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'mb_high_aux_bram_combined' 0xBF540000:0xBF54FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE mb_high_aux_bram_combined RAMB32 [0xBF540000:0xBF54FFFF]
+        BUS_BLOCK
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_0 RAMB32 [63:60] [0:8191] INPUT = mb_high_aux_bram_combined_0.mem PLACED = X8Y38;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_1 RAMB32 [59:56] [0:8191] INPUT = mb_high_aux_bram_combined_1.mem PLACED = X8Y37;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_2 RAMB32 [55:52] [0:8191] INPUT = mb_high_aux_bram_combined_2.mem PLACED = X5Y30;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_3 RAMB32 [51:48] [0:8191] INPUT = mb_high_aux_bram_combined_3.mem PLACED = X7Y34;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_4 RAMB32 [47:44] [0:8191] INPUT = mb_high_aux_bram_combined_4.mem PLACED = X8Y36;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_5 RAMB32 [43:40] [0:8191] INPUT = mb_high_aux_bram_combined_5.mem PLACED = X6Y31;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_6 RAMB32 [39:36] [0:8191] INPUT = mb_high_aux_bram_combined_6.mem PLACED = X6Y35;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_7 RAMB32 [35:32] [0:8191] INPUT = mb_high_aux_bram_combined_7.mem PLACED = X7Y33;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_8 RAMB32 [31:28] [0:8191] INPUT = mb_high_aux_bram_combined_8.mem PLACED = X7Y36;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_9 RAMB32 [27:24] [0:8191] INPUT = mb_high_aux_bram_combined_9.mem PLACED = X7Y35;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_10 RAMB32 [23:20] [0:8191] INPUT = mb_high_aux_bram_combined_10.mem PLACED = X6Y34;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_11 RAMB32 [19:16] [0:8191] INPUT = mb_high_aux_bram_combined_11.mem PLACED = X5Y32;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_12 RAMB32 [15:12] [0:8191] INPUT = mb_high_aux_bram_combined_12.mem PLACED = X4Y30;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_13 RAMB32 [11:8] [0:8191] INPUT = mb_high_aux_bram_combined_13.mem PLACED = X6Y32;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_14 RAMB32 [7:4] [0:8191] INPUT = mb_high_aux_bram_combined_14.mem PLACED = X5Y31;
+            mb_high_aux_bram/mb_high_aux_bram/ramb36e1_15 RAMB32 [3:0] [0:8191] INPUT = mb_high_aux_bram_combined_15.mem PLACED = X6Y33;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'pkt_buffer_rx_bram_combined' 0xBF560000:0xBF56FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE pkt_buffer_rx_bram_combined RAMB32 [0xBF560000:0xBF56FFFF]
+        BUS_BLOCK
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_0 RAMB32 [63:60] [0:8191] INPUT = pkt_buffer_rx_bram_combined_0.mem PLACED = X7Y32;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_1 RAMB32 [59:56] [0:8191] INPUT = pkt_buffer_rx_bram_combined_1.mem PLACED = X5Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_2 RAMB32 [55:52] [0:8191] INPUT = pkt_buffer_rx_bram_combined_2.mem PLACED = X7Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_3 RAMB32 [51:48] [0:8191] INPUT = pkt_buffer_rx_bram_combined_3.mem PLACED = X7Y24;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_4 RAMB32 [47:44] [0:8191] INPUT = pkt_buffer_rx_bram_combined_4.mem PLACED = X8Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_5 RAMB32 [43:40] [0:8191] INPUT = pkt_buffer_rx_bram_combined_5.mem PLACED = X7Y30;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_6 RAMB32 [39:36] [0:8191] INPUT = pkt_buffer_rx_bram_combined_6.mem PLACED = X7Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_7 RAMB32 [35:32] [0:8191] INPUT = pkt_buffer_rx_bram_combined_7.mem PLACED = X7Y28;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_8 RAMB32 [31:28] [0:8191] INPUT = pkt_buffer_rx_bram_combined_8.mem PLACED = X7Y31;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_9 RAMB32 [27:24] [0:8191] INPUT = pkt_buffer_rx_bram_combined_9.mem PLACED = X6Y29;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_10 RAMB32 [23:20] [0:8191] INPUT = pkt_buffer_rx_bram_combined_10.mem PLACED = X6Y28;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_11 RAMB32 [19:16] [0:8191] INPUT = pkt_buffer_rx_bram_combined_11.mem PLACED = X7Y26;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_12 RAMB32 [15:12] [0:8191] INPUT = pkt_buffer_rx_bram_combined_12.mem PLACED = X6Y27;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_13 RAMB32 [11:8] [0:8191] INPUT = pkt_buffer_rx_bram_combined_13.mem PLACED = X6Y25;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_14 RAMB32 [7:4] [0:8191] INPUT = pkt_buffer_rx_bram_combined_14.mem PLACED = X6Y26;
+            pkt_buffer_rx_bram/pkt_buffer_rx_bram/ramb36e1_15 RAMB32 [3:0] [0:8191] INPUT = pkt_buffer_rx_bram_combined_15.mem PLACED = X5Y29;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'pkt_buffer_tx_bram_combined' 0xBF570000:0xBF57FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE pkt_buffer_tx_bram_combined RAMB32 [0xBF570000:0xBF57FFFF]
+        BUS_BLOCK
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_0 RAMB32 [63:60] [0:8191] INPUT = pkt_buffer_tx_bram_combined_0.mem PLACED = X3Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_1 RAMB32 [59:56] [0:8191] INPUT = pkt_buffer_tx_bram_combined_1.mem PLACED = X4Y24;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_2 RAMB32 [55:52] [0:8191] INPUT = pkt_buffer_tx_bram_combined_2.mem PLACED = X3Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_3 RAMB32 [51:48] [0:8191] INPUT = pkt_buffer_tx_bram_combined_3.mem PLACED = X4Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_4 RAMB32 [47:44] [0:8191] INPUT = pkt_buffer_tx_bram_combined_4.mem PLACED = X5Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_5 RAMB32 [43:40] [0:8191] INPUT = pkt_buffer_tx_bram_combined_5.mem PLACED = X4Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_6 RAMB32 [39:36] [0:8191] INPUT = pkt_buffer_tx_bram_combined_6.mem PLACED = X4Y28;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_7 RAMB32 [35:32] [0:8191] INPUT = pkt_buffer_tx_bram_combined_7.mem PLACED = X4Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_8 RAMB32 [31:28] [0:8191] INPUT = pkt_buffer_tx_bram_combined_8.mem PLACED = X2Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_9 RAMB32 [27:24] [0:8191] INPUT = pkt_buffer_tx_bram_combined_9.mem PLACED = X3Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_10 RAMB32 [23:20] [0:8191] INPUT = pkt_buffer_tx_bram_combined_10.mem PLACED = X1Y26;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_11 RAMB32 [19:16] [0:8191] INPUT = pkt_buffer_tx_bram_combined_11.mem PLACED = X2Y25;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_12 RAMB32 [15:12] [0:8191] INPUT = pkt_buffer_tx_bram_combined_12.mem PLACED = X2Y27;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_13 RAMB32 [11:8] [0:8191] INPUT = pkt_buffer_tx_bram_combined_13.mem PLACED = X3Y28;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_14 RAMB32 [7:4] [0:8191] INPUT = pkt_buffer_tx_bram_combined_14.mem PLACED = X2Y24;
+            pkt_buffer_tx_bram/pkt_buffer_tx_bram/ramb36e1_15 RAMB32 [3:0] [0:8191] INPUT = pkt_buffer_tx_bram_combined_15.mem PLACED = X3Y24;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    // Processor 'mb_high' address space 'fsm_buffer_combined' 0xBF580000:0xBF58FFFF (64 KBytes).
+    //
+    ///////////////////////////////////////////////////////////////////////////////
+
+    ADDRESS_SPACE fsm_buffer_combined RAMB32 [0xBF580000:0xBF58FFFF]
+        BUS_BLOCK
+            fsm_buffer/fsm_buffer/ramb36e1_0 RAMB32 [31:30] [0:16383] INPUT = fsm_buffer_combined_0.mem PLACED = X7Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_1 RAMB32 [29:28] [0:16383] INPUT = fsm_buffer_combined_1.mem PLACED = X8Y39;
+            fsm_buffer/fsm_buffer/ramb36e1_2 RAMB32 [27:26] [0:16383] INPUT = fsm_buffer_combined_2.mem PLACED = X5Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_3 RAMB32 [25:24] [0:16383] INPUT = fsm_buffer_combined_3.mem PLACED = X6Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_4 RAMB32 [23:22] [0:16383] INPUT = fsm_buffer_combined_4.mem PLACED = X4Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_5 RAMB32 [21:20] [0:16383] INPUT = fsm_buffer_combined_5.mem PLACED = X5Y35;
+            fsm_buffer/fsm_buffer/ramb36e1_6 RAMB32 [19:18] [0:16383] INPUT = fsm_buffer_combined_6.mem PLACED = X4Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_7 RAMB32 [17:16] [0:16383] INPUT = fsm_buffer_combined_7.mem PLACED = X4Y35;
+            fsm_buffer/fsm_buffer/ramb36e1_8 RAMB32 [15:14] [0:16383] INPUT = fsm_buffer_combined_8.mem PLACED = X4Y34;
+            fsm_buffer/fsm_buffer/ramb36e1_9 RAMB32 [13:12] [0:16383] INPUT = fsm_buffer_combined_9.mem PLACED = X3Y33;
+            fsm_buffer/fsm_buffer/ramb36e1_10 RAMB32 [11:10] [0:16383] INPUT = fsm_buffer_combined_10.mem PLACED = X3Y36;
+            fsm_buffer/fsm_buffer/ramb36e1_11 RAMB32 [9:8] [0:16383] INPUT = fsm_buffer_combined_11.mem PLACED = X3Y37;
+            fsm_buffer/fsm_buffer/ramb36e1_12 RAMB32 [7:6] [0:16383] INPUT = fsm_buffer_combined_12.mem PLACED = X3Y32;
+            fsm_buffer/fsm_buffer/ramb36e1_13 RAMB32 [5:4] [0:16383] INPUT = fsm_buffer_combined_13.mem PLACED = X4Y31;
+            fsm_buffer/fsm_buffer/ramb36e1_14 RAMB32 [3:2] [0:16383] INPUT = fsm_buffer_combined_14.mem PLACED = X4Y33;
+            fsm_buffer/fsm_buffer/ramb36e1_15 RAMB32 [1:0] [0:16383] INPUT = fsm_buffer_combined_15.mem PLACED = X4Y32;
+        END_BUS_BLOCK;
+    END_ADDRESS_SPACE;
+
+END_ADDRESS_MAP;
+

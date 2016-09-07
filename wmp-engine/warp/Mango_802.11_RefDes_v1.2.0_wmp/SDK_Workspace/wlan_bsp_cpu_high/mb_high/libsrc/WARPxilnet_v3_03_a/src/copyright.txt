@@ -1,0 +1,13 @@
+Modifications to Xilnet are Copyright (c) 2012 Rice University and
+Mango Communications and are provided with the software's original
+license terms.
+
+This Xilnet version is based on that which was included in the
+10.1 EDK tool. It has been modified and ported forward by Rice
+University and Mango Communications. The changes made are:
+
+- Inclusion of TEMAC support
+- Inclusion of broadcast IP address receptions
+- Renamed files and flattened hierarchy
+- Rewrote MAKEFILE to support new installations of EDK that do not
+  rely on Cygwin. Compatibility is still maintained for 10.1 tools

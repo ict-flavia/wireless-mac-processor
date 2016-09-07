@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+########################################################################
+##
+## Copyright (c) 2010 Xilinx, Inc.  All rights reserved.
+##
+########################################################################
+-->
+
+<!DOCTYPE doc SYSTEM "sg_ipdialog.dtd" [
+<!ENTITY C_BASEADDR '
+<widget id="C_BASEADDR">
+    <key>C_BASEADDR</key>
+    <label>C_BASEADDR</label>
+    <tip>Base Address</tip>
+</widget>
+'>
+<!ENTITY C_HIGHADDR '
+<widget id="C_HIGHADDR">
+    <key>C_HIGHADDR</key>
+    <label>C_HIGHADDR</label>
+    <tip>High Address</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TIMING_RESET '
+<widget id="C_MEMMAP_TIMING_RESET">
+    <key>C_MEMMAP_TIMING_RESET</key>
+    <label>C_MEMMAP_TIMING_RESET</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_RSSI_PWR_CALIB '
+<widget id="C_MEMMAP_RSSI_PWR_CALIB">
+    <key>C_MEMMAP_RSSI_PWR_CALIB</key>
+    <label>C_MEMMAP_RSSI_PWR_CALIB</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_IIR_COEF_B0 '
+<widget id="C_MEMMAP_IIR_COEF_B0">
+    <key>C_MEMMAP_IIR_COEF_B0</key>
+    <label>C_MEMMAP_IIR_COEF_B0</label>
+    <tip>To Register
+    data type: UFix_18_17</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_IIR_COEF_A1 '
+<widget id="C_MEMMAP_IIR_COEF_A1">
+    <key>C_MEMMAP_IIR_COEF_A1</key>
+    <label>C_MEMMAP_IIR_COEF_A1</label>
+    <tip>To Register
+    data type: Fix_18_17</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_RESET '
+<widget id="C_MEMMAP_RESET">
+    <key>C_MEMMAP_RESET</key>
+    <label>C_MEMMAP_RESET</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TIMING_AGC '
+<widget id="C_MEMMAP_TIMING_AGC">
+    <key>C_MEMMAP_TIMING_AGC</key>
+    <label>C_MEMMAP_TIMING_AGC</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TARGET '
+<widget id="C_MEMMAP_TARGET">
+    <key>C_MEMMAP_TARGET</key>
+    <label>C_MEMMAP_TARGET</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_CONFIG '
+<widget id="C_MEMMAP_CONFIG">
+    <key>C_MEMMAP_CONFIG</key>
+    <label>C_MEMMAP_CONFIG</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TIMING_DCO '
+<widget id="C_MEMMAP_TIMING_DCO">
+    <key>C_MEMMAP_TIMING_DCO</key>
+    <label>C_MEMMAP_TIMING_DCO</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+]>
+
+<doc>
+<view id="Memory Map Information">
+    <display>Memory Map Information</display>
+    <group id="All">
+        <display>All</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+        <item>&C_MEMMAP_TIMING_RESET;</item>
+        <item>&C_MEMMAP_RSSI_PWR_CALIB;</item>
+        <item>&C_MEMMAP_IIR_COEF_B0;</item>
+        <item>&C_MEMMAP_IIR_COEF_A1;</item>
+        <item>&C_MEMMAP_RESET;</item>
+        <item>&C_MEMMAP_TIMING_AGC;</item>
+        <item>&C_MEMMAP_TARGET;</item>
+        <item>&C_MEMMAP_CONFIG;</item>
+        <item>&C_MEMMAP_TIMING_DCO;</item>
+    </group>
+    <group id="From/To Registers">
+        <display>From/To Registers</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+        <item>&C_MEMMAP_TIMING_RESET;</item>
+        <item>&C_MEMMAP_RSSI_PWR_CALIB;</item>
+        <item>&C_MEMMAP_IIR_COEF_B0;</item>
+        <item>&C_MEMMAP_IIR_COEF_A1;</item>
+        <item>&C_MEMMAP_RESET;</item>
+        <item>&C_MEMMAP_TIMING_AGC;</item>
+        <item>&C_MEMMAP_TARGET;</item>
+        <item>&C_MEMMAP_CONFIG;</item>
+        <item>&C_MEMMAP_TIMING_DCO;</item>
+    </group>
+    <group id="From/To FIFOs">
+        <display>From/To FIFOs</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+    </group>
+    <group id="Shared Memories">
+        <display>Shared Memories</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+    </group>
+</view>
+</doc>

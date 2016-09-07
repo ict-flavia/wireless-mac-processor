@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+########################################################################
+##
+## Copyright (c) 2010 Xilinx, Inc.  All rights reserved.
+##
+########################################################################
+-->
+
+<!DOCTYPE doc SYSTEM "sg_ipdialog.dtd" [
+<!ENTITY C_BASEADDR '
+<widget id="C_BASEADDR">
+    <key>C_BASEADDR</key>
+    <label>C_BASEADDR</label>
+    <tip>Base Address</tip>
+</widget>
+'>
+<!ENTITY C_HIGHADDR '
+<widget id="C_HIGHADDR">
+    <key>C_HIGHADDR</key>
+    <label>C_HIGHADDR</label>
+    <tip>High Address</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_STATUS '
+<widget id="C_MEMMAP_STATUS">
+    <key>C_MEMMAP_STATUS</key>
+    <label>C_MEMMAP_STATUS</label>
+    <tip>From Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TIMING '
+<widget id="C_MEMMAP_TIMING">
+    <key>C_MEMMAP_TIMING</key>
+    <label>C_MEMMAP_TIMING</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_CONFIG '
+<widget id="C_MEMMAP_CONFIG">
+    <key>C_MEMMAP_CONFIG</key>
+    <label>C_MEMMAP_CONFIG</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_PKT_BUF_SEL '
+<widget id="C_MEMMAP_PKT_BUF_SEL">
+    <key>C_MEMMAP_PKT_BUF_SEL</key>
+    <label>C_MEMMAP_PKT_BUF_SEL</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_OUTPUT_SCALING '
+<widget id="C_MEMMAP_OUTPUT_SCALING">
+    <key>C_MEMMAP_OUTPUT_SCALING</key>
+    <label>C_MEMMAP_OUTPUT_SCALING</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_TX_START '
+<widget id="C_MEMMAP_TX_START">
+    <key>C_MEMMAP_TX_START</key>
+    <label>C_MEMMAP_TX_START</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+<!ENTITY C_MEMMAP_FFT_CONFIG '
+<widget id="C_MEMMAP_FFT_CONFIG">
+    <key>C_MEMMAP_FFT_CONFIG</key>
+    <label>C_MEMMAP_FFT_CONFIG</label>
+    <tip>To Register
+    data type: UFix_32_0</tip>
+</widget>
+'>
+]>
+
+<doc>
+<view id="Memory Map Information">
+    <display>Memory Map Information</display>
+    <group id="All">
+        <display>All</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+        <item>&C_MEMMAP_STATUS;</item>
+        <item>&C_MEMMAP_TIMING;</item>
+        <item>&C_MEMMAP_CONFIG;</item>
+        <item>&C_MEMMAP_PKT_BUF_SEL;</item>
+        <item>&C_MEMMAP_OUTPUT_SCALING;</item>
+        <item>&C_MEMMAP_TX_START;</item>
+        <item>&C_MEMMAP_FFT_CONFIG;</item>
+    </group>
+    <group id="From/To Registers">
+        <display>From/To Registers</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+        <item>&C_MEMMAP_STATUS;</item>
+        <item>&C_MEMMAP_TIMING;</item>
+        <item>&C_MEMMAP_CONFIG;</item>
+        <item>&C_MEMMAP_PKT_BUF_SEL;</item>
+        <item>&C_MEMMAP_OUTPUT_SCALING;</item>
+        <item>&C_MEMMAP_TX_START;</item>
+        <item>&C_MEMMAP_FFT_CONFIG;</item>
+    </group>
+    <group id="From/To FIFOs">
+        <display>From/To FIFOs</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+    </group>
+    <group id="Shared Memories">
+        <display>Shared Memories</display>
+        <item>&C_BASEADDR;</item>
+        <item>&C_HIGHADDR;</item>
+    </group>
+</view>
+</doc>

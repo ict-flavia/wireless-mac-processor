@@ -1,0 +1,18 @@
+#############################################################
+# Copyright (c) 1995-2015 Xilinx, Inc.  All rights reserved.
+# 
+# You may copy and modify these files for your own internal
+# use solely with Xilinx programmable logic devices and
+# Xilinx EDK system or create IP modules solely for Xilinx
+# programmable logic devices and Xilinx EDK system.
+# No rights are granted to distribute any files unless they
+# are distributed in Xilinx programmable logic devices.
+#
+# Peripheral Analyze Order (PAO) file
+# created by System Generator
+# Jan 12, 2015 12:00:52 PM
+#############################################################
+
+lib wlan_phy_tx_pmd_axiw_v2_01_c wlan_phy_tx_pmd vhdl
+lib wlan_phy_tx_pmd_axiw_v2_01_c wlan_phy_tx_pmd_cw vhdl
+lib wlan_phy_tx_pmd_axiw_v2_01_c wlan_phy_tx_pmd_axiw vhdl
