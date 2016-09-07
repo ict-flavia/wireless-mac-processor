@@ -26,16 +26,17 @@ Usage: bytecode-manager [OPTIONS]\n\
 \t -e <on><off> \t\t\t active or deactive state debug\n\
 \t -x <1,2,3> \t\t\t Show Registers (1), Share Memory(2) or both(3)\n\
 \t -w \t\t\t\t Write a frame in tamplate ram to send with specific action in the wmp; \n \t\t\t\t\t frame can be 'date' or 'ack' with different rate to the trasmissn, and string conteined in the frame \n\
-\t -i | --input \t <input-file> \n\
-\t -o | --output \t <output-file> \n\
-\t -3 | --timeslot \t <timeslot ms > \n\
-\t -4 | --position \t <position ms> \n\
-\t -1 | --macaddress \t <mac_address> \n\
-\t -2 | --channel \t <channel> \n\
-\t -5 | --timer \t  <timer values ms> \n\
-\n\t --write-reg-mem \t\t\t\t Other options, set or reset values information for the wmp register and memory;  \t\t\t\t\t \n"
+\t --input \t <input-file> \n\
+\t --output \t <output-file> \n\
+\t --timeslot \t <timeslot ms > \n\
+\t --position \t <position ms> \n\
+\t --macaddress \t <mac_address> \n\
+\t --channel \t <channel> \n\
+\t --timer \t  <timer values ms> \n\
+\t --modify-parameter \t <parameter num> \n"
 
 
+//\t --write-reg-mem \t\t\t\t Other options, set or reset values information for the wmp register and memory;  \t\t\t\t\t \n"
 //\t --channel \t\t\t Change the channel of the WMP work; \n \t\t\t\t\t \n"
 //\t -i <wiphy> \t\t\t WIPHY to use. (For example phy0) \n\
 

@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <dirent.h>
+
 #include "libb43.h"
 #include "hex2int.h"
-#include <time.h>       /* time_t, struct tm, time, localtime, strftime */
+#include "dataParser.h"
+#include "vars.h"
 
 
 void init_file(struct debugfs_file * df){
@@ -24,7 +19,7 @@ void init_file(struct debugfs_file * df){
 
 	sprintf(path,"%s%s",debugfs_path,"/mmio16read");
 	df->f_mmio16read=fopen(path, "r+");
-
+	
 	sprintf(path,"%s%s",debugfs_path,"/mmio16write");
 	df->f_mmio16write=fopen(path, "w");
 
@@ -56,17 +51,22 @@ void close_file( struct debugfs_file * df){
 
 
 
-int read16(struct debugfs_file * df, int reg){
+uint16_t read16(struct debugfs_file * df, int reg){
 
 	/* """Do a 16bit MMIO read""" */
 	char buffer[256];
-	unsigned int ret=0;
+	uint16_t ret=0;
 	
-	rewind (df->f_mmio16read);
-	fprintf (df->f_mmio16read, "0x%X",reg);
+	rewind(df->f_mmio16read);
+	
+	fprintf(df->f_mmio16read, "0x%X",reg);
+	
 	fflush(df->f_mmio16read);
-	rewind (df->f_mmio16read);
-	fscanf (df->f_mmio16read, "%s", buffer);
+	
+	rewind(df->f_mmio16read);
+	
+	fscanf(df->f_mmio16read, "%s", buffer);
+	
 	ret=htoi(buffer);
 	
 	return ret;
@@ -83,7 +83,7 @@ void maskSet16(struct debugfs_file * df, int reg, int mask, int set){
 	//printf("set & 0xFFFF = 0x%04X\n",set);
 
 	rewind (df->f_mmio16write);
-	fprintf (df->f_mmio16write, "0x%X 0x%X 0x%X",reg,mask,set);
+	fprintf (df->f_mmio16write, "0x%X 0x%X 0x%X", reg, mask,set);
 	fflush(df->f_mmio16write);
 }
 void write16(struct debugfs_file * df, int reg, int value){
@@ -261,6 +261,7 @@ void shmSharedRead(struct debugfs_file * df){
 }
 
 
+
 void getGprs(struct debugfs_file * df){
 	/* Returns an array of 64 ints. One for each General Purpose register. */
 	unsigned int reg=0;
@@ -287,6 +288,34 @@ void getLinkRegs(struct debugfs_file * df){
 	}
 	printf("\n");
 }
+
+void getTSFRegs(struct debugfs_file * df, uint64_t * tsf){
+	uint64_t tmp;
+	uint16_t v0, v1, v2, v3;
+        uint16_t test1, test2, test3;
+	do {
+                        v3 = read16(df, B43_MMIO_TSF_3);
+                        v2 = read16(df, B43_MMIO_TSF_2);
+                        v1 = read16(df, B43_MMIO_TSF_1);
+                        v0 = read16(df, B43_MMIO_TSF_0);
+ 
+                        test3 = read16(df, B43_MMIO_TSF_3);
+                        test2 = read16(df, B43_MMIO_TSF_2);
+                        test1 = read16(df, B43_MMIO_TSF_1);
+        } while (v3 != test3 || v2 != test2 || v1 != test1);
+        *tsf = v3;
+        *tsf <<= 48;
+        tmp = v2;
+        tmp <<= 32;
+        *tsf |= tmp;
+        tmp = v1;
+        tmp <<= 16;
+        *tsf |= tmp;
+        *tsf |= v0;
+}
+
+
+
 void getOffsetRegs(struct debugfs_file * df){
 /*"""Returns an array of 7 ints. One for each Offset Register."""*/
 	unsigned int reg=0;
@@ -301,282 +330,6 @@ void getOffsetRegs(struct debugfs_file * df){
 	printf("\n");
 
 }
-
-
-void shmReadStateTime(struct debugfs_file * df,  char * file_name){
-  
- 	char buffer[80];
-	char time_stamp_char[128][32];  
-	char state_num_char[128][32];
-	char exit_transition_char[128][32];
-	int offset;
-	int enable_store=0;
-	long int time_stamp_1=1;  
-	long int state_num_1=0;
-	long int exit_transition_1=0;
-	long int time_stamp_2=1;  
-	long int state_num_2=0;
-	long int exit_transition_2=0;
-	long int state_time=0;
-	long int last_time_stamp=0;
-  
-	time_t rawtime;
-	struct tm * timeinfo;
-  	int i,j;
-
-	FILE * log_state_time;
-	log_state_time = fopen(file_name, "w+");
-	
-	//printf("name file %s\n",file_name);
-	
-	for(j=0; j<300; j++){
-		printf("%d\n", j);
-		  
-		#define REGION_DEBUG_START	3072	
-		#define REGION_DEBUG_STOP 	4048
-		i=0;
-		for (offset=REGION_DEBUG_START; offset < REGION_DEBUG_STOP; offset+=4){
-		  
-		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
-		      sprintf(time_stamp_char[i],"%c%c%c%c%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9],buffer[2],buffer[3],buffer[4],buffer[5]);
-		      //printf("%s - %ld \n", time_stamp_char[i], strtol(time_stamp_char[i], NULL, 16));
-		  
-		      offset+=4;
-		  		  
-		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
-		      sprintf(state_num_char[i],"%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9]);
-		      //printf("%s ", state_num_char);
-		      sprintf(exit_transition_char[i],"%c%c",buffer[4],buffer[5]);
-		      //printf("%s ", exit_transition_char);
-		      
-		      i++;
-		}
-		
-		i=0;
-		state_num_1 = strtol(state_num_char[i], NULL, 16);
-		exit_transition_1 = strtol(exit_transition_char[i], NULL, 16);
-		time_stamp_1 = strtol(time_stamp_char[i], NULL, 16);
-		i++;      
-		
-		for (offset=(REGION_DEBUG_START+8); offset < REGION_DEBUG_STOP; offset+=4){    
-		      //printf("\n");
-		      //printf("%d - 0x%04X:\t", i, offset);
-		  
-		      state_num_2 = strtol(state_num_char[i], NULL, 16);
-		      //printf("%ld \t", state_num);
-
-		      exit_transition_2 = strtol(exit_transition_char[i], NULL, 16);
-		      //printf("%ld \t", exit_transition);
-
-		      offset+=4;
-
-		      time_stamp_2 = strtol(time_stamp_char[i], NULL, 16);
-		      //printf("%ld \t\n", time_stamp);
-
-		      if( time_stamp_1 > last_time_stamp && time_stamp_2 > time_stamp_1) {
-			  last_time_stamp = time_stamp_1;
-			  state_time = time_stamp_2 - time_stamp_1;
-			  printf("%d - %d - 0x%04X:\t", j, i, offset);
-		  
-			  time(&rawtime);
-			  timeinfo = localtime(&rawtime);
-			  //2014 01 26 11 17 15
-			  strftime (buffer,80,"%G%m%d%H%M%S",timeinfo);	
-			  //printf("%s \t%ld\t %ld\t %ld\t %ld\t %ld\n", buffer, state_num_1, exit_transition_1, time_stamp_1, time_stamp_2, state_time);
-			  printf("%s \t%ld\t %ld\t %ld\t %ld\n", buffer, state_num_1, exit_transition_1, time_stamp_2, state_time);
-			  fprintf(log_state_time, "%s,%ld,%ld,%ld\n", buffer, state_num_1, exit_transition_1, state_time);
-			  fflush(log_state_time);	      
-		      }
-		      time_stamp_1 = time_stamp_2;
-		      state_num_1 = state_num_2;
-		      exit_transition_1 = exit_transition_2;
-		      i++;
-		      
-		}
-			
-		sleep(1);
-	}
-	
-	fclose(log_state_time);
-	printf("\n");
-
-}
-
-
-
-void shmReadActivateTime(struct debugfs_file * df,  char * file_name){
-  
- 	char buffer[80];
-	char time_stamp_char[128][32];  
-	char state_num_char[128][32];
-	char exit_transition_char[128][32];
-	int offset;
-	int enable_store=1;
-	long int time_stamp_1=1;  
-	long int time_stamp_2=1;  
-	long int state_num=0;
-	long int state_num_1=0;
-	long int state_num_2=0;
-	long int state_time=0;
-	long int exit_transition=0;
-	long int last_time_stamp=0;
-  
-	time_t rawtime;
-	struct tm * timeinfo;
-  	int i,j;
-
-	FILE * log_state_time;
-	log_state_time = fopen(file_name, "a+");
-	
-	//printf("inside name file %s\n",file_name);
-
-
-	#define REGION_DEBUG_START_1	3408	
-	#define REGION_DEBUG_STOP_1 	3936
-
-	
-	//for(j=0; j<30; j++){
-		printf("%d\n", j);
-		  
-		i=0;
-		for (offset=REGION_DEBUG_START_1; offset < REGION_DEBUG_STOP_1; offset+=4){
-		      
-		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
-		      sprintf(time_stamp_char[i],"%c%c%c%c%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9],buffer[2],buffer[3],buffer[4],buffer[5]);
-		      printf("%s - %ld \t", time_stamp_char[i], strtol(time_stamp_char[i], NULL, 16));      
-		      offset+=4;
-		      
-		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
-		      sprintf(state_num_char[i],"%c%c%c%c",buffer[6],buffer[7],buffer[8],buffer[9]);
-		      printf("%s - %ld\n", state_num_char[i], strtol(state_num_char[i], NULL, 16));
-		      //sprintf(exit_transition_char[i],"%c%c",buffer[4],buffer[5]);
-		      //printf("%s ", exit_transition_char);
-		      //printf("\n");		      
-		      i++;
-		}
-		
-		i=0;
-		for (offset=REGION_DEBUG_START_1; offset < REGION_DEBUG_STOP_1; offset+=4){    
-		      //printf("\n");
-		      //printf("%d - 0x%04X:\t", i, offset);
-		  
-		      state_num_1 = strtol(state_num_char[i], NULL, 16);
-		      offset+=4;
-		      time_stamp_1 = strtol(time_stamp_char[i], NULL, 16);
-		      printf("	%ld \t", time_stamp_1);
-		      
-		      offset+=4;
-		      i++;
-
-		      state_num_2 = strtol(state_num_char[i], NULL, 16);
-		      offset+=4;
-		      time_stamp_2 = strtol(time_stamp_char[i], NULL, 16);
-		      printf("	%ld \t", time_stamp_2);
-		      
-		      printf(" = %ld \n", time_stamp_2-time_stamp_1);
-
-		      if( time_stamp_1 > last_time_stamp) {
-			      
-			      last_time_stamp = time_stamp_2;
-			      state_time = time_stamp_2 - time_stamp_1;
-			  
-			      if(state_time>0){
-					time(&rawtime);
-					timeinfo = localtime(&rawtime);
-					//2014 01 26 11 17 15
-					strftime (buffer,80,"%G%m%d%H%M%S",timeinfo);	
-					printf("%d - %d - 0x%04X:\t", j, i, offset);
-					//printf("%s \t%ld\t %d\t %ld\t %ld\t %ld\n", buffer, 0, 0, time_stamp_1, time_stamp_2, state_time);
-					fprintf(log_state_time, "%s,%ld,%d,%ld\n", buffer, state_num_2, 0, state_time);
-					fflush(log_state_time);
-			      }
-		      }
-			 
-		      i++;
-		      
-		}
-		
-	//	sleep(10);
-	//}
-	
-		
-	
-	fclose(log_state_time);
-	
-}
-
-
-
-
-void shmReadZigbeeRx(struct debugfs_file * df,  char * file_name){
-  
- 	char buffer[80];
-	char rx_code[500][2];  
-	char rx_seq[500][2];  
-	char rx_value[500][4];
-	long int busy_value[500];
-	long int code_int[500];
-	long int seq_int[500];
-	
-	int offset;
-	
-	time_t rawtime;
-	struct tm * timeinfo;
-  	int i,j;
-
-	printf("name file %s\n",file_name);
-
-	FILE * log_zigbee_rx;
-	log_zigbee_rx = fopen(file_name, "w+");
-	
-	for(j=0; j<300; j++){
-		printf("%d\n", j);
-		  
-		#define REGION_DEBUG_START_3	3400	
-		#define REGION_DEBUG_STOP_3 	3940
-		i=0;
-		for (offset=REGION_DEBUG_START_3; offset < REGION_DEBUG_STOP_3; offset+=4){
-		      shmRead32( df, B43_SHM_SHARED, offset, buffer);
-		      sprintf(rx_code[i],"%c%c",buffer[8],buffer[9]);
-		      sprintf(rx_seq[i],"%c%c",buffer[6],buffer[7]);
-		      sprintf(rx_value[i],"%c%c%c%c",buffer[4],buffer[5],buffer[2],buffer[3]);
-		      busy_value[i] = strtol(rx_value[i], NULL, 16);
-		      code_int[i] = strtol(rx_code[i], NULL, 16);
-		      seq_int[i] = strtol(rx_seq[i], NULL, 16);
-		      //printf("%s - %s - %ld\n", rx_code[i], rx_seq[i], strtol(rx_value[i], NULL, 16));
-		      printf("%ld - %ld - %ld\n", code_int[i], seq_int[i], busy_value[i]);
-		      
-		      
-		      if(strcmp(rx_seq[i],"EE")){
-			time(&rawtime);
-			timeinfo = localtime(&rawtime);
-			//2014 01 26 11 17 15
-			strftime (buffer,80,"%G%m%d%H%M%S",timeinfo);	
-			fprintf(log_zigbee_rx, "%s,%ld,%ld,%ld\n", buffer, code_int[i], seq_int[i], busy_value[i]);
-			fflush(log_zigbee_rx);	      
-		      }
-		   
-		      i++;
-		      
-		}
-			
-		sleep(4);
-	}
-	
-	fclose(log_zigbee_rx);
-	printf("\n");
-
-}
-
-
-
-void getRaw(struct debugfs_file * df){
-
-}
-void getPc(struct debugfs_file * df){
-
-}
-
 
 void ucodeStop(struct debugfs_file * df){
   //Unconditionally stop the microcode PSM

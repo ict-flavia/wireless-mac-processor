@@ -1,0 +1,45 @@
+<!-- SMPARAMETERSPRM_14=0&PRM_7=0&PRM_13=30&PRM_6=0&PRM_12=0&PRM_5=ff%3Aff%3Aff%3Aff%3Aff%3Aff&PRM_11=0&PRM_4=ff%3Aff%3Aff%3Aff%3Aff%3Aff&PRM_10=0&CW_MAX=1023&PRM_9=0&START_STATE=0&PRM_8=0&INFLATION_MUL=2&CW_MIN=31&PRM_17=0&PRM_16=0&PRM_15=0&PRM_1=STD&DEFLATION_DIV=1&PRM_3=1&PRM_2=6&BYTECODE_CHANNEL=6&CW_CURR=31&DEFLATION_SUB=65535&INFLATION_SUM=1 -->
+<wmp initial="IDLE" version="0.9" xmlns="http://www.w3.org/2005/07/scxml"><!--   node-size-and-position x=0 y=0 w=4940 h=2710  -->
+ <state id="IDLE"><!--   node-size-and-position x=2450 y=1320 w=160 h=130  -->
+  <transition action="8" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="8" eventparam="15" eventreg="15" target="RX_HEADER"><!--   edge-path [RX_HEADER]  pointx=0 pointy=-155 offsetx=-18 offsety=33  --></transition>
+  <transition action="13" action2="0" action2param="15" action2reg="0" actionparam="0" actionreg="0" cond="3" condflag="false" condparam="0" condreg="0" event="13" eventparam="15" eventreg="15" target="BACKOFF"><!--   edge-path [BACKOFF]  x=2730 y=1720 pointx=0 pointy=-187 offsetx=-8 offsety=-15  --></transition>
+  <transition action="46" action2="13" action2param="0" action2reg="0" actionparam="15" actionreg="0" cond="3" condflag="true" condparam="0" condreg="0" event="13" eventparam="15" eventreg="15" target="BACKOFF"><!--   edge-path [BACKOFF]  x=2830 y=1600 pointx=0 pointy=-52 offsetx=-7 offsety=-6  --></transition>
+ </state>
+ <state id="RX_HEADER"><!--   node-size-and-position x=2260 y=1870 w=150 h=70  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="41" eventparam="15" eventreg="15" target="CHECK_IF_SCHEDULE_ACK"><!--   edge-path [CHECK_IF_SCHEDULE_ACK]  pointx=1 pointy=-129 offsetx=11 offsety=-4  --></transition>
+ </state>
+ <state id="BACKOFF"><!--   node-size-and-position x=2910 y=1880 w=160 h=80  -->
+  <transition action="2" action2="0" action2param="15" action2reg="15" actionparam="0" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="2" eventparam="15" eventreg="15" target="TX"><!--   edge-path [TX]  pointx=0 pointy=0 offsetx=-96 offsety=-16  --></transition>
+  <transition action="8" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="8" eventparam="15" eventreg="15" target="RX_HEADER"><!--   edge-path [RX_HEADER]  pointx=1 pointy=60 offsetx=16 offsety=0  --></transition>
+ </state>
+ <state id="RX"><!--   node-size-and-position x=1390 y=1520 w=160 h=80  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="16" condflag="true" condparam="1" condreg="15" event="9" eventparam="15" eventreg="15" target="TX_ACK"><!--   edge-path [TX_ACK]  pointx=-1 pointy=324 offsetx=3 offsety=-9  --></transition>
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="16" condflag="false" condparam="1" condreg="15" event="9" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=-1 pointy=2 offsetx=80 offsety=-14  --></transition>
+ </state>
+ <state id="TX"><!--   node-size-and-position x=3360 y=1560 w=170 h=90  -->
+  <transition action="0" action2="0" action2param="15" action2reg="2" actionparam="15" actionreg="0" cond="7" condflag="false" condparam="0" condreg="2" event="28" eventparam="15" eventreg="15" target="CHECK_TX_FRAME"><!--   edge-path [CHECK_TX_FRAME]  pointx=0 pointy=-39 offsetx=-57 offsety=20  --></transition>
+  <transition action="14" action2="10" action2param="1" action2reg="2" actionparam="1" actionreg="0" cond="7" condflag="true" condparam="0" condreg="2" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-49 offsetx=43 offsety=11  --></transition>
+ </state>
+ <state id="CHECK_TX_FRAME"><!--   node-size-and-position x=3560 y=1190 w=250 h=80  -->
+  <transition action="8" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="8" eventparam="15" eventreg="15" target="RX_HEADER_ACK"><!--   edge-path [RX_HEADER_ACK]  pointx=-1 pointy=29 offsetx=-10 offsety=-74  --></transition>
+  <transition action="10" action2="14" action2param="0" action2reg="15" actionparam="0" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="12" eventparam="0" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-63 offsetx=7 offsety=0  --></transition>
+ </state>
+ <state id="RX_HEADER_ACK"><!--   node-size-and-position x=3510 y=720 w=220 h=80  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="16" condflag="true" condparam="0" condreg="15" event="41" eventparam="15" eventreg="15" target="RX_ACK"><!--   edge-path [RX_ACK]  pointx=1 pointy=-31 offsetx=92 offsety=-5  --></transition>
+  <transition action="14" action2="10" action2param="0" action2reg="15" actionparam="0" actionreg="15" cond="16" condflag="false" condparam="0" condreg="15" event="41" eventparam="15" eventreg="15" target="CHECK_IF_SCHEDULE_ACK"><!--   edge-path [CHECK_IF_SCHEDULE_ACK]  x=4140 y=1060 x=4080 y=2080 pointx=-1 pointy=-10 offsetx=120 offsety=-1  --></transition>
+ </state>
+ <state id="RX_ACK"><!--   node-size-and-position x=2870 y=860 w=130 h=80  -->
+  <transition action="10" action2="14" action2param="1" action2reg="15" actionparam="1" actionreg="0" cond="0" condflag="1" condparam="15" condreg="15" event="9" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-59 offsetx=78 offsety=-69  --></transition>
+ </state>
+ <state id="CHECK_IF_SCHEDULE_ACK"><!--   node-size-and-position x=1640 y=2010 w=260 h=150  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="0" cond="16" condflag="false" condparam="1" condreg="15" event="0" eventparam="15" eventreg="15" target="RX"><!--   edge-path [RX]  pointx=0 pointy=-29 offsetx=-40 offsety=-40  --></transition>
+  <transition action="22" action2="0" action2param="15" action2reg="15" actionparam="1" actionreg="15" cond="16" condflag="true" condparam="1" condreg="15" event="0" eventparam="15" eventreg="15" target="RX"><!--   edge-path [RX]  x=1430 y=1900 pointx=0 pointy=165 offsetx=-130 offsety=80  --></transition>
+ </state>
+ <state id="TX_ACK"><!--   node-size-and-position x=1510 y=960 w=210 h=80  -->
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-76 offsetx=-167 offsety=-67  --></transition>
+ </state>
+ <state id="TX_BEACON"><!--   node-size-and-position x=2250 y=690 w=220 h=80  -->
+  <transition action="22" action2="0" action2param="15" action2reg="15" actionparam="2" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="12" eventparam="1" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  pointx=0 pointy=-247 offsetx=-34 offsety=-129  --></transition>
+  <transition action="0" action2="0" action2param="15" action2reg="15" actionparam="15" actionreg="15" cond="0" condflag="1" condparam="15" condreg="15" event="28" eventparam="15" eventreg="15" target="IDLE"><!--   edge-path [IDLE]  x=2560 y=900 pointx=-1 pointy=4 offsetx=92 offsety=62  --></transition>
+ </state>
+</wmp>

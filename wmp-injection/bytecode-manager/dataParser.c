@@ -6,6 +6,7 @@
 #include <time.h>
 #include "vars.h"
 #include "libb43.h"
+#include "bytecode-work.h"
 #include "bytecode-manager.h"
 #include "dataParser.h"
 
@@ -116,7 +117,7 @@ void writeAddressBytecode(struct debugfs_file * df, struct options * opt){
 	int byte_code_address;
 	int control_return;
 	
-	/*
+/*	
 	if(!strcmp(opt->active, "1")){
 		printf("Active byte-code '1' \n");
 		byte_code_address = PARAMETER_ADDR_OFFSET_BYTECODE_1 ;
@@ -131,16 +132,15 @@ void writeAddressBytecode(struct debugfs_file * df, struct options * opt){
 			return;
 		}
 	}
-	*/
-	
-	
+*/	
+
 	if(!strcmp(opt->active, "1")){
-		printf("Active byte-code '1' \n");
+		printf("Active byte-code 1 \n");
 		shmMaskSet16(df, B43_SHM_REGS, GPR_CONTROL, 0xF0FF, 0x0100);
 	}
 	else{
 		if(!strcmp(opt->active, "2")){
-			printf("Active byte-code '2' \n");
+			printf("Active byte-code 2 \n");
 			shmMaskSet16(df, B43_SHM_REGS, GPR_CONTROL, 0xF0FF, 0x0200);
 		}
 		else{
@@ -148,7 +148,7 @@ void writeAddressBytecode(struct debugfs_file * df, struct options * opt){
 			return;
 		}
 	}
-	
+
 	while(1)
 	{
 		control_return = shmRead16(df, B43_SHM_REGS, GPR_CONTROL);
@@ -350,21 +350,21 @@ void parser(struct debugfs_file * df, struct options * opt){
 // 		opt->do_up = "1";
 // 	}
   
-//	printf( "load byte-code 10 \n");
+	//printf( "load byte-code 10 \n");
 	
 	if(strcmp(opt->do_up,"1"))
 		putInWaitMode(df);
 
-//	printf( "load byte-code 20 \n");
+	//printf( "load byte-code 20 \n");
 	
 	bytecodeSharedWrite(df, opt);
 
-//	printf( "load byte-code 30 \n");
+	//printf( "load byte-code 30 \n");
 	
 	if(strcmp(opt->do_up,"1"))
 		returnFromWaitMode(df);
 
-//	printf( "load byte-code 40 \n");
+	//printf( "load byte-code 40 \n");
 
 	return;
 }	

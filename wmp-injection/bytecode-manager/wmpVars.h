@@ -92,14 +92,26 @@
 #define TSF_GPT1_0_CNTLO	0x0E
 #define TSF_GPT1_1_CNTHI	0x0F
 #define TSF_GPT1_1_CNTLO	0x10
+
+#define PRM_14			0x11
+
 #define CHECK_CHANNEL		0x15
+
 #define TIME_SLOT		0x16
+#define PRM_10			0x16
+
 #define INFLATION_MUL_BACKOFF	0x18
 #define INFLATION_ADD_BACKOFF 	0x19
 #define DEFLATION_DIV_BACKOFF 	0x1A
 #define DEFLATION_SUB_BACKOFF	0x1B
+
 #define SET_VALUE		0x1F
+#define PRM_12			0x1F
+
 #define CHECK_VALUE		0x20
+#define PRM_13			0x20
+
+#define PRM_11			0x21
 
 #define TIME_SLOT_POSITION_0_R	60
 #define TIME_SLOT_POSITION_1_R	61

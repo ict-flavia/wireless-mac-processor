@@ -24,8 +24,6 @@
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 
-
-#include <unistd.h>
 #include <pwd.h>
 #include <getopt.h>
 
@@ -36,6 +34,7 @@
 #include "dataParser.h"
 #include "messageHandler.h"
 #include "auto-bytecode.h"
+#include "bytecode-work.h"
 
 
 
@@ -60,7 +59,7 @@ int main(int argc, char * argv[])
 	
 	struct debugfs_file df;
 	
-	printf("%s",STARTUP_LOGO);
+	//printf("%s",STARTUP_LOGO);
 	
 	//printf("%s\n\n",argv[0]);
 	parseArgs(argc, argv, &current_options);
@@ -69,8 +68,7 @@ int main(int argc, char * argv[])
 		
 		// OFFLINE MODE
 		case 0: 
-			printf("Current work mode : \"local\"\n");	
-			
+			//printf("Current work mode : \"local\"\n");	
 			if(current_options.enable_autobytecode==1){
 			  printf("Auto-Bytecode execution\n");
 			  auto_bytecode(&current_options);
@@ -79,6 +77,15 @@ int main(int argc, char * argv[])
 			
 			//init broadcom interface
 			init_file(&df); // da far fare solo se si è un modalità OFFLINE o Server
+			
+			
+			if (strcmp(current_options.change_param,""))
+			{
+			  printf("Change bytecode parameter\n");
+			  change_parameter(&df, &current_options);
+			  break;
+			}
+			
 			
 			if(strcmp(current_options.reset,"") ){
 				printf("Reset control register\n");
@@ -92,6 +99,14 @@ int main(int argc, char * argv[])
 				getLinkRegs(&df);
 				getOffsetRegs(&df);
 				getGprs(&df);
+				break;
+			}
+			
+			
+			/*GET INTERFACE NAME*/
+			if(!strcmp(current_options.get_interface_name,"1")){
+				//printf("\n\n");
+				get_interface_name();
 				break;
 			}
 	
@@ -113,13 +128,26 @@ int main(int argc, char * argv[])
 				shmSharedRead(&df);
 				break;
 			}
-
 			
+			/* DUMP TSF */
+			if(!strcmp(current_options.reg_share,"4")){
+				uint64_t tsf;
+				getTSFRegs(&df, &tsf);
+				printf("TSF registers dump %f\n",(double)tsf);
+				break;
+			}
 
 			/* READ SHM ZIGBEE RX*/
 			if(strcmp(current_options.zigbee_rx,"")){
 				printf("SHM read zigbee rx \n");
 				shmReadZigbeeRx(&df, current_options.zigbee_rx);
+				break;
+			}
+			
+			/* READ SLOT TIME INFORMATION*/
+			if(strcmp(current_options.slot_time_value,"")){
+				printf("Read slot time value \n");
+				readSlotTimeValue(&df, current_options.slot_time_value);
 				break;
 			}
 			
@@ -205,7 +233,6 @@ int main(int argc, char * argv[])
 				viewDiffMemory(&df, &current_options);
 			}
 				
-			
 			if(strcmp(current_options.calculation,"")){
 				int time_stamp_to_active = calculateDelay(&df, &current_options);
 				printf("-------------------------------------\n");
@@ -216,7 +243,7 @@ int main(int argc, char * argv[])
 				printf("-------------------------------------\n");
 				break;
 			}
-
+			
 			if(strcmp(current_options.delay,"") ){
 				check_association();
 				setDelay(&df, &current_options);
@@ -235,8 +262,15 @@ int main(int argc, char * argv[])
 				setTimer2(&df, &current_options);
 				printf("Set timer activate success\n");
 			}
+			
+			if(strcmp(current_options.get_parameter,"") ){
+				char viewParameter[1024];
+				getParameterLowerLayer(&df, &current_options, viewParameter);
+				printf("%s",viewParameter);
+			}
 
 			close_file(&df);
+
 			break;
 
 // CLIENT MODE
@@ -362,6 +396,10 @@ void init_options(struct options * current_options){
 	current_options->time_state_measure = "";
 	current_options->time_activate_measure = "";
 	current_options->zigbee_rx="";
+	current_options->slot_time_value="";
+	current_options->change_param="";
+	current_options->get_parameter="";
+	current_options->get_interface_name="";
 
 	
 	
@@ -387,6 +425,49 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 {
 	static int verbose_flag;
 	int option_index = 0;
+
+/*
+    h
+    w
+    o:
+    i:
+    n:
+    m:
+    l:
+    a:
+    t:
+    d:
+    y:
+    f:
+    r
+    v
+    c:
+    p:
+    g:
+    s
+    u
+    b
+    e:
+    x:
+    '1' 
+    '2'
+    '3' 
+    '4' 
+    '5' 
+    '6' 
+    '7' 
+    '8' 
+    '9' 
+    'i' 
+    'o' 
+    'ò' 
+    'à' 
+    'ì' 
+    'k' 
+*/
+
+
+
 	
 	static struct option long_option[] = {
 	          {"tx-macaddress",		required_argument,	0,	'1' },
@@ -402,6 +483,10 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 		  {"output",			required_argument, 	0,  	'o' },
 		  {"write-reg-mem",		required_argument, 	0,  	'ò' },
 		  {"zigbee-rx",			required_argument, 	0,  	'à' },
+		  {"read-slot",			required_argument, 	0,  	'ì' },
+		  {"modify-parameter",		required_argument, 	0,  	'k' },
+		  {"get-parameter",		required_argument, 	0,  	'j' },
+		  {"get-interface-name",	no_argument,	 	0,  	'è' },
 		  {0,				0,			0,	 0   }
 	};
 	
@@ -599,6 +684,14 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 			current_options->other_option = "1";
 			break;
 		  
+		  case 'k':
+			current_options->change_param = optarg;
+			break;
+		  
+		  case 'è':
+			current_options->get_interface_name = "1";
+			break;
+			
 // autobytecode-option
 		  case '1':
 			    current_options->enable_mac_address=1;
@@ -681,6 +774,11 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 			      current_options->zigbee_rx = optarg;
 			      printf("output file %s\n", current_options->zigbee_rx );
 			      break;
+		
+		case 'ì':
+			      current_options->slot_time_value = optarg;
+			      printf("output file %s\n", current_options->slot_time_value );
+			      break;
 		  
 		case 'o':
 				current_options->output_file_name = optarg;
@@ -698,7 +796,10 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 				source_file++;
 				break;
 			
-		  default:
+		case 'j':	
+				current_options->get_parameter = optarg;
+				break;
+		default:
 		       fprintf(stderr, "./bytecode-manager: check the help with option -h\n\n");
 		       //usage();
 		       exit(1);
@@ -725,6 +826,15 @@ void parseArgs(int argc, char **argv, struct options * current_options)
 		}
 	}  
 
+	
+	if (strcmp(current_options->change_param,""))
+	{
+		if (!strcmp(current_options->active,""))
+		{
+			printf("modify-parameter option need bytecode slot\n");
+			exit(1);
+		}
+	}
 	
 	if (strcmp(current_options->HOST,""))
 		if (!strcmp(current_options->PORT,""))
@@ -1066,22 +1176,22 @@ void viewActiveBytecode(struct debugfs_file * df,char *return_message){
 	unsigned int gpr_byte_code_value = shmRead16(df,B43_SHM_REGS, 57);
 	
 	//printf("gpr_byte_code_value \t =0x%X\n",gpr_byte_code_value);
-	sprintf(ret_msg,"\n--------------------------------------\n");
-	sprintf(ret_msg,"%sWMP INFORMATION\n\n",ret_msg);
+	//sprintf(ret_msg,"\n--------------------------------------\n");
+	//sprintf(ret_msg,"%sWMP INFORMATION\n\n",ret_msg);
 	int b1,b2 =1;
 	b1 = (gpr_byte_code_value == PARAMETER_ADDR_OFFSET_BYTECODE_1) ? sprintf(ret_msg,"%sCURRENT BYTECODE \t\t = %u\n",ret_msg,1):0;
 	b2 = (gpr_byte_code_value == PARAMETER_ADDR_OFFSET_BYTECODE_2) ? sprintf(ret_msg,"%sCURRENT BYTECODE \t\t = %u\n",ret_msg,2):0;
 	if (!b1 && !b2)
 		sprintf(ret_msg,"%s%s\n",ret_msg,NO_MATCH_ADDR_OFFSET_BYTECODE);
-	unsigned int gpr_control_value = shmRead16(df,B43_SHM_REGS, GPR_CONTROL); //55 = GPR CONTROL
+	
+	//unsigned int gpr_control_value = shmRead16(df,B43_SHM_REGS, GPR_CONTROL); //55 = GPR CONTROL
+	//sprintf(ret_msg,"%sControl Value \t\t\t = 0x%04X \n",ret_msg,gpr_control_value);
+	//(gpr_control_value & 0x0004) ? 	sprintf(ret_msg,"%sTimer Active \n",ret_msg):sprintf(ret_msg,"%sTimer Not Active \n",ret_msg);
+	//(gpr_control_value & 0x0010) ? 	sprintf(ret_msg,"%sDelay Active \n",ret_msg):sprintf(ret_msg,"%sDelay Not Active \n",ret_msg);
+	//sprintf(ret_msg,"%s--------------------------------------\n\n",ret_msg);
 
-	sprintf(ret_msg,"%sControl Value \t\t\t = 0x%04X \n",ret_msg,gpr_control_value);
-	(gpr_control_value & 0x0004) ? 	sprintf(ret_msg,"%sTimer Active \n",ret_msg):sprintf(ret_msg,"%sTimer Not Active \n",ret_msg);
-	(gpr_control_value & 0x0010) ? 	sprintf(ret_msg,"%sDelay Active \n",ret_msg):sprintf(ret_msg,"%sDelay Not Active \n",ret_msg);
-	sprintf(ret_msg,"%s--------------------------------------\n\n",ret_msg);
-
-	sprintf(ret_msg,"%s--------------------------------------\n",ret_msg);
-	sprintf(ret_msg,"%sREGISTER AND MEMORY INFORMATION\n\n",ret_msg);
+	//sprintf(ret_msg,"%s--------------------------------------\n",ret_msg);
+	//sprintf(ret_msg,"%sREGISTER AND MEMORY INFORMATION\n\n",ret_msg);
 	read_wmp_value = shmRead16(df,B43_SHM_REGS, CUR_CONTENTION_WIN);
 	sprintf(ret_msg,"%sCurrent contention windows \t = 0x%04X \n",ret_msg,read_wmp_value);
 	read_wmp_value = shmRead16(df,B43_SHM_REGS, MAX_CONTENTION_WIN);
@@ -1094,21 +1204,16 @@ void viewActiveBytecode(struct debugfs_file * df,char *return_message){
 	sprintf(ret_msg,"%sRegister 2 \t\t\t = 0x%04X \n",ret_msg,read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_1_LO);
-	sprintf(ret_msg,"%sMemory 1 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
+	sprintf(ret_msg,"%sRegister 3 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_2_LO);
-	sprintf(ret_msg, "%sMemory 2 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
+	sprintf(ret_msg, "%sRegister 4 \t\t\t = 0x%08X \n", ret_msg, read_wmp_value);
 	
 	read_wmp_value = shmRead32_int(df, B43_SHM_SHARED, PROCEDURE_MEMORY_3_LO);
-	sprintf(ret_msg,"%sMemory 3 \t\t\t = 0x%08X \n",ret_msg,read_wmp_value);
-
-	
-	sprintf(ret_msg,"%s--------------------------------------\n",ret_msg);
-	
-	
+	sprintf(ret_msg,"%sRegister 5 \t\t\t = 0x%08X \n",ret_msg,read_wmp_value);
+	//sprintf(ret_msg,"%s--------------------------------------\n",ret_msg);
 	
 	sprintf(return_message,"%s",ret_msg);
-	
 }
 
 
@@ -1295,9 +1400,6 @@ void write_tamplate_frame(struct debugfs_file * df){
 	
 	printf("insert length frame : ");
 	scanf("%d", &val_length_ack);
-	
-	
-	
 	
 	//plcp 0 - plcp 2
 	
